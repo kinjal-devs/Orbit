@@ -1,511 +1,467 @@
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kumi | Student Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kumi | Student Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-  <body>
-    <div class="app-layout">
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
-        <div class="logo">
-          <span class="logo-icon">✿</span>
-          <h2>Kumi<span>.</span></h2>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">✿</span>
+      <h2>Kumi<span>.</span></h2>
+    </div>
+
+    <p class="nav-label">WORKSPACE</p>
+
+    <nav class="navigation">
+      <button class="nav-item active" data-page="home"><span>⌂</span> Home</button>
+      <button class="nav-item" data-page="calendar"><span>▦</span> Calendar</button>
+      <button class="nav-item" data-page="attendance"><span>▤</span> Attendance</button>
+      <button class="nav-item" data-page="notes"><span>✎</span> Notes</button>
+      <button class="nav-item" data-page="exams"><span>☆</span> Exams</button>
+      <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <p class="nav-label">PERSONAL</p>
+      <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+
+      <div class="sidebar-footer">
+        <span>Made with ♡</span>
+        <small>Your little study space</small>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="home">
+      <header class="welcome-section">
+        <div>
+   <h1 id="greeting" onclick="editGreeting()">
+  Hello, Kinjal ♡
+</h1>
+          <p id="current-date">Loading date...</p>
         </div>
+        <button class="header-icon">♡</button>
+      </header>
 
-        <p class="nav-label">WORKSPACE</p>
+      <!-- PROFILE CARD -->
+      <section class="profile-card">
+        <div class="profile-top">
+          <div class="profile-photo-container">
+            <img src="https://placehold.co/150x150" id="profile-image" alt="Profile photo" />
+            <input type="file" id="photo-upload" accept="image/*" hidden />
 
-        <nav class="navigation">
-          <button class="nav-item active" data-page="home">
-            <span>⌂</span> Home
-          </button>
+            <div class="photo-editor" id="photo-editor" hidden>
+              <div class="photo-editor-box">
+                <h2>Edit profile photo ♡</h2>
 
-          <button class="nav-item" data-page="calendar">
-            <span>▦</span> Calendar
-          </button>
+                <div class="photo-preview">
+                  <img id="photo-preview-image" src=" " alt="Photo preview" />
+                </div>
 
-          <button class="nav-item" data-page="subjects">
-            <span>▤</span> Subjects
-          </button>
+                <label for="new-photo-upload">Change photo</label>
+                <input type="file" id="new-photo-upload" accept="image/*" />
 
-          <button class="nav-item" data-page="notes">
-            <span>✎</span> Notes
-          </button>
+                <label for="photo-zoom">Zoom</label>
+                <input type="range" id="photo-zoom" min="1" max="3" step="0.05" value="1" />
 
-          <button class="nav-item" data-page="exams">
-            <span>☆</span> Exams
-          </button>
-
-          <button class="nav-item" data-page="settings">
-            <span>⚙</span> Settings
-          </button>
-        </nav>
-
-        <div class="sidebar-bottom">
-          <p class="nav-label">PERSONAL</p>
-
-          <button class="nav-item" data-page="settings">
-            <span>⚙</span> Settings
-          </button>
-
-          <div class="sidebar-footer">
-            <span>Made with ♡</span>
-            <small>Your little study space</small>
-          </div>
-        </div>
-      </aside>
-
-      <!-- MAIN CONTENT -->
-      <main class="main-content">
-        <!-- HOME PAGE -->
-        <section class="page active" id="home">
-          <header class="welcome-section">
-            <div>
-              <h1>Hello, Lulu</h1>
-              <p id="current-date">Loading date...</p>
-            </div>
-
-            <button class="header-icon">♡</button>
-          </header>
-
-         
-          <!-- PROFILE CARD -->
-          <section class="profile-card">
-            <div class="profile-top">
-              <div class="profile-photo-container">
-                <img
-                  src="https://placehold.co/150x150"
-                  id="profile-image"
-                  alt="Profile photo"
-                />
-                <input type="file" id="photo-upload" accept="image/*" hidden />
-
-                <!-- KUMI PHOTO EDITOR -->
-                <div class="photo-editor" id="photo-editor" hidden>
-                  <div class="photo-editor-box">
-                    <h2>Edit profile photo ♡</h2>
-
-                    <div class="photo-preview">
-                      <img
-                        id="photo-preview-image"
-                        src=" "
-                        alt="Photo preview"
-                      />
-                    </div>
-
-                    <label for="new-photo-upload">Change photo</label>
-                    <input type="file" id="new-photo-upload" accept="image/*" />
-
-                    <label for="photo-zoom">Zoom</label>
-                    <input
-                      type="range"
-                      id="photo-zoom"
-                      min="1"
-                      max="3"
-                      step="0.05"
-                      value="1"
-                    />
-
-                    <div class="photo-editor-actions">
-                      <button id="reset-photo">Reset</button>
-                      <button id="cancel-photo">Cancel</button>
-                      <button id="save-photo">Save</button>
-                    </div>
-                  </div>
+                <div class="photo-editor-actions">
+                  <button id="reset-photo">Reset</button>
+                  <button id="cancel-photo">Cancel</button>
+                  <button id="save-photo">Save</button>
                 </div>
               </div>
-
-              <div class="star-badge" contenteditable="true">
-                <p>STAR <br /> STUDENT</p>
-              </div>
             </div>
+          </div>
 
-            <div class="profile-divider"></div>
-
-            <div class="profile-details">
-              <div>
-                <span>NAME</span>
-                <p contenteditable="true">Your Name</p>
-              </div>
-
-              <div>
-                <span>YEAR LEVEL</span>
-                <p contenteditable="true">Year / Semester</p>
-              </div>
-            </div>
-
-            <!-- STICKERS -->
-            <div id="profile-stickers" class="profile-stickers"></div>
-
-            <div class="sticker-area">
-              <button id="add-sticker" class="sticker-add">
-                ＋ Sticker
-              </button>
-
-              <input
-                type="text"
-                id="custom-sticker"
-                class="sticker-keyboard"
-                autocomplete="off"
-                aria-label="Type a sticker emoji"
-              />
-            </div>
-          </section>
-
-
-<!-- PERSONAL MOTTO CARD -->
-<section class="motto-card" contenteditable="true">
-  <div class="motto-decoration">✦</div>
-
-  <p id="personal-motto">
-    Dream big, work hard, stay kind ♡
-  </p>
-
-  <span class="motto-footer">
-    a little reminder for myself ✧
-  </span>
-</section>
-          <!-- TO-DO -->
-          <section class="todo-section">
-            <div class="section-heading">
-              <h2>To-do list</h2>
-
-              <select id="task-filter">
-                <option value="all">All tasks</option>
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-              </select>
-            </div>
-
-            <div id="todo-list">
-              <p class="empty-message">Your tasks will appear here ♡</p>
-            </div>
-
-            <div class="add-task-area">
-              <input
-                type="text"
-                id="task-input"
-                placeholder="Add a new task..."
-              />
-
-              <button id="add-task">+</button>
-            </div>
-          </section>
-        </section>
-
-       
-<!-- CALENDAR PAGE -->
-<section class="page" id="calendar">
-
-  <div class="page-heading">
-    <p class="eyebrow">PLAN YOUR DAYS</p>
-    <h1>Calendar ♡</h1>
-    <p>Keep track of your important dates and events.</p>
-  </div>
-<!-- CALENDAR CATEGORY INDEX -->
-<div class="category-index">
-
-    <div class="category-heading">
-        <p class="eyebrow">YOUR CATEGORIES</p>
-        <h3>Calendar Key ♡</h3>
-    </div>
-
-    <div class="category-list">
-
-        <div class="category-item">
-            <span class="category-colour college-colour"></span>
-            <span>College</span>
+          <div class="star-badge" contenteditable="true">
+            <p>STAR <br /> STUDENT</p>
+          </div>
         </div>
 
-        <div class="category-item">
-            <span class="category-colour study-colour"></span>
-            <span>Study</span>
+        <div class="profile-divider"></div>
+
+        <div class="profile-details">
+          <div>
+            <span>NAME</span>
+            <p contenteditable="true">Your Name</p>
+          </div>
+          <div>
+            <span>YEAR LEVEL</span>
+            <p contenteditable="true">Year / Semester</p>
+          </div>
         </div>
 
-        <div class="category-item">
-            <span class="category-colour exam-colour"></span>
-            <span>Exam</span>
+        <div id="profile-stickers" class="profile-stickers"></div>
+
+        <div class="sticker-area">
+          <button id="add-sticker" class="sticker-add">＋ Sticker</button>
+          <input
+            type="text"
+            id="custom-sticker"
+            class="sticker-keyboard"
+            autocomplete="off"
+            aria-label="Type a sticker emoji"
+          />
+        </div>
+      </section>
+
+      <!-- PERSONAL MOTTO -->
+      <section class="motto-card" contenteditable="true">
+        <div class="motto-decoration">✦</div>
+        <p id="personal-motto">Dream big, work hard, stay kind ♡</p>
+        <span class="motto-footer">a little reminder for myself ✧</span>
+      </section>
+
+      <!-- TO-DO -->
+      <section class="todo-section">
+        <div class="section-heading">
+          <h2>To-do list</h2>
+          <select id="task-filter">
+            <option value="all">All tasks</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
 
-        <div class="category-item">
-            <span class="category-colour personal-colour"></span>
-            <span>Personal</span>
+        <div id="todo-list">
+          <p class="empty-message">Your tasks will appear here ♡</p>
         </div>
 
-        <div class="category-item">
-            <span class="category-colour other-colour"></span>
-            <span>Other</span>
+        <div class="add-task-area">
+          <input type="text" id="task-input" placeholder="Add a new task..." />
+          <button id="add-task">+</button>
         </div>
+      </section>
+    </section>
 
-    </div>
-</div>
-  <!-- CALENDAR CARD -->
-  <div class="calendar-card">
-
-    <!-- MONTH NAVIGATION -->
-    <div class="calendar-header">
-      <button id="prev-month" class="calendar-nav">‹</button>
-
-      <div class="calendar-month-year">
-        <h2 id="calendar-month">November</h2>
-        <p id="calendar-year">2026</p>
+    <!-- CALENDAR PAGE -->
+    <section class="page" id="calendar">
+      <div class="page-heading">
+        <p class="eyebrow">PLAN YOUR DAYS</p>
+        <h1>Calendar ♡</h1>
+        <p>Keep track of your important dates and events.</p>
       </div>
 
-      <button id="next-month" class="calendar-nav">›</button>
-    </div>
+      <!-- CATEGORY INDEX -->
+      <div class="category-index">
+        <div class="category-heading">
+          <p class="eyebrow">YOUR CATEGORIES</p>
+          <h3>Calendar Key ♡</h3>
+        </div>
 
-    <!-- WEEKDAYS -->
-    <div class="calendar-weekdays">
-      <span>Mon</span>
-      <span>Tue</span>
-      <span>Wed</span>
-      <span>Thu</span>
-      <span>Fri</span>
-      <span>Sat</span>
-      <span>Sun</span>
-    </div>
+        <div class="category-list">
+          <div class="category-item"><span class="category-colour college-colour"></span><span>College</span></div>
+          <div class="category-item"><span class="category-colour study-colour"></span><span>Study</span></div>
+          <div class="category-item"><span class="category-colour exam-colour"></span><span>Exam</span></div>
+          <div class="category-item"><span class="category-colour personal-colour"></span><span>Personal</span></div>
+          <div class="category-item"><span class="category-colour other-colour"></span><span>Other</span></div>
+        </div>
+      </div>
 
-    <!-- CALENDAR DATES -->
-    <div id="calendar-days" class="calendar-days">
-      <!-- JavaScript will generate dates here -->
-    </div>
+      <!-- CALENDAR CARD -->
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button id="prev-month" class="calendar-nav">‹</button>
+          <div class="calendar-month-year">
+            <h2 id="calendar-month">November</h2>
+            <p id="calendar-year">2026</p>
+          </div>
+          <button id="next-month" class="calendar-nav">›</button>
+        </div>
 
-    <div class="calendar-legend">
-      <span class="today-dot"></span>
-      <small>Today</small>
-      <span class="event-dot"></span>
-      <small>Has an event</small>
-    </div>
+        <div class="calendar-weekdays">
+          <span>Mon</span><span>Tue</span><span>Wed</span>
+          <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
 
-  </div>
+        <div id="calendar-days" class="calendar-days"></div>
 
-<!-- SELECTED DATE DETAILS -->
-<div class="selected-date-section">
+        <div class="calendar-legend">
+          <span class="today-dot"></span><small>Today</small>
+          <span class="event-dot"></span><small>Has an event</small>
+        </div>
+      </div>
 
-    <div class="selected-date-header">
-        <div>
+      <!-- SELECTED DATE -->
+      <div class="selected-date-section">
+        <div class="selected-date-header">
+          <div>
             <p class="eyebrow">YOUR DAY</p>
             <h2 id="selected-date-heading">Selected Date ♡</h2>
+          </div>
         </div>
-    </div>
 
-    <div id="selected-date-events" class="selected-date-events">
-
-        <div class="selected-date-empty">
+        <div id="selected-date-events" class="selected-date-events">
+          <div class="selected-date-empty">
             <span>✧</span>
             <p>Select a date to see your plans.</p>
             <small>Your daily schedule will appear here ♡</small>
+          </div>
         </div>
+      </div>
 
-    </div>
-
-</div>
-
-<!-- MONTHLY EVENTS -->
-<div class="calendar-events">
-
-    <div class="calendar-events-header">
-        <div>
+      <!-- MONTHLY EVENTS -->
+      <div class="calendar-events">
+        <div class="calendar-events-header">
+          <div>
             <p class="eyebrow">YOUR SCHEDULE</p>
             <h2 id="monthly-events-title">This Month's Events</h2>
-            <p class="monthly-events-subtitle">
-                Everything you have planned ♡
-            </p>
+            <p class="monthly-events-subtitle">Everything you have planned ♡</p>
+          </div>
+          <button id="add-event-btn" class="add-event-btn">+ Add Event</button>
         </div>
 
-        <button id="add-event-btn" class="add-event-btn">
-            + Add Event
-        </button>
-    </div>
-
-    <div id="calendar-event-list" class="calendar-event-list">
-
-        <div class="calendar-empty">
+        <div id="calendar-event-list" class="calendar-event-list">
+          <div class="calendar-empty">
             <span>✧</span>
             <p>No events planned for this month yet.</p>
             <small>Your upcoming plans will appear here ♡</small>
+          </div>
         </div>
-
-    </div>
-
-</div>
-
-  <!-- ADD EVENT FORM -->
-  <div id="event-form" class="event-form" hidden>
-
-    <div class="event-form-card">
-
-      <div class="event-form-header">
-        <h2>New Event ♡</h2>
-        <button id="close-event-form" type="button">×</button>
       </div>
 
-      <label for="event-title">Event name</label>
-      <input
-        type="text"
-        id="event-title"
-        placeholder="e.g. Physics assignment"
-      />
-
-      <label for="event-date">Date</label>
-      <input type="date" id="event-date" />
-
-      <label for="event-category">Category</label>
-      <select id="event-category">
-        <option value="College">College</option>
-        <option value="Study">Study</option>
-        <option value="Exam">Exam</option>
-        <option value="Personal">Personal</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <button id="save-event-btn" class="save-event-btn" type="button">
-        Save Event
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-        <!-- SUBJECTS PAGE -->
-        <section class="page" id="subjects">
-          <div class="page-heading">
-            <p class="eyebrow">YOUR ACADEMIC SPACE</p>
-            <h1>My Subjects ✿</h1>
-            <p>Organise your college subjects in one place.</p>
+      <!-- ADD EVENT FORM -->
+      <div id="event-form" class="event-form" hidden>
+        <div class="event-form-card">
+          <div class="event-form-header">
+            <h2>New Event ♡</h2>
+            <button id="close-event-form" type="button">×</button>
           </div>
 
-          <div class="placeholder-card">
-            <span>▤</span>
-            <h2>Your subjects will live here</h2>
-            <p>We'll add subject cards and progress tracking.</p>
+          <label for="event-title">Event name</label>
+          <input type="text" id="event-title" placeholder="e.g. Physics assignment" />
+
+          <label for="event-date">Date</label>
+          <input type="date" id="event-date" />
+
+          <label for="event-category">Category</label>
+          <select id="event-category">
+            <option value="College">College</option>
+            <option value="Study">Study</option>
+            <option value="Exam">Exam</option>
+            <option value="Personal">Personal</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <button id="save-event-btn" class="save-event-btn" type="button">Save Event</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATTENDANCE PAGE -->
+    <section class="page" id="attendance">
+
+      <div class="page-heading">
+        <p class="eyebrow">YOUR COLLEGE ROUTINE</p>
+        <h1>Attendance ♡</h1>
+        <p>Your timetable, classes and attendance in one place.</p>
+      </div>
+
+      <!-- WEEKLY TIMETABLE -->
+      <div class="attendance-timetable">
+        <div class="attendance-section-header">
+          <div>
+            <p class="eyebrow">YOUR SCHEDULE</p>
+            <h2>Weekly Timetable</h2>
           </div>
-        </section>
+          <button id="add-class-btn" class="add-event-btn">+ Add Class</button>
+        </div>
 
-        <!-- NOTES PAGE -->
-        <section class="page" id="notes">
-          <div class="page-heading">
-            <p class="eyebrow">YOUR IDEAS</p>
-            <h1>My Notes ✎</h1>
-            <p>A little space for all your notes.</p>
-          </div>
+        <div class="timetable-week-header">
+          <button id="prev-week" class="calendar-nav">‹</button>
+          <h3 id="timetable-week-label">This Week</h3>
+          <button id="next-week" class="calendar-nav">›</button>
+        </div>
 
-          <div class="placeholder-card">
-            <span>✎</span>
-            <h2>Your notes collection</h2>
-            <p>We'll build a notes editor here.</p>
-          </div>
-        </section>
+        <div id="timetable-day-picker" class="timetable-day-picker">
+          <button class="timetable-day active" data-day="Monday"><span>MON</span><strong>16</strong></button>
+          <button class="timetable-day" data-day="Tuesday"><span>TUE</span><strong>17</strong></button>
+          <button class="timetable-day" data-day="Wednesday"><span>WED</span><strong>18</strong></button>
+          <button class="timetable-day" data-day="Thursday"><span>THU</span><strong>19</strong></button>
+          <button class="timetable-day" data-day="Friday"><span>FRI</span><strong>20</strong></button>
+          <button class="timetable-day" data-day="Saturday"><span>SAT</span><strong>21</strong></button>
+          <button class="timetable-day" data-day="Sunday"><span>SUN</span><strong>22</strong></button>
+        </div>
 
-        <!-- EXAMS PAGE -->
-        <section class="page" id="exams">
-          <div class="page-heading">
-            <p class="eyebrow">STAY PREPARED</p>
-            <h1>Exams ☆</h1>
-            <p>Keep your examination schedule organised.</p>
-          </div>
-
-          <div class="placeholder-card">
-            <span>☆</span>
-            <h2>Your exam planner</h2>
-            <p>We'll add exam dates and countdowns here.</p>
-          </div>
-        </section>
-
-        <!-- SETTINGS PAGE -->
-        <section class="page" id="settings">
-          <div class="page-heading">
-            <h1>Settings ♡</h1>
-            <p>Make Kumi feel like yours.</p>
-          </div>
-
-          <div class="settings-card">
-            <h2>Choose your theme</h2>
-            <p>Pick a colour for your Kumi workspace.</p>
-
-            <div class="theme-options">
-              <button class="theme-option" data-theme="lavender">
-                <span class="theme-circle lavender"></span>
-                Lavender
-              </button>
-
-              <button class="theme-option" data-theme="pink">
-                <span class="theme-circle pink"></span>
-                Pink
-              </button>
-
-              <button class="theme-option" data-theme="blue">
-                <span class="theme-circle blue"></span>
-                Blue
-              </button>
-
-              <button class="theme-option" data-theme="green">
-                <span class="theme-circle green"></span>
-                Green
-              </button>
-
-              <button class="theme-option" data-theme="peach">
-                <span class="theme-circle peach"></span>
-                Peach
-              </button>
-
-              <button class="theme-option" data-theme="dark">
-                <span class="theme-circle dark"></span>
-                Dark
-              </button>
+        <div class="timetable-daily-view">
+          <div class="timetable-daily-header">
+            <div>
+              <p class="eyebrow">YOUR DAY</p>
+              <h3 id="timetable-selected-day">Monday</h3>
             </div>
           </div>
-        </section>
 
-        <!-- CALENDAR PAGE -->
-        <section class="page" id=" calendar ">
-          <h1>Calendar ♡</h1>
-          <p>Your important dates and events.</p>
-        </section>
+          <div id="timetable-schedule" class="timetable-schedule">
+            <div class="timetable-empty">
+              <span>✧</span>
+              <p>Your classes will appear here.</p>
+              <small>Add your first class to get started ♡</small>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- SUBJECTS PAGE -->
-        <section class="page" id=" subjects ">
-          <h1>My Subjects ✿</h1>
-          <p>Organise your college subjects here.</p>
-        </section>
+      <!-- OVERALL ATTENDANCE -->
+      <div class="overall-attendance-section">
+        <p class="eyebrow">YOUR PROGRESS</p>
+        <h2>Overall Attendance</h2>
 
-        <!-- NOTES PAGE -->
-        <section class="page" id=" notes ">
-          <h1>My Notes ✎</h1>
-          <p>Your personal notes collection.</p>
-        </section>
+        <div class="overall-attendance-card">
+          <div class="overall-attendance-circle">
+            <svg class="attendance-progress-ring" viewBox="0 0 200 200" aria-label="Overall attendance progress">
+              <defs>
+  <linearGradient id="attendanceGreenGradient"
+                  x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#315C43"/>
+    <stop offset="45%" stop-color="#A8CBAE"/>
+    <stop offset="75%" stop-color="#D5E8D5"/>
+    <stop offset="100%" stop-color="#527E60"/>
+  </linearGradient>
+</defs>
+              <circle class="attendance-ring-background" cx="100" cy="100" r="82"></circle>
+              <circle
+  class="attendance-ring-progress"
+  id="overall-attendance-ring"
+  cx="100"
+  cy="100"
+  r="82"
+  style="stroke: url(#attendanceGreenGradient);"
+></circle>
+            </svg>
 
-        <!-- EXAMS PAGE -->
-        <section class="page" id=" exams ">
-          <h1>Exams ☆</h1>
-          <p>Your examination planner.</p>
-        </section>
+            <div class="overall-attendance-value">
+              <strong id="overall-attendance-percentage">0%</strong>
+              <span>Overall</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- SETTINGS PAGE -->
-        <section class="page" id=" settings ">
-          <h1>Settings ⚙</h1>
-          <p>Customise your Kumi experience.</p>
-        </section>
-        <!-- CALENDAR PAGE -->
-        <section class="page" id=" calendar">
-          <div class="page-heading">
-            <h1>Calendar ♡</h1>
-            <p>Your important dates and events.</p>
+      <!-- SUBJECT-WISE ATTENDANCE -->
+      <div class="subject-attendance-section">
+        <p class="eyebrow">SUBJECT BREAKDOWN</p>
+        <h2>Subject-wise Attendance</h2>
+
+        <div id="subject-attendance-list">
+          <p class="empty-message">Your attendance percentages will appear here ♡</p>
+        </div>
+      </div>
+
+      <!-- MONTHLY ATTENDANCE CALENDAR -->
+      <div class="attendance-calendar-section">
+        <p class="eyebrow">YOUR MONTH</p>
+        <h2>Attendance Calendar</h2>
+
+        <div id="attendance-calendar">
+          <!-- Calendar generated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- ADD / EDIT CLASS FORM -->
+      <div id="class-form" class="event-form" hidden>
+        <div class="event-form-card">
+          <div class="event-form-header">
+            <h2 id="class-form-title">New Class ♡</h2>
+            <button id="close-class-form" type="button">×</button>
           </div>
 
-          <div class="placeholder-card">
-            <h2>Your calendar is waiting!</h2>
-            <p>We'll build your calendar here.</p>
-          </div>
-        </section>
-      </main>
-    </div>
+          <label for="class-subject">Subject name</label>
+          <input type="text" id="class-subject" placeholder="e.g. Mathematics" />
 
-    <script src="script.js"></script>
-  </body>
+          <label for="class-day">Day</label>
+          <select id="class-day">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+
+          <label for="class-start">Start time</label>
+          <input type="time" id="class-start" required >
+
+          <label for="class-end">End time</label>
+          <input type="time" id="class-end" required >
+
+          <label for="class-room">Classroom</label>
+          <input type="text" id="class-room" placeholder="e.g. Room 204" />
+
+          <button id="save-class-btn" class="save-event-btn" type="button">Save Class</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- NOTES PAGE -->
+    <section class="page" id="notes">
+      <div class="page-heading">
+        <p class="eyebrow">YOUR IDEAS</p>
+        <h1>My Notes ✎</h1>
+        <p>A little space for all your notes.</p>
+      </div>
+
+      <div class="placeholder-card">
+        <span>✎</span>
+        <h2>Your notes collection</h2>
+        <p>We'll build a notes editor here.</p>
+      </div>
+    </section>
+
+    <!-- EXAMS PAGE -->
+    <section class="page" id="exams">
+      <div class="page-heading">
+        <p class="eyebrow">STAY PREPARED</p>
+        <h1>Exams ☆</h1>
+        <p>Keep your examination schedule organised.</p>
+      </div>
+
+      <div class="placeholder-card">
+        <span>☆</span>
+        <h2>Your exam planner</h2>
+        <p>We'll add exam dates and countdowns here.</p>
+      </div>
+    </section>
+
+    <!-- SETTINGS PAGE -->
+    <section class="page" id="settings">
+      <div class="page-heading">
+        <h1>Settings ♡</h1>
+        <p>Make Kumi feel like yours.</p>
+      </div>
+
+      <div class="settings-card">
+        <h2>Choose your theme</h2>
+        <p>Pick a colour for your Kumi workspace.</p>
+
+        <div class="theme-options">
+          <button class="theme-option" data-theme="lavender"><span class="theme-circle lavender"></span>Lavender</button>
+          <button class="theme-option" data-theme="pink"><span class="theme-circle pink"></span>Pink</button>
+          <button class="theme-option" data-theme="blue"><span class="theme-circle blue"></span>Blue</button>
+          <button class="theme-option" data-theme="green"><span class="theme-circle green"></span>Green</button>
+          <button class="theme-option" data-theme="peach"><span class="theme-circle peach"></span>Peach</button>
+          <button class="theme-option" data-theme="dark"><span class="theme-circle dark"></span>Dark</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+<script src="attendance-calendar.js"></script>
+</body>
 </html>

@@ -1,15 +1,92 @@
-/* =========================
+/* =========================================
    KUMI - APPLICATION
-========================= */
+   Complete application JavaScript
+========================================= */
 
-/* 1. LIVE DATE */
+/* =========================================
+   1. SHARED HELPERS
+========================================= */
 
-const dateElement = document.getElementById("current-date");
+function getElement(id) {
+  return document.getElementById(id);
+}
+
+function loadStorage(key, fallback = []) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.error(`Could not save ${key}:`, error);
+    alert("Kumi couldn't save this change. Your browser storage may be full.");
+    return false;
+  }
+}
+
+function formatISODate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function parseISODate(value) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function getMonday(date) {
+  const result = new Date(date);
+  const day = (result.getDay() + 6) % 7;
+
+  result.setDate(result.getDate() - day);
+  result.setHours(0, 0, 0, 0);
+
+  return result;
+}
+
+function getDayName(date) {
+  return [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ][(date.getDay() + 6) % 7];
+}
+// NATIVE TIME PICKER
+["class-start", "class-end"].forEach(id => {
+  const input = document.getElementById(id);
+
+  if (input) {
+    input.addEventListener("click", () => {
+      if (input.showPicker) {
+        input.showPicker();
+      }
+    });
+  }
+});
+/* =========================================
+   2. LIVE DATE
+========================================= */
+
+const dateElement = getElement("current-date");
 
 function updateDate() {
-  const today = new Date();
+  if (!dateElement) return;
 
-  dateElement.textContent = today.toLocaleDateString("en-US", {
+  dateElement.textContent = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -19,147 +96,138 @@ function updateDate() {
 
 updateDate();
 
-/* 2. SIDEBAR NAVIGATION */
-
-/* 2. SIDEBAR NAVIGATION */
+/* =========================================
+   3. SIDEBAR NAVIGATION
+========================================= */
 
 const navItems = document.querySelectorAll(".nav-item");
 const pages = document.querySelectorAll(".page");
 
-// Open a page and remember it
 function openPage(targetPage) {
-  navItems.forEach((item) => {
-    item.classList.remove("active");
-  });
+  const selectedPage = getElement(targetPage);
 
-  pages.forEach((page) => {
-    page.classList.remove("active");
-  });
+  if (!selectedPage) return;
 
-  const selectedPage = document.getElementById(targetPage);
+  pages.forEach((page) => page.classList.remove("active"));
+  navItems.forEach((item) => item.classList.remove("active"));
 
-  if (selectedPage) {
-    selectedPage.classList.add("active");
+  selectedPage.classList.add("active");
 
-    const selectedNav = document.querySelector(
-      `.nav-item[data-page="${targetPage}"]`,
-    );
+  document
+    .querySelectorAll(`.nav-item[data-page="${targetPage}"]`)
+    .forEach((item) => item.classList.add("active"));
 
-    if (selectedNav) {
-      selectedNav.classList.add("active");
-    }
-
+  try {
     localStorage.setItem("kumiLastPage", targetPage);
+  } catch (error) {
+    console.warn("Could not save the current page.");
   }
 }
 
-// Sidebar navigation clicks
 navItems.forEach((button) => {
-  button.addEventListener("click", function () {
-    const targetPage = this.dataset.page;
-
-    openPage(targetPage);
+  button.addEventListener("click", () => {
+    openPage(button.dataset.page);
   });
 });
 
-// Restore the last opened page after refresh
+// Restore the last opened page after refreshing.
 const savedPage = localStorage.getItem("kumiLastPage");
 
 const pageToOpen =
-  savedPage && document.getElementById(savedPage) ? savedPage : "home";
+  savedPage && getElement(savedPage) ? savedPage : "home";
 
 openPage(pageToOpen);
 
-/* 3. PROFILE PHOTO */
+/* =========================================
+   4. PROFILE PHOTO
+========================================= */
 
-const photoUpload = document.getElementById("photo-upload");
-const profileImage = document.getElementById("profile-image");
+const profileImage = getElement("profile-image");
+const photoUpload = getElement("photo-upload");
 
 const savedPhoto = localStorage.getItem("kumiProfilePhoto");
 
-if (savedPhoto) {
+if (profileImage && savedPhoto) {
   profileImage.src = savedPhoto;
 }
 
-photoUpload.addEventListener("change", function () {
-  const file = this.files[0];
+if (photoUpload) {
+  photoUpload.addEventListener("change", function () {
+    const file = this.files[0];
 
-  if (file && file.type.startsWith("image/")) {
+    if (!file || !file.type.startsWith("image/")) return;
+
     const reader = new FileReader();
 
     reader.onload = function (event) {
       try {
         localStorage.setItem("kumiProfilePhoto", event.target.result);
 
-        profileImage.src = event.target.result;
-      } catch (error) {
-        alert("Photo is too large to save. Try a smaller image.");
+        if (profileImage) {
+          profileImage.src = event.target.result;
+        }
+      } catch {
+        alert("This photo is too large to save. Try a smaller image.");
       }
     };
 
     reader.readAsDataURL(file);
-  }
-});
+  });
+}
 
-/* 4. PROFILE DETAILS */
+/* =========================================
+   5. PROFILE DETAILS
+========================================= */
 
 const profileFields = document.querySelectorAll(
-  ".profile-details p[contenteditable='true']",
+  ".profile-details p[contenteditable='true']"
 );
 
 profileFields.forEach((field, index) => {
-  const savedValue = localStorage.getItem("kumiProfile_" + index);
+  const savedValue = localStorage.getItem(`kumiProfile_${index}`);
 
   if (savedValue !== null) {
     field.textContent = savedValue;
   }
 
-  field.addEventListener("input", function () {
-    localStorage.setItem("kumiProfile_" + index, field.textContent);
+  field.addEventListener("input", () => {
+    localStorage.setItem(`kumiProfile_${index}`, field.textContent);
   });
 });
 
-/* 5. TO-DO LIST */
+/* =========================================
+   6. TO-DO LIST
+========================================= */
 
-const taskInput = document.getElementById("task-input");
-const addTaskButton = document.getElementById("add-task");
-const todoList = document.getElementById("todo-list");
-const taskFilter = document.getElementById("task-filter");
+const taskInput = getElement("task-input");
+const addTaskButton = getElement("add-task");
+const todoList = getElement("todo-list");
+const taskFilter = getElement("task-filter");
 
-/* RESTORE TASKS */
+let tasks = loadStorage("kumiTasks", []);
 
-let tasks = [];
+if (!Array.isArray(tasks)) tasks = [];
 
-try {
-  const savedTasks = JSON.parse(localStorage.getItem("kumiTasks") || "[]");
-
-  if (Array.isArray(savedTasks)) {
-    tasks = savedTasks.filter(
-      (task) =>
-        task &&
-        typeof task.text === "string" &&
-        typeof task.completed === "boolean",
-    );
-  }
-} catch (error) {
-  tasks = [];
-}
-
-/* SAVE TASKS */
+tasks = tasks.filter(
+  (task) =>
+    task &&
+    typeof task.text === "string" &&
+    typeof task.completed === "boolean"
+);
 
 function saveTasks() {
-  localStorage.setItem("kumiTasks", JSON.stringify(tasks));
+  saveStorage("kumiTasks", tasks);
 }
 
-/* ADD TASK */
-
 function addTask() {
+  if (!taskInput) return;
+
   const taskText = taskInput.value.trim();
 
   if (!taskText) return;
 
   tasks.push({
-    id: Date.now(),
+    id: Date.now().toString(),
     text: taskText,
     completed: false,
   });
@@ -167,25 +235,19 @@ function addTask() {
   saveTasks();
 
   taskInput.value = "";
-
   renderTasks();
 }
 
-/* DISPLAY TASKS */
-
 function renderTasks() {
+  if (!todoList || !taskFilter) return;
+
   todoList.innerHTML = "";
 
   const filter = taskFilter.value;
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "pending") {
-      return !task.completed;
-    }
-
-    if (filter === "completed") {
-      return task.completed;
-    }
+    if (filter === "pending") return !task.completed;
+    if (filter === "completed") return task.completed;
 
     return true;
   });
@@ -197,13 +259,11 @@ function renderTasks() {
     message.textContent = "Nothing here yet ♡";
 
     todoList.appendChild(message);
-
     return;
   }
 
   filteredTasks.forEach((task) => {
     const taskItem = document.createElement("div");
-
     taskItem.className = "task-item";
 
     if (task.completed) {
@@ -211,56 +271,69 @@ function renderTasks() {
     }
 
     const checkbox = document.createElement("input");
-
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
+    checkbox.setAttribute("aria-label", `Complete ${task.text}`);
 
-    checkbox.addEventListener("change", function () {
+    checkbox.addEventListener("change", () => {
       task.completed = checkbox.checked;
-
       saveTasks();
-
       renderTasks();
     });
 
     const taskText = document.createElement("span");
-
     taskText.textContent = task.text;
 
-    taskItem.appendChild(checkbox);
-    taskItem.appendChild(taskText);
-
+    taskItem.append(checkbox, taskText);
     todoList.appendChild(taskItem);
   });
 }
 
-/* 6. TASK EVENTS */
+if (addTaskButton) {
+  addTaskButton.addEventListener("click", addTask);
+}
 
-addTaskButton.addEventListener("click", addTask);
+if (taskInput) {
+  taskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") addTask();
+  });
+}
 
-taskInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    addTask();
-  }
-});
-
-taskFilter.addEventListener("change", renderTasks);
-
-/* 7. INITIALISE */
+if (taskFilter) {
+  taskFilter.addEventListener("change", renderTasks);
+}
 
 renderTasks();
 
-// KUMI THEME SYSTEM
+/* =========================================
+   7. THEME SYSTEM
+========================================= */
 
 const themeButtons = document.querySelectorAll(".theme-option");
 
 function applyTheme(theme) {
+  const allowedThemes = [
+    "lavender",
+    "pink",
+    "blue",
+    "green",
+    "peach",
+    "dark",
+  ];
+
+  if (!allowedThemes.includes(theme)) {
+    theme = "lavender";
+  }
+
   document.documentElement.dataset.theme = theme;
 
   localStorage.setItem("kumiTheme", theme);
 
   themeButtons.forEach((button) => {
-    button.classList.toggle("selected", button.dataset.theme === theme);
+    button.classList.toggle(
+      "selected",
+      button.dataset.theme === theme
+    );
   });
 }
 
@@ -270,25 +343,34 @@ themeButtons.forEach((button) => {
   });
 });
 
-// Load saved theme
-const savedTheme = localStorage.getItem("kumiTheme") || "lavender";
-applyTheme(savedTheme);
+applyTheme(localStorage.getItem("kumiTheme") || "lavender");
 
-// KUMI PHOTO EDITOR
+/* =========================================
+   8. PHOTO EDITOR
+========================================= */
 
 (() => {
-  const profileImage = document.getElementById("profile-image");
-  const editor = document.getElementById("photo-editor");
-  const preview = document.getElementById("photo-preview-image");
+  const image = getElement("profile-image");
+  const editor = getElement("photo-editor");
+  const preview = getElement("photo-preview-image");
   const previewBox = document.querySelector(".photo-preview");
-  const fileInput = document.getElementById("new-photo-upload");
-  const zoomSlider = document.getElementById("photo-zoom");
+  const fileInput = getElement("new-photo-upload");
+  const zoomSlider = getElement("photo-zoom");
 
-  const saveButton = document.getElementById("save-photo");
-  const cancelButton = document.getElementById("cancel-photo");
-  const resetButton = document.getElementById("reset-photo");
+  const saveButton = getElement("save-photo");
+  const cancelButton = getElement("cancel-photo");
+  const resetButton = getElement("reset-photo");
 
-  if (!profileImage || !editor || !preview) return;
+  if (
+    !image ||
+    !editor ||
+    !preview ||
+    !previewBox ||
+    !fileInput ||
+    !zoomSlider
+  ) {
+    return;
+  }
 
   let imageSource = "";
   let zoom = 1;
@@ -299,27 +381,32 @@ applyTheme(savedTheme);
   let dragging = false;
 
   function updatePreview() {
-    preview.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoom})`;
+    preview.style.transform =
+      `translate(${offsetX}px, ${offsetY}px) scale(${zoom})`;
   }
 
   function openEditor() {
-    if (!profileImage.src) return;
+    if (!image.src) return;
 
-    imageSource = profileImage.src;
+    imageSource = image.src;
     preview.src = imageSource;
+
     zoom = 1;
     offsetX = 0;
     offsetY = 0;
+
     zoomSlider.value = 1;
+
     updatePreview();
     editor.hidden = false;
   }
 
-  profileImage.addEventListener("click", openEditor);
-  profileImage.style.cursor = "pointer";
+  image.addEventListener("click", openEditor);
+  image.style.cursor = "pointer";
 
   fileInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
+
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
@@ -332,10 +419,12 @@ applyTheme(savedTheme);
     reader.onload = () => {
       imageSource = reader.result;
       preview.src = imageSource;
+
       zoom = 1;
       offsetX = 0;
       offsetY = 0;
       zoomSlider.value = 1;
+
       updatePreview();
     };
 
@@ -348,9 +437,13 @@ applyTheme(savedTheme);
   });
 
   previewBox.addEventListener("pointerdown", (event) => {
+    if (!imageSource) return;
+
     dragging = true;
+
     startX = event.clientX - offsetX;
     startY = event.clientY - offsetY;
+
     previewBox.setPointerCapture(event.pointerId);
   });
 
@@ -359,6 +452,7 @@ applyTheme(savedTheme);
 
     offsetX = event.clientX - startX;
     offsetY = event.clientY - startY;
+
     updatePreview();
   });
 
@@ -370,85 +464,103 @@ applyTheme(savedTheme);
     dragging = false;
   });
 
-  resetButton.addEventListener("click", () => {
+  resetButton?.addEventListener("click", () => {
     zoom = 1;
     offsetX = 0;
     offsetY = 0;
+
     zoomSlider.value = 1;
     updatePreview();
   });
 
-  cancelButton.addEventListener("click", () => {
+  cancelButton?.addEventListener("click", () => {
     editor.hidden = true;
     fileInput.value = "";
   });
 
-  saveButton.addEventListener("click", () => {
+  saveButton?.addEventListener("click", () => {
     if (!imageSource) return;
 
-    const image = new Image();
+    const sourceImage = new Image();
 
-    image.onload = () => {
+    sourceImage.onload = () => {
       const rect = previewBox.getBoundingClientRect();
-      const width = 600;
-      const height = Math.round((width * rect.height) / rect.width);
+
+      if (!rect.width || !rect.height) return;
+
+      const outputSize = 600;
 
       const baseScale = Math.max(
-        rect.width / image.width,
-        rect.height / image.height,
+        rect.width / sourceImage.width,
+        rect.height / sourceImage.height
       );
 
       const scale = baseScale * zoom;
+
       const cropWidth = rect.width / scale;
       const cropHeight = rect.height / scale;
 
       const cropX = Math.max(
         0,
         Math.min(
-          image.width - cropWidth,
-          (image.width - cropWidth) / 2 - offsetX / scale,
-        ),
+          sourceImage.width - cropWidth,
+          (sourceImage.width - cropWidth) / 2 - offsetX / scale
+        )
       );
 
       const cropY = Math.max(
         0,
         Math.min(
-          image.height - cropHeight,
-          (image.height - cropHeight) / 2 - offsetY / scale,
-        ),
+          sourceImage.height - cropHeight,
+          (sourceImage.height - cropHeight) / 2 - offsetY / scale
+        )
       );
 
       const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
+      canvas.width = outputSize;
+      canvas.height = outputSize;
 
       const context = canvas.getContext("2d");
 
+      if (!context) return;
+
       context.drawImage(
-        image,
+        sourceImage,
         cropX,
         cropY,
         cropWidth,
         cropHeight,
         0,
         0,
-        width,
-        height,
+        outputSize,
+        outputSize
       );
 
-      const savedPhoto = canvas.toDataURL("image/jpeg", 0.9);
+      try {
+        const saved = canvas.toDataURL("image/jpeg", 0.88);
 
-      profileImage.src = savedPhoto;
-      localStorage.setItem("kumiProfilePhoto", savedPhoto);
+        localStorage.setItem("kumiProfilePhoto", saved);
+        image.src = saved;
 
-      editor.hidden = true;
-      fileInput.value = "";
+        editor.hidden = true;
+        fileInput.value = "";
+      } catch {
+        alert("Could not save this photo. Try a smaller image.");
+      }
     };
 
-    image.src = imageSource;
+    sourceImage.onerror = () => {
+      alert("Could not load this image. Please choose another.");
+    };
+
+    sourceImage.src = imageSource;
   });
 })();
-// SAVE PERSONAL MOTTO CARD
+
+/* =========================================
+   9. PERSONAL MOTTO
+========================================= */
+
 const mottoCard = document.querySelector(".motto-card");
 
 if (mottoCard) {
@@ -462,122 +574,111 @@ if (mottoCard) {
     localStorage.setItem("kumiPersonalMotto", mottoCard.innerHTML);
   });
 }
-// ===== KUMI STICKER SYSTEM =====
 
-const addSticker = document.getElementById("add-sticker");
-const customSticker = document.getElementById("custom-sticker");
-const stickerContainer = document.getElementById("profile-stickers");
+/* =========================================
+   10. PROFILE STICKERS
+========================================= */
 
-let stickers = JSON.parse(localStorage.getItem("kumiStickers") || "[]");
+(() => {
+  const addButton = getElement("add-sticker");
+  const input = getElement("custom-sticker");
+  const container = getElement("profile-stickers");
 
-function displayStickers() {
-  stickerContainer.innerHTML = "";
+  if (!addButton || !input || !container) return;
 
-  stickers.forEach((sticker, index) => {
-    const item = document.createElement("span");
+  let stickers = loadStorage("kumiStickers", []);
 
-    item.className = "profile-sticker";
-    item.textContent = sticker;
-    item.title = "Tap to remove";
+  if (!Array.isArray(stickers)) stickers = [];
 
-    item.addEventListener("click", () => {
-      stickers.splice(index, 1);
-      saveStickers();
+  function renderStickers() {
+    container.innerHTML = "";
+
+    stickers.forEach((sticker, index) => {
+      const item = document.createElement("span");
+
+      item.className = "profile-sticker";
+      item.textContent = sticker;
+      item.title = "Tap to remove";
+
+      item.addEventListener("click", () => {
+        stickers.splice(index, 1);
+        saveStorage("kumiStickers", stickers);
+        renderStickers();
+      });
+
+      container.appendChild(item);
     });
-
-    stickerContainer.appendChild(item);
-  });
-}
-
-function saveStickers() {
-  localStorage.setItem("kumiStickers", JSON.stringify(stickers));
-
-  displayStickers();
-}
-
-// Open phone keyboard
-addSticker.addEventListener("click", () => {
-  customSticker.focus();
-});
-
-// Add any typed emoji
-customSticker.addEventListener("input", () => {
-  const emoji = customSticker.value.trim();
-
-  if (emoji) {
-    stickers.push(emoji);
-    saveStickers();
-    customSticker.value = "";
   }
-});
 
-displayStickers();
+  addButton.addEventListener("click", () => input.focus());
 
-// ===== END KUMI STICKER SYSTEM =====
+  input.addEventListener("input", () => {
+    const value = input.value.trim();
 
-/* =================================
-   KUMI INTERACTIVE CALENDAR
-================================= */
+    if (!value) return;
 
-(function () {
-  const monthDisplay = document.getElementById("calendar-month");
-  const yearDisplay = document.getElementById("calendar-year");
-  const daysContainer = document.getElementById("calendar-days");
+    stickers.push(value);
 
-  const prevButton = document.getElementById("prev-month");
-  const nextButton = document.getElementById("next-month");
+    if (saveStorage("kumiStickers", stickers)) {
+      input.value = "";
+      renderStickers();
+    } else {
+      stickers.pop();
+    }
+  });
 
-  const selectedDateTitle = document.getElementById("selected-date-heading");
-  const selectedDateEvents = document.getElementById("selected-date-events");
-  const eventList = document.getElementById("calendar-event-list");
+  renderStickers();
+})();
 
-  const addEventButton = document.getElementById("add-event-btn");
-  const eventForm = document.getElementById("event-form");
-  const closeEventButton = document.getElementById("close-event-form");
-  const saveEventButton = document.getElementById("save-event-btn");
+/* =========================================
+   11. INTERACTIVE CALENDAR
+========================================= */
 
-  const eventTitleInput = document.getElementById("event-title");
-  const eventDateInput = document.getElementById("event-date");
-  const eventCategoryInput = document.getElementById("event-category");
+(() => {
+  const monthDisplay = getElement("calendar-month");
+  const yearDisplay = getElement("calendar-year");
+  const daysContainer = getElement("calendar-days");
 
-  if (!monthDisplay || !daysContainer) return;
+  const prevButton = getElement("prev-month");
+  const nextButton = getElement("next-month");
+
+  const selectedDateTitle = getElement("selected-date-heading");
+  const selectedDateEvents = getElement("selected-date-events");
+  const eventList = getElement("calendar-event-list");
+
+  const addEventButton = getElement("add-event-btn");
+  const eventForm = getElement("event-form");
+  const closeEventButton = getElement("close-event-form");
+  const saveEventButton = getElement("save-event-btn");
+
+  const eventTitleInput = getElement("event-title");
+  const eventDateInput = getElement("event-date");
+  const eventCategoryInput = getElement("event-category");
+
+  if (!monthDisplay || !daysContainer || !eventList) return;
 
   const today = new Date();
 
-  let currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  let currentMonth = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+  );
 
-  let selectedDate = formatDate(today);
-let editingEventId = null;
-  let events = [];
+  let selectedDate = formatISODate(today);
+  let editingEventId = null;
 
-  try {
-    events = JSON.parse(localStorage.getItem("kumiCalendarEvents") || "[]");
+  let events = loadStorage("kumiCalendarEvents", []);
 
-    if (!Array.isArray(events)) events = [];
-  } catch {
-    events = [];
-  }
+  if (!Array.isArray(events)) events = [];
 
-  function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  }
-
-  function getDateLabel(dateString) {
-    const [year, month, day] = dateString.split("-").map(Number);
-
-    return new Date(year, month - 1, day).toLocaleDateString("en-IN", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  }
-
-  // CATEGORY COLOURS
+  events = events.filter(
+    (event) =>
+      event &&
+      event.id !== undefined &&
+      typeof event.title === "string" &&
+      typeof event.date === "string"
+  );
 
   const categoryColours = {
     College: "#A8B99A",
@@ -587,28 +688,38 @@ let editingEventId = null;
     Other: "#E8B4C8",
   };
 
-  // SHOW EVENTS FOR SELECTED DATE
+  function saveEvents() {
+    return saveStorage("kumiCalendarEvents", events);
+  }
+
+  function getDateLabel(dateString) {
+    return parseISODate(dateString).toLocaleDateString("en-IN", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
 
   function renderSelectedDateEvents() {
     if (!selectedDateEvents || !selectedDateTitle) return;
 
     selectedDateTitle.textContent = getDateLabel(selectedDate);
-
     selectedDateEvents.innerHTML = "";
 
     const selectedEvents = events.filter(
-      (event) => event.date === selectedDate,
+      (event) => event.date === selectedDate
     );
 
     if (selectedEvents.length === 0) {
       const empty = document.createElement("div");
-      empty.className = "selected-date-empty";
 
+      empty.className = "selected-date-empty";
       empty.innerHTML = `
-            <span>✧</span>
-            <p>No plans for this day yet.</p>
-            <small>A little space for something new ♡</small>
-        `;
+        <span>✧</span>
+        <p>No plans for this day yet.</p>
+        <small>A little space for something new ♡</small>
+      `;
 
       selectedDateEvents.appendChild(empty);
       return;
@@ -618,9 +729,10 @@ let editingEventId = null;
       const card = document.createElement("div");
       card.className = "selected-date-event";
 
-      const colour = categoryColours[event.category] || "#E8B4C8";
-
-      card.style.setProperty("--event-colour", colour);
+      card.style.setProperty(
+        "--event-colour",
+        categoryColours[event.category] || "#E8B4C8"
+      );
 
       const title = document.createElement("h3");
       title.textContent = event.title;
@@ -628,18 +740,10 @@ let editingEventId = null;
       const category = document.createElement("small");
       category.textContent = event.category;
 
-      card.appendChild(title);
-      card.appendChild(category);
-
+      card.append(title, category);
       selectedDateEvents.appendChild(card);
     });
   }
-
-  function saveEvents() {
-    localStorage.setItem("kumiCalendarEvents", JSON.stringify(events));
-  }
-
-  // RENDER CALENDAR
 
   function renderCalendar() {
     const year = currentMonth.getFullYear();
@@ -649,31 +753,20 @@ let editingEventId = null;
       month: "long",
     });
 
-    yearDisplay.textContent = year;
+    if (yearDisplay) yearDisplay.textContent = year;
 
     daysContainer.innerHTML = "";
 
     const firstDay = new Date(year, month, 1);
-
-    // Monday is the first day of the week
     const startDay = (firstDay.getDay() + 6) % 7;
 
     const gridStart = new Date(year, month, 1 - startDay);
 
-    // Category colour mapping
-    const categoryColours = {
-      College: "#A8B99A",
-      Study: "#F3E5B5",
-      Exam: "#C77B83",
-      Personal: "#A9C6D8",
-      Other: "#E8B4C8",
-    };
-
-    for (let i = 0; i < 42; i++) {
+    for (let index = 0; index < 42; index++) {
       const date = new Date(gridStart);
-      date.setDate(gridStart.getDate() + i);
+      date.setDate(gridStart.getDate() + index);
 
-      const dateString = formatDate(date);
+      const dateString = formatISODate(date);
 
       const button = document.createElement("button");
 
@@ -681,18 +774,17 @@ let editingEventId = null;
       button.className = "calendar-day";
       button.dataset.date = dateString;
 
-      // Date number
-      const dayNumber = document.createElement("span");
-      dayNumber.className = "calendar-day-number";
-      dayNumber.textContent = date.getDate();
+      const number = document.createElement("span");
+      number.className = "calendar-day-number";
+      number.textContent = date.getDate();
 
-      button.appendChild(dayNumber);
+      button.appendChild(number);
 
       if (date.getMonth() !== month) {
         button.classList.add("other-month");
       }
 
-      if (dateString === formatDate(today)) {
+      if (dateString === formatISODate(today)) {
         button.classList.add("today");
       }
 
@@ -700,56 +792,52 @@ let editingEventId = null;
         button.classList.add("selected");
       }
 
-      // Find events on this date
-      const dayEvents = events.filter((event) => event.date === dateString);
+      const dayEvents = events.filter(
+        (event) => event.date === dateString
+      );
 
-      if (dayEvents.length > 0) {
-        button.classList.add("has-event");
+      if (dayEvents.length) {
+        const dots = document.createElement("span");
+        dots.className = "calendar-day-dots";
 
-        // Create category dots
-        const dotsContainer = document.createElement("span");
-        dotsContainer.className = "calendar-day-dots";
-
-        // Show each category only once per date
         const categories = [
           ...new Set(dayEvents.map((event) => event.category)),
         ];
 
         categories.forEach((category) => {
           const dot = document.createElement("span");
+
           dot.className = "calendar-category-dot";
+          dot.style.backgroundColor =
+            categoryColours[category] || "#E8B4C8";
 
-          dot.style.backgroundColor = categoryColours[category] || "#E8B4C8";
-
-          dotsContainer.appendChild(dot);
+          dots.appendChild(dot);
         });
 
-        button.appendChild(dotsContainer);
+        button.appendChild(dots);
       }
 
-      button.addEventListener("click", function () {
+      button.addEventListener("click", () => {
         selectedDate = dateString;
 
-        if (date.getMonth() !== currentMonth.getMonth()) {
-          currentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-        }
+        currentMonth = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          1
+        );
 
-        renderCalendar();
-        renderEvents();
-        renderSelectedDateEvents();
+        renderAll();
       });
 
       daysContainer.appendChild(button);
     }
   }
 
-  // SHOW ALL EVENTS FOR THE CURRENT MONTH
-
   function renderEvents() {
-    const eventsTitle = document.getElementById("monthly-events-title");
+    const title = getElement("monthly-events-title");
 
-    if (eventsTitle) {
-      eventsTitle.textContent =
+    if (title) {
+      title.textContent =
         currentMonth.toLocaleDateString("en-IN", {
           month: "long",
           year: "numeric",
@@ -758,50 +846,39 @@ let editingEventId = null;
 
     eventList.innerHTML = "";
 
-    // Get events belonging to the displayed month
     const monthlyEvents = events
       .filter((event) => {
-        const [year, month] = event.date.split("-").map(Number);
+        const date = parseISODate(event.date);
 
         return (
-          year === currentMonth.getFullYear() &&
-          month === currentMonth.getMonth() + 1
+          date.getFullYear() === currentMonth.getFullYear() &&
+          date.getMonth() === currentMonth.getMonth()
         );
       })
       .sort((a, b) => a.date.localeCompare(b.date));
 
-    // Empty state
     if (monthlyEvents.length === 0) {
       const empty = document.createElement("div");
-      empty.className = "calendar-empty";
 
+      empty.className = "calendar-empty";
       empty.innerHTML = `
-            <span>✧</span>
-            <p>No events planned for this month yet.</p>
-            <small>Your upcoming plans will appear here ♡</small>
-        `;
+        <span>✧</span>
+        <p>No events planned for this month yet.</p>
+        <small>Your upcoming plans will appear here ♡</small>
+      `;
 
       eventList.appendChild(empty);
       return;
     }
 
-    // Display monthly events
     monthlyEvents.forEach((event) => {
       const card = document.createElement("div");
       card.className = "calendar-event-item";
 
-      // Category colours
-      const categoryColours = {
-        College: "#A8B99A",
-        Study: "#F3E5B5",
-        Exam: "#C77B83",
-        Personal: "#A9C6D8",
-        Other: "#E8B4C8",
-      };
+      const colour =
+        categoryColours[event.category] || "#E8B4C8";
 
-      const eventColour = categoryColours[event.category] || "#E8B4C8";
-
-      card.style.setProperty("--event-colour", eventColour);
+      card.style.setProperty("--event-colour", colour);
 
       const details = document.createElement("div");
       details.className = "calendar-event-details";
@@ -809,42 +886,40 @@ let editingEventId = null;
       const title = document.createElement("h3");
       title.textContent = event.title;
 
-      // Correct JavaScript month indexing
-      const [year, month, day] = event.date.split("-").map(Number);
-      const eventDate = new Date(year, month - 1, day);
-
       const dateLabel = document.createElement("small");
+      dateLabel.textContent = parseISODate(event.date).toLocaleDateString(
+        "en-IN",
+        {
+          weekday: "short",
+          day: "numeric",
+          month: "long",
+        }
+      );
 
-      dateLabel.textContent = eventDate.toLocaleDateString("en-IN", {
-        weekday: "short",
-        day: "numeric",
-        month: "long",
+      const category = document.createElement("span");
+      category.className = "event-category-tag";
+      category.textContent = event.category;
+      category.style.backgroundColor = colour;
+
+      details.append(title, dateLabel, category);
+
+      const editButton = document.createElement("button");
+      editButton.type = "button";
+      editButton.className = "edit-event";
+      editButton.textContent = "Edit";
+
+      editButton.addEventListener("click", () => {
+        editingEventId = event.id;
+
+        eventTitleInput.value = event.title;
+        eventDateInput.value = event.date;
+        eventCategoryInput.value = event.category;
+
+        eventForm.querySelector("h2").textContent = "Edit Event ♡";
+        saveEventButton.textContent = "Update Event";
+
+        eventForm.hidden = false;
       });
-
-      const categoryTag = document.createElement("span");
-      categoryTag.className = "event-category-tag";
-      categoryTag.textContent = event.category;
-
-      categoryTag.style.backgroundColor = eventColour;
-
-const editButton = document.createElement("button");
-
-editButton.type = "button";
-editButton.className = "edit-event";
-editButton.textContent = "Edit";
-
-editButton.addEventListener("click", function () {
-    editingEventId = event.id;
-
-    eventTitleInput.value = event.title;
-    eventDateInput.value = event.date;
-    eventCategoryInput.value = event.category;
-
-    eventForm.querySelector("h2").textContent = "Edit Event ♡";
-    saveEventButton.textContent = "Update Event";
-
-    eventForm.hidden = false;
-});
 
       const deleteButton = document.createElement("button");
       deleteButton.type = "button";
@@ -852,68 +927,54 @@ editButton.addEventListener("click", function () {
       deleteButton.textContent = "×";
       deleteButton.setAttribute("aria-label", "Delete event");
 
-      deleteButton.addEventListener("click", function () {
+      deleteButton.addEventListener("click", () => {
+        if (!confirm("Delete this event?")) return;
+
         events = events.filter((item) => item.id !== event.id);
 
         saveEvents();
-        renderCalendar();
-        renderEvents();
-        renderSelectedDateEvents();
+        renderAll();
       });
 
-      details.appendChild(title);
-      details.appendChild(dateLabel);
-      details.appendChild(categoryTag);
-
-      card.appendChild(details);
-      card.appendChild(editButton);
-      card.appendChild(deleteButton);
-
+      card.append(details, editButton, deleteButton);
       eventList.appendChild(card);
     });
   }
 
-  // OPEN EVENT FORM
+  function resetEventForm() {
+    editingEventId = null;
 
-  addEventButton.addEventListener("click", function () {
-    eventDateInput.value = selectedDate;
+    if (eventForm) {
+      eventForm.hidden = true;
+
+      const heading = eventForm.querySelector("h2");
+      if (heading) heading.textContent = "New Event ♡";
+    }
+
+    if (saveEventButton) {
+      saveEventButton.textContent = "Save Event";
+    }
+  }
+
+  addEventButton?.addEventListener("click", () => {
+    editingEventId = null;
+
     eventTitleInput.value = "";
+    eventDateInput.value = selectedDate;
+
+    eventForm.querySelector("h2").textContent = "New Event ♡";
+    saveEventButton.textContent = "Save Event";
 
     eventForm.hidden = false;
-    editingEventId = null;
-    eventForm.querySelector("h2").textContent = "New Event ♡";
-    saveEventButton.textContent = "Save Event";
   });
 
-  // CLOSE EVENT FORM
+  closeEventButton?.addEventListener("click", resetEventForm);
 
- 
-closeEventButton.addEventListener("click", function () {
-    eventForm.hidden = true;
+  eventForm?.addEventListener("click", (event) => {
+    if (event.target === eventForm) resetEventForm();
+  });
 
-    editingEventId = null;
-
-    eventForm.querySelector("h2").textContent = "New Event ♡";
-    saveEventButton.textContent = "Save Event";
-});
-
-
- 
-eventForm.addEventListener("click", function (event) {
-    if (event.target === eventForm) {
-        eventForm.hidden = true;
-
-        editingEventId = null;
-
-        eventForm.querySelector("h2").textContent = "New Event ♡";
-        saveEventButton.textContent = "Save Event";
-    }
-});
-
-
-  // SAVE OR UPDATE EVENT
-
-  saveEventButton.addEventListener("click", function () {
+  saveEventButton?.addEventListener("click", () => {
     const title = eventTitleInput.value.trim();
     const date = eventDateInput.value;
     const category = eventCategoryInput.value;
@@ -923,68 +984,872 @@ eventForm.addEventListener("click", function (event) {
       return;
     }
 
-    if (editingEventId) {
-      const eventToEdit = events.find((event) => event.id === editingEventId);
+    if (editingEventId !== null) {
+      const existing = events.find(
+        (event) => event.id === editingEventId
+      );
 
-      if (eventToEdit) {
-        eventToEdit.title = title;
-        eventToEdit.date = date;
-        eventToEdit.category = category;
+      if (existing) {
+        existing.title = title;
+        existing.date = date;
+        existing.category = category;
       }
     } else {
       events.push({
         id: Date.now().toString(),
-        title: title,
-        date: date,
-        category: category,
+        title,
+        date,
+        category,
       });
     }
 
-    saveEvents();
+    if (!saveEvents()) return;
 
     selectedDate = date;
 
-    const [year, month] = date.split("-").map(Number);
-    currentMonth = new Date(year, month - 1, 1);
+    const selected = parseISODate(date);
+    currentMonth = new Date(
+      selected.getFullYear(),
+      selected.getMonth(),
+      1
+    );
 
-    editingEventId = null;
-
-    eventForm.querySelector("h2").textContent = "New Event ♡";
-    saveEventButton.textContent = "Save Event";
-
-    eventForm.hidden = true;
-
-    renderCalendar();
-    renderEvents();
-    renderSelectedDateEvents();
+    resetEventForm();
+    renderAll();
   });
 
-  // MONTH NAVIGATION
-  prevButton.addEventListener("click", function () {
+  prevButton?.addEventListener("click", () => {
     currentMonth.setMonth(currentMonth.getMonth() - 1);
-
-    selectedDate = formatDate(currentMonth);
-
-    renderCalendar();
-    renderEvents();
-    renderSelectedDateEvents();
+    selectedDate = formatISODate(currentMonth);
+    renderAll();
   });
 
-  nextButton.addEventListener("click", function () {
+  nextButton?.addEventListener("click", () => {
     currentMonth.setMonth(currentMonth.getMonth() + 1);
+    selectedDate = formatISODate(currentMonth);
+    renderAll();
+  });
 
-    selectedDate = formatDate(currentMonth);
-
+  function renderAll() {
     renderCalendar();
     renderEvents();
     renderSelectedDateEvents();
-  });
+  }
 
-  // INITIAL DISPLAY
-
-  renderCalendar();
-  renderEvents();
-  renderSelectedDateEvents();
+  renderAll();
 })();
 
-/* END KUMI CALENDAR */
+/* =========================================
+   12. ATTENDANCE SYSTEM
+========================================= */
+
+(() => {
+  const dayNames = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  const dayPicker = getElement("timetable-day-picker");
+  const scheduleContainer = getElement("timetable-schedule");
+
+  const selectedDayTitle = getElement("timetable-selected-day");
+  const weekLabel = getElement("timetable-week-label");
+
+  const previousWeek = getElement("prev-week");
+  const nextWeek = getElement("next-week");
+
+  const addClassButton = getElement("add-class-btn");
+  const classForm = getElement("class-form");
+  const closeClassForm = getElement("close-class-form");
+  const saveClassButton = getElement("save-class-btn");
+
+  const classFormTitle = getElement("class-form-title");
+  const subjectInput = getElement("class-subject");
+  const dayInput = getElement("class-day");
+  const startInput = getElement("class-start");
+  const endInput = getElement("class-end");
+  const roomInput = getElement("class-room");
+
+  const subjectAttendanceList = getElement("subject-attendance-list");
+  const attendanceCalendar = getElement("attendance-calendar");
+
+  if (!dayPicker || !scheduleContainer || !classForm) return;
+
+  let classes = loadStorage("kumiTimetable", []);
+  let attendanceRecords = loadStorage("kumiAttendanceRecords", []);
+
+  if (!Array.isArray(classes)) classes = [];
+  if (!Array.isArray(attendanceRecords)) attendanceRecords = [];
+
+  classes = classes.filter(
+    (item) =>
+      item &&
+      item.id !== undefined &&
+      typeof item.subject === "string" &&
+      typeof item.day === "string" &&
+      typeof item.start === "string" &&
+      typeof item.end === "string"
+  );
+
+  attendanceRecords = attendanceRecords.filter(
+    (record) =>
+      record &&
+      record.classId !== undefined &&
+      typeof record.date === "string" &&
+      ["Present", "Absent"].includes(record.status)
+  );
+
+  let editingClassId = null;
+
+  let currentWeek = getMonday(new Date());
+  let selectedDate = formatISODate(new Date());
+
+  let attendanceMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
+
+  /* TIME HELPERS */
+
+   function parseTime12(value) {
+    if (!value) return null;
+
+    const cleaned = value.trim().toUpperCase();
+
+    // Accept 24-hour input such as 09:45 or 14:30
+    const time24 = cleaned.match(
+      /^([01]?\d|2[0-3]):([0-5]\d)$/
+    );
+
+    if (time24) {
+      return (
+        String(Number(time24[1])).padStart(2, "0") +
+        ":" +
+        time24[2]
+      );
+    }
+
+    // Accept 12-hour input such as 9:45 AM or 2:30 PM
+    const time12 = cleaned.match(
+      /^(\d{1,2}):([0-5]\d)\s*(AM|PM)$/
+    );
+
+    if (!time12) return null;
+
+    let hours = Number(time12[1]);
+    const minutes = Number(time12[2]);
+    const period = time12[3];
+
+    if (hours < 1 || hours > 12) return null;
+
+    if (period === "AM" && hours === 12) hours = 0;
+    if (period === "PM" && hours !== 12) hours += 12;
+
+    return (
+      String(hours).padStart(2, "0") +
+      ":" +
+      String(minutes).padStart(2, "0")
+    );
+  }
+
+  function formatTime12(value) {
+    if (!value || typeof value !== "string") return "";
+
+    const [hourPart, minutes] = value.split(":");
+    const hours = Number(hourPart);
+
+    if (!Number.isInteger(hours) || hours < 0 || hours > 23 || !minutes) {
+        return value;
+    }
+
+    const period = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+
+    return `${displayHours}:${minutes} ${period}`;
+}
+
+  /* SAVE DATA */
+
+  function saveClasses() {
+    return saveStorage("kumiTimetable", classes);
+  }
+
+  function saveAttendance() {
+    return saveStorage("kumiAttendanceRecords", attendanceRecords);
+  }
+
+  /* WEEK LABEL AND DAY PICKER */
+
+  function renderWeek() {
+    const sunday = new Date(currentWeek);
+    sunday.setDate(sunday.getDate() + 6);
+
+    const options = {
+      day: "numeric",
+      month: "short",
+    };
+
+    if (weekLabel) {
+      weekLabel.textContent =
+        currentWeek.toLocaleDateString("en-IN", options) +
+        " – " +
+        sunday.toLocaleDateString("en-IN", options);
+    }
+
+    dayPicker.innerHTML = "";
+
+    dayNames.forEach((day, index) => {
+      const date = new Date(currentWeek);
+      date.setDate(date.getDate() + index);
+
+      const dateString = formatISODate(date);
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "timetable-day";
+      button.dataset.day = day;
+
+      if (dateString === selectedDate) {
+        button.classList.add("active");
+      }
+      if (dateString === formatISODate(new Date())) {
+    button.classList.add("today");
+}
+
+      const name = document.createElement("span");
+      name.textContent = day.slice(0, 3).toUpperCase();
+
+      const number = document.createElement("strong");
+      number.textContent = date.getDate();
+
+      button.append(name, number);
+
+      button.addEventListener("click", () => {
+        selectedDate = dateString;
+        renderAll();
+      });
+
+      dayPicker.appendChild(button);
+    });
+  }
+
+  /* DAILY SCHEDULE */
+
+  function renderSchedule() {
+    const date = parseISODate(selectedDate);
+    const selectedDay = getDayName(date);
+
+    if (selectedDayTitle) {
+      selectedDayTitle.textContent = date.toLocaleDateString("en-IN", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      });
+    }
+
+    scheduleContainer.innerHTML = "";
+
+    const dailyClasses = classes
+      .filter((item) => item.day === selectedDay)
+      .sort((a, b) => a.start.localeCompare(b.start));
+
+    if (dailyClasses.length === 0) {
+      const empty = document.createElement("div");
+
+      empty.className = "timetable-empty";
+      empty.innerHTML = `
+        <span>✧</span>
+        <p>No classes scheduled for this day.</p>
+        <small>Add a class to build your timetable ♡</small>
+      `;
+
+      scheduleContainer.appendChild(empty);
+      return;
+    }
+
+    dailyClasses.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "timetable-class-card";
+
+      const details = document.createElement("div");
+      details.className = "timetable-class-details";
+
+      const subject = document.createElement("h3");
+      subject.textContent = item.subject;
+
+      const time = document.createElement("p");
+      time.textContent =
+        `${formatTime12(item.start)} – ${formatTime12(item.end)}`;
+
+      const room = document.createElement("small");
+      room.textContent = item.room || "Room not specified";
+
+      details.append(subject, time, room);
+
+      const record = attendanceRecords.find(
+        (entry) =>
+          String(entry.classId) === String(item.id) &&
+          entry.date === selectedDate
+      );
+
+      const status = record?.status || "";
+
+      const actions = document.createElement("div");
+      actions.className = "timetable-class-actions";
+
+      const presentButton = document.createElement("button");
+      presentButton.type = "button";
+      presentButton.textContent = "Present";
+      presentButton.className = "attendance-mark-button";
+
+      if (status === "Present") {
+        presentButton.classList.add("marked-present");
+      }
+
+      presentButton.addEventListener("click", () => {
+        markAttendance(item, "Present");
+      });
+
+      const absentButton = document.createElement("button");
+      absentButton.type = "button";
+      absentButton.textContent = "Absent";
+      absentButton.className = "attendance-mark-button";
+
+      if (status === "Absent") {
+        absentButton.classList.add("marked-absent");
+      }
+
+      absentButton.addEventListener("click", () => {
+        markAttendance(item, "Absent");
+      });
+
+      actions.append(presentButton, absentButton);
+
+      const management = document.createElement("div");
+      management.className = "timetable-management";
+
+      const editButton = document.createElement("button");
+      editButton.type = "button";
+      editButton.textContent = "Edit";
+      editButton.className = "edit-event";
+
+      editButton.addEventListener("click", () => {
+        openClassForm(item);
+      });
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.textContent = "×";
+      deleteButton.className = "delete-event";
+      deleteButton.setAttribute("aria-label", "Delete class");
+
+      deleteButton.addEventListener("click", () => {
+        if (!confirm("Delete this class from your timetable?")) return;
+
+        classes = classes.filter(
+          (classItem) => String(classItem.id) !== String(item.id)
+        );
+
+        attendanceRecords = attendanceRecords.filter(
+          (entry) => String(entry.classId) !== String(item.id)
+        );
+
+        saveClasses();
+        saveAttendance();
+        renderAll();
+      });
+
+      management.append(editButton, deleteButton);
+
+      card.append(details, actions, management);
+      scheduleContainer.appendChild(card);
+    });
+  }
+
+  /* MARK ATTENDANCE */
+
+  function markAttendance(item, status) {
+    const existing = attendanceRecords.find(
+      (record) =>
+        String(record.classId) === String(item.id) &&
+        record.date === selectedDate
+    );
+
+    if (existing) {
+      existing.status = status;
+      existing.subject = item.subject;
+    } else {
+      attendanceRecords.push({
+        classId: item.id,
+        subject: item.subject,
+        date: selectedDate,
+        status,
+      });
+    }
+
+    saveAttendance();
+    renderAll();
+  }
+
+  /* SUBJECT ATTENDANCE PERCENTAGES */
+
+    /* OVERALL ATTENDANCE CIRCLE */
+
+  function renderOverallAttendance() {
+    const percentageElement = getElement(
+      "overall-attendance-percentage"
+    );
+
+    const ring = getElement("overall-attendance-ring");
+
+    const total = attendanceRecords.length;
+
+    const present = attendanceRecords.filter(
+      (record) => record.status === "Present"
+    ).length;
+
+    const absent = attendanceRecords.filter(
+      (record) => record.status === "Absent"
+    ).length;
+
+    const percentage = total
+      ? Math.round((present / total) * 100)
+      : 0;
+
+    if (percentageElement) {
+      percentageElement.textContent = `${percentage}%`;
+    }
+
+    if (ring) {
+      const radius = 82;
+      const circumference = 2 * Math.PI * radius;
+
+      ring.style.strokeDasharray = circumference;
+      ring.style.strokeDashoffset =
+        circumference * (1 - percentage / 100);
+    }
+  }
+  function renderSubjectAttendance() {
+    if (!subjectAttendanceList) return;
+
+    subjectAttendanceList.innerHTML = "";
+
+    const subjects = [
+      ...new Set(classes.map((item) => item.subject)),
+    ];
+
+    if (subjects.length === 0) {
+      subjectAttendanceList.innerHTML =
+        '<p class="empty-message">Add classes to see your attendance progress ♡</p>';
+      return;
+    }
+
+    subjects.forEach((subject) => {
+      const records = attendanceRecords.filter(
+        (record) =>
+          record.subject === subject &&
+          ["Present", "Absent"].includes(record.status)
+      );
+
+      const present = records.filter(
+        (record) => record.status === "Present"
+      ).length;
+
+      const total = records.length;
+
+      const percentage = total
+        ? Math.round((present / total) * 100)
+        : 0;
+
+      const item = document.createElement("div");
+      item.className = "subject-attendance-item";
+
+      const heading = document.createElement("div");
+      heading.className = "subject-attendance-heading";
+
+      const name = document.createElement("span");
+      name.textContent = subject;
+
+      const value = document.createElement("strong");
+      value.textContent = total
+        ? `${percentage}%`
+        : "Not marked yet";
+
+      heading.append(name, value);
+
+      const track = document.createElement("div");
+      track.className = "subject-attendance-track";
+
+      const fill = document.createElement("div");
+      fill.className = "subject-attendance-fill";
+      fill.style.width = `${percentage}%`;
+
+      track.appendChild(fill);
+
+      const summary = document.createElement("small");
+      summary.className = "attendance-summary";
+      summary.textContent =
+        `${present} present · ${total - present} absent · ${total} recorded`;
+
+      item.append(heading, track, summary);
+      subjectAttendanceList.appendChild(item);
+    });
+  }
+
+  /* CLASS FORM */
+
+  function openClassForm(item = null) {
+    editingClassId = item ? item.id : null;
+
+    classFormTitle.textContent = item
+      ? "Edit Class ♡"
+      : "New Class ♡";
+
+    saveClassButton.textContent = item
+      ? "Update Class"
+      : "Save Class";
+
+    subjectInput.value = item ? item.subject : "";
+    dayInput.value = item
+      ? item.day
+      : getDayName(parseISODate(selectedDate));
+
+    startInput.value = item ? item.start : "";
+    endInput.value = item ? item.end : "";
+    roomInput.value = item ? item.room || "" : "";
+
+    classForm.hidden = false;
+  }
+
+  function closeForm() {
+    classForm.hidden = true;
+    editingClassId = null;
+  }
+
+  addClassButton?.addEventListener("click", () => {
+    openClassForm();
+  });
+
+  closeClassForm?.addEventListener("click", closeForm);
+
+  classForm.addEventListener("click", (event) => {
+    if (event.target === classForm) closeForm();
+  });
+
+  /* SAVE CLASS */
+
+  saveClassButton?.addEventListener("click", () => {
+    const subject = subjectInput.value.trim();
+    const day = dayInput.value;
+
+    const start = parseTime12(startInput.value);
+    const end = parseTime12(endInput.value);
+
+    const room = roomInput.value.trim();
+
+    if (!subject || !start || !end) {
+      alert("Please enter a subject and valid times, like 9:00 AM.");
+      return;
+    }
+
+    if (!dayNames.includes(day)) {
+      alert("Please select a valid day.");
+      return;
+    }
+
+    if (end <= start) {
+      alert("The class end time must be after its start time.");
+      return;
+    }
+
+    if (editingClassId !== null) {
+      const item = classes.find(
+        (entry) => String(entry.id) === String(editingClassId)
+      );
+
+      if (item) {
+        item.subject = subject;
+        item.day = day;
+        item.start = start;
+        item.end = end;
+        item.room = room;
+
+        attendanceRecords.forEach((record) => {
+          if (
+            String(record.classId) === String(editingClassId)
+          ) {
+            record.subject = subject;
+          }
+        });
+      }
+    } else {
+      classes.push({
+        id:
+          Date.now().toString() +
+          Math.random().toString(16).slice(2),
+        subject,
+        day,
+        start,
+        end,
+        room,
+      });
+    }
+
+    if (!saveClasses()) return;
+
+    saveAttendance();
+
+    const selectedDayIndex = dayNames.indexOf(day);
+    const classDate = new Date(currentWeek);
+
+    classDate.setDate(classDate.getDate() + selectedDayIndex);
+
+    selectedDate = formatISODate(classDate);
+
+    closeForm();
+    renderAll();
+  });
+
+  /* WEEK NAVIGATION */
+
+  previousWeek?.addEventListener("click", () => {
+    currentWeek.setDate(currentWeek.getDate() - 7);
+
+    selectedDate = formatISODate(currentWeek);
+
+    renderAll();
+  });
+
+  nextWeek?.addEventListener("click", () => {
+    currentWeek.setDate(currentWeek.getDate() + 7);
+
+    selectedDate = formatISODate(currentWeek);
+
+    renderAll();
+  });
+
+  /* MONTHLY ATTENDANCE CALENDAR */
+
+
+  let calendarDisplayedMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
+
+  let calendarSelectedDate =
+    localStorage.getItem("kumiSelectedAttendanceDate") ||
+    formatISODate(new Date());
+
+  function renderAttendanceCalendar() {
+    if (!attendanceCalendar) return;
+
+    attendanceCalendar.innerHTML = "";
+
+    const header = document.createElement("div");
+    header.className = "attendance-calendar-header";
+
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.className = "calendar-nav";
+    previous.textContent = "‹";
+
+    previous.addEventListener("click", () => {
+      calendarDisplayedMonth.setMonth(
+        calendarDisplayedMonth.getMonth() - 1
+      );
+      renderAttendanceCalendar();
+    });
+
+    const heading = document.createElement("h3");
+    heading.textContent = calendarDisplayedMonth.toLocaleDateString(
+      "en-IN",
+      { month: "long", year: "numeric" }
+    );
+
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "calendar-nav";
+    next.textContent = "›";
+
+    next.addEventListener("click", () => {
+      calendarDisplayedMonth.setMonth(
+        calendarDisplayedMonth.getMonth() + 1
+      );
+      renderAttendanceCalendar();
+    });
+
+    header.append(previous, heading, next);
+    attendanceCalendar.appendChild(header);
+
+    const weekdays = document.createElement("div");
+    weekdays.className = "attendance-calendar-weekdays";
+
+    ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach(day => {
+      const label = document.createElement("span");
+      label.textContent = day;
+      weekdays.appendChild(label);
+    });
+
+    attendanceCalendar.appendChild(weekdays);
+
+    const grid = document.createElement("div");
+    grid.className = "attendance-calendar-grid";
+
+    const year = calendarDisplayedMonth.getFullYear();
+    const month = calendarDisplayedMonth.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const offset = (firstDay.getDay() + 6) % 7;
+    const totalDays = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < offset; i++) {
+      const blank = document.createElement("span");
+      blank.className = "attendance-calendar-blank";
+      grid.appendChild(blank);
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+      const date = new Date(year, month, day);
+      const key = formatISODate(date);
+
+      const dayName = date.toLocaleDateString("en-US", {
+        weekday: "long"
+      });
+
+      const scheduled = classes.filter(item => item.day === dayName);
+      const dayRecords = attendanceRecords.filter(
+        record => record.date === key
+      );
+
+      const present = dayRecords.filter(
+        record => record.status === "Present"
+      ).length;
+
+      const absent = dayRecords.filter(
+        record => record.status === "Absent"
+      ).length;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "attendance-calendar-day";
+
+      if (key === calendarSelectedDate) {
+        button.classList.add("selected");
+      }
+
+      if (key === formatISODate(new Date())) {
+        button.classList.add("today");
+      }
+
+      const number = document.createElement("span");
+      number.className = "attendance-calendar-number";
+      number.textContent = day;
+      button.appendChild(number);
+
+      if (scheduled.length > 0) {
+        const indicator = document.createElement("small");
+
+       if (dayRecords.length === 0) {
+    button.classList.add("attendance-day-unmarked");
+    indicator.textContent = "";
+} else if (absent > 0) {
+    button.classList.add("attendance-day-absent");
+    indicator.textContent = `${present}/${scheduled.length}`;
+} else {
+    button.classList.add("attendance-day-recorded");
+    indicator.textContent = `${present}/${scheduled.length}`;
+}
+
+        button.appendChild(indicator);
+      }
+
+      button.addEventListener("click", () => {
+        calendarSelectedDate = key;
+        localStorage.setItem("kumiSelectedAttendanceDate", key);
+
+        attendanceCalendar.dispatchEvent(
+          new CustomEvent("kumi-date-selected", {
+            bubbles: true,
+            detail: { date: key }
+          })
+        );
+
+        renderAttendanceCalendar();
+      });
+
+      grid.appendChild(button);
+    }
+
+    attendanceCalendar.appendChild(grid);
+
+    const legend = document.createElement("div");
+    legend.className = "attendance-calendar-legend";
+
+    legend.innerHTML = `
+      <span><i class="legend-present"></i> Present</span>
+      <span><i class="legend-absent"></i> Absent</span>
+      <span><i class="legend-unmarked"></i> Not marked</span>
+    `;
+
+    attendanceCalendar.appendChild(legend);
+  }
+
+  window.addEventListener("storage", renderAttendanceCalendar);
+
+
+
+  attendanceCalendar?.addEventListener("kumi-date-selected", (event) => {
+    const dateString = event.detail.date;
+    const parts = dateString.split("-").map(Number);
+
+    const chosenDate = new Date(
+      parts[0],
+      parts[1] - 1,
+      parts[2]
+    );
+
+   selectedDate = dateString;
+calendarSelectedDate = dateString;
+currentWeek = getMonday(chosenDate);
+
+renderAll();
+  });
+
+
+  /* RENDER EVERYTHING */
+  function renderAll() {
+    renderWeek();
+    renderSchedule();
+    renderOverallAttendance();
+    renderSubjectAttendance();
+    renderAttendanceCalendar();
+  }
+renderAll();
+})();
+/* =========================================
+   END KUMI APPLICATION
+========================================= */
+let greeting = localStorage.getItem("kumiGreeting") || "Hello, Kinjal ♡";
+
+function updateGreeting() {
+  document.getElementById("greeting").textContent = greeting;
+}
+
+function editGreeting() {
+  const newGreeting = prompt("Edit your greeting:", greeting);
+
+  if (newGreeting && newGreeting.trim()) {
+    greeting = newGreeting.trim();
+    localStorage.setItem("kumiGreeting", greeting);
+    updateGreeting();
+  }
+}
+
+updateGreeting();

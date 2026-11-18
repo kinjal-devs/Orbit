@@ -1359,3 +1359,802 @@ body {
     color: var(--muted);
     font-size: 11px;
 }
+
+/* =========================
+   KUMI ATTENDANCE PAGE
+========================= */
+
+.attendance-timetable,
+.subject-attendance-section,
+.attendance-calendar-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+
+.attendance-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.attendance-section-header h2,
+.subject-attendance-section h2,
+.attendance-calendar-section h2 {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.timetable-week-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.timetable-week-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timetable-day-picker {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.timetable-day {
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+.timetable-day span {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.timetable-day strong {
+  font-size: 15px;
+}
+
+/* WEEKLY TIMETABLE - THEME-AWARE SELECTED DATE */
+
+.timetable-day.active {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+}
+
+.timetable-day.active span {
+  color: white !important;
+}
+
+.timetable-daily-header {
+  margin-bottom: 15px;
+}
+
+.timetable-daily-header h3 {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.timetable-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timetable-empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: var(--muted);
+}
+
+.timetable-empty span {
+  font-size: 26px;
+}
+
+.timetable-empty p {
+  font-size: 13px;
+  margin: 8px 0 5px;
+}
+
+.timetable-empty small {
+  font-size: 11px;
+}
+
+.subject-attendance-section,
+.attendance-calendar-section {
+  padding: 20px;
+}
+
+/* MOBILE TIMETABLE */
+
+@media (max-width: 700px) {
+  .attendance-timetable,
+  .subject-attendance-section,
+  .attendance-calendar-section {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .attendance-section-header {
+    align-items: flex-start;
+  }
+
+  .attendance-section-header h2 {
+    font-size: 16px;
+  }
+
+  .attendance-section-header .add-event-btn {
+    padding: 9px 11px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .timetable-day-picker {
+    gap: 4px;
+  }
+
+  .timetable-day {
+    padding: 9px 1px;
+    border-radius: 9px;
+  }
+
+  .timetable-day span {
+    font-size: 8px;
+  }
+
+  .timetable-day strong {
+    font-size: 13px;
+  }
+}
+
+/* ATTENDANCE CLASS CARDS */
+
+.timetable-class-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.timetable-class-details h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.timetable-class-details p {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.timetable-class-details small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.timetable-class-actions,
+.timetable-management {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.attendance-mark-button {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.attendance-mark-button.marked-present {
+  background: #DCEBDD;
+  color: #365D3A;
+  border-color: #A8C9AA;
+}
+
+.attendance-mark-button.marked-absent {
+  background: #F4DDDF;
+  color: #8B454D;
+  border-color: #DCAEB3;
+}
+
+.subject-attendance-item {
+  margin-top: 17px;
+}
+
+.subject-attendance-heading {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.subject-attendance-track {
+  height: 7px;
+  background: var(--secondary);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.subject-attendance-fill {
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #315C43 0%,
+    #A8CBAE 45%,
+    #D5E8D5 75%,
+    #527E60 100%
+  );
+  border-radius: 20px;
+}
+
+.timetable-management .delete-event {
+  margin-left: 0;
+}
+
+@media (max-width: 700px) {
+  .timetable-class-card {
+    padding: 12px;
+  }
+}
+
+/* ===== KUMI ATTENDANCE LAYOUT FIX ===== */
+
+/* WEEKLY TIMETABLE */
+#timetable-day-picker {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 6px;
+  width: 100%;
+}
+
+#timetable-day-picker .timetable-day {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0;
+  width: 100%;
+  white-space: nowrap;
+  gap: 5px;
+  box-sizing: border-box;
+}
+
+.timetable-day span,
+.timetable-day strong {
+  display: block !important;
+  position: static !important;
+  line-height: 1.4;
+}
+
+/* MONTHLY CALENDAR */
+#attendance-calendar {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  width: 100%;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+#attendance-calendar .attendance-calendar-weekdays span {
+  display: block !important;
+  text-align: center;
+  min-width: 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-day,
+#attendance-calendar .attendance-calendar-blank {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0;
+  width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
+}
+
+#attendance-calendar .attendance-calendar-number {
+  display: block !important;
+  position: static !important;
+  line-height: 1.3;
+  font-size: 12px;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 480px) {
+  #timetable-day-picker {
+    gap: 3px;
+  }
+
+  #attendance-calendar .attendance-calendar-weekdays,
+  #attendance-calendar .attendance-calendar-grid {
+    gap: 3px;
+  }
+
+  #attendance-calendar .attendance-calendar-day,
+  #attendance-calendar .attendance-calendar-blank {
+    min-height: 26px;
+  }
+}
+
+/* =================================
+   KUMI ATTENDANCE LAYOUT FIX
+================================= */
+
+/* Weekly timetable: 7 equal columns */
+#timetable-day-picker {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+#timetable-day-picker .timetable-day {
+    min-width: 0;
+    width: 100%;
+    min-height: 76px;
+    padding: 10px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#timetable-day-picker .timetable-day span {
+    display: block;
+    width: 100%;
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+#timetable-day-picker .timetable-day strong {
+    display: block;
+    font-size: 17px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Monthly attendance calendar */
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+#attendance-calendar .attendance-calendar-weekdays span {
+    min-width: 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-day {
+    min-width: 0;
+    width: 100%;
+    min-height: 40px;
+    padding: 4px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    position: relative;
+    text-align: center;
+}
+
+#attendance-calendar .attendance-calendar-number {
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+#attendance-calendar .attendance-calendar-day small {
+    display: block;
+    position: static;
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-blank {
+    min-width: 0;
+    visibility: hidden;
+}
+
+@media (max-width: 400px) {
+    #timetable-day-picker {
+        gap: 3px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 68px;
+        padding: 8px 1px;
+    }
+
+    #timetable-day-picker .timetable-day span {
+        font-size: 10px;
+    }
+
+    #attendance-calendar .attendance-calendar-weekdays,
+    #attendance-calendar .attendance-calendar-grid {
+        gap: 3px;
+    }
+
+    #attendance-calendar .attendance-calendar-day {
+        min-height: 40px;
+    }
+}
+
+/* KUMI MONTHLY ATTENDANCE CALENDAR */
+
+#attendance-calendar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.attendance-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.attendance-calendar-header h3 {
+  margin: 0;
+  color: #665477;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.calendar-nav {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #eee5f5;
+  border-radius: 12px;
+  background: #f5effb;
+  color: #80679b;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
+}
+
+.attendance-calendar-weekdays {
+  margin-bottom: 10px;
+}
+
+.attendance-calendar-weekdays span {
+  text-align: center;
+  color: #9888a8;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.attendance-calendar-blank {
+  min-height: 65px;
+}
+
+.attendance-calendar-day {
+  min-width: 0;
+  min-height: 65px;
+  padding: 6px 1px;
+  border: 1px solid #eee7f4;
+  border-radius: 13px;
+  background: #fff;
+  color: #5d5068;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.attendance-calendar-number {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.attendance-calendar-day small {
+  font-size: 8px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.attendance-day-recorded {
+  background: #edf6ef;
+  border-color: #d2e8d6;
+  color: #527b5a;
+}
+
+.attendance-day-absent {
+  background: #fcecef;
+  border-color: #f2d1d8;
+  color: #a85b6c;
+}
+
+.attendance-day-unmarked {
+  background: #fff7eb;
+  border-color: #f1e1c7;
+  color: #98794e;
+}
+
+.attendance-calendar-day.selected {
+  outline: 2px solid #b69bd3;
+  outline-offset: 1px;
+}
+
+.attendance-calendar-day.today .attendance-calendar-number {
+  text-decoration: underline;
+  text-decoration-color: #a98ac8;
+  text-underline-offset: 4px;
+}
+
+.attendance-calendar-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 19px;
+  color: #82758c;
+  font-size: 10px;
+}
+
+.attendance-calendar-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.attendance-calendar-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-present {
+  background: #a3c9a9;
+}
+
+.legend-absent {
+  background: #e6a4b1;
+}
+
+.legend-unmarked {
+  background: #e8c995;
+}
+
+@media (max-width: 400px) {
+  #attendance-calendar .attendance-calendar-grid,
+  #attendance-calendar .attendance-calendar-weekdays {
+    gap: 4px;
+  }
+
+  .attendance-calendar-day,
+  .attendance-calendar-blank {
+    min-height: 55px;
+  }
+
+  .attendance-calendar-day {
+    border-radius: 10px;
+  }
+
+  .attendance-calendar-day small {
+    font-size: 7px;
+  }
+}
+/* FIX: Attendance calendar status text */
+
+#attendance-calendar .attendance-calendar-day small {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    font-size: 8px;
+}
+/* KUMI - Slightly Smaller Timetable */
+
+.attendance-timetable {
+    padding: 18px;
+}
+
+#timetable-day-picker .timetable-day {
+    min-height: 70px;
+    padding: 8px 2px;
+    gap: 6px;
+}
+
+.timetable-class-card {
+    padding: 12px;
+    gap: 11px;
+}
+
+@media (max-width: 700px) {
+    .attendance-timetable {
+        padding: 13px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 64px;
+        padding: 7px 1px;
+    }
+
+    .timetable-class-card {
+        padding: 11px;
+    }
+}
+/* KUMI - More Compact Timetable */
+
+@media (max-width: 700px) {
+    .attendance-timetable {
+        padding: 11px;
+    }
+
+    #timetable-day-picker {
+        gap: 3px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 56px;
+        padding: 6px 1px;
+        gap: 4px;
+    }
+
+    #timetable-day-picker .timetable-day span {
+        font-size: 9px;
+    }
+
+    #timetable-day-picker .timetable-day strong {
+        font-size: 14px;
+    }
+
+    .timetable-schedule {
+        gap: 9px;
+    }
+
+    .timetable-class-card {
+        padding: 9px;
+        gap: 8px;
+    }
+}
+/* KUMI - TODAY'S DATE HIGHLIGHT */
+#timetable-day-picker .timetable-day.today {
+    background: #E5F0E5;
+    border: 1px solid #88A98C;
+    color: #426A49;
+}
+
+#timetable-day-picker .timetable-day.today span {
+    color: #52765A;
+}
+
+/* Today's date when it is also selected */
+#timetable-day-picker .timetable-day.today.active {
+    background: #789B7D;
+    border-color: #789B7D;
+    color: white;
+}
+
+#timetable-day-picker .timetable-day.today.active span {
+    color: white;
+}
+
+/* OVERALL ATTENDANCE CIRCLE */
+#overall-attendance-ring {
+    fill: none;
+    stroke: #789B7D;
+    stroke-width: 14;
+    stroke-linecap: round;
+}
+
+/* KUMI - Smaller Overall Attendance Circle */
+
+.overall-attendance-circle {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin: 12px auto;
+}
+
+.attendance-progress-ring {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: rotate(-90deg);
+}
+
+.attendance-ring-background {
+    fill: none;
+    stroke: var(--secondary);
+    stroke-width: 10;
+}
+
+.attendance-ring-progress {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 10;
+    stroke-linecap: round;
+}
+
+.overall-attendance-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+}
+
+.overall-attendance-value strong {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.overall-attendance-value span {
+    font-size: 11px;
+    color: var(--muted);
+}
+/* WEEKLY CALENDAR - REMOVE TODAY'S SPECIAL HIGHLIGHT */
+
+#timetable-day-picker .timetable-day.today:not(.active) {
+    background: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
+}
+
+#timetable-day-picker .timetable-day.today:not(.active) span {
+    color: var(--muted) !important;
+}
