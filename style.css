@@ -212,7 +212,7 @@ body {
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
-    border: 5px solid var(--background);
+    border: none;
     border-radius: 12px;
 }
 
@@ -289,43 +289,32 @@ body {
 
 /* STICKERS */
 
-.profile-stickers {
-    display: flex;
-    flex-wrap: wrap;
+.sticker-area {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    gap: 7px;
-    margin: 8px 0;
+    justify-content: center;
+    min-width: 45px;
+    min-height: 40px;
+    cursor: pointer;
+    touch-action: manipulation;
 }
 
 .profile-sticker {
-    font-size: 25px;
+    font-size: 36px;
     cursor: pointer;
     user-select: none;
-}
-
-.sticker-area {
-    position: relative;
-    display: inline-block;
-}
-
-.sticker-add {
-    background: var(--card);
-    color: var(--text);
-    border: 1px dashed var(--primary);
-    border-radius: 20px;
-    padding: 5px 9px;
-    font-size: 11px;
-    cursor: pointer;
-    white-space: nowrap;
+    line-height: 1.2;
+    margin-top: 15px;
 }
 
 .sticker-keyboard {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: 100%;
+    height: 100%;
     opacity: 0;
     left: 0;
-    bottom: 0;
+    top: 0;
     pointer-events: none;
 }
 

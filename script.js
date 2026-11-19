@@ -537,12 +537,17 @@ if (mottoCard) {
    10. PROFILE STICKERS
 ========================================= */
 
+
+/* =========================================
+   10. PROFILE STICKERS
+========================================= */
+
 (() => {
-  const addButton = getElement("add-sticker");
+  const stickerArea = getElement("sticker-area");
   const input = getElement("custom-sticker");
   const container = getElement("profile-stickers");
 
-  if (!addButton || !input || !container) return;
+  if (!stickerArea || !input || !container) return;
 
   let stickers = loadStorage("kumiStickers", []);
 
@@ -551,6 +556,12 @@ if (mottoCard) {
   function renderStickers() {
     container.innerHTML = "";
 
+    // Show plus only when there are no stickers
+    stickerArea.classList.toggle(
+      "has-stickers",
+      stickers.length > 0
+    );
+
     stickers.forEach((sticker, index) => {
       const item = document.createElement("span");
 
@@ -558,17 +569,24 @@ if (mottoCard) {
       item.textContent = sticker;
       item.title = "Tap to remove";
 
-      item.addEventListener("click", () => {
+      item.addEventListener("click", (event) => {
+        event.stopPropagation();
+
         stickers.splice(index, 1);
-        saveStorage("kumiStickers", stickers);
-        renderStickers();
+
+        if (saveStorage("kumiStickers", stickers)) {
+          renderStickers();
+        }
       });
 
       container.appendChild(item);
     });
   }
 
-  addButton.addEventListener("click", () => input.focus());
+  // Touch or click the plus area to add stickers
+  stickerArea.addEventListener("click", () => {
+    input.focus();
+  });
 
   input.addEventListener("input", () => {
     const value = input.value.trim();
@@ -587,6 +605,7 @@ if (mottoCard) {
 
   renderStickers();
 })();
+
 
 /* =========================================
    11. INTERACTIVE CALENDAR
@@ -1772,3 +1791,4 @@ function editGreeting() {
 }
 
 updateGreeting();
+
