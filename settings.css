@@ -1,0 +1,622 @@
+
+/* =========================================
+   KUMI SETTINGS DESIGN
+========================================= */
+
+/* HIDDEN SCREENS */
+
+[hidden] {
+  display: none !important;
+}
+
+/* SETTINGS HOME MENU */
+
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.settings-menu-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.settings-menu-card:active {
+  transform: scale(0.98);
+}
+
+.settings-menu-card:hover {
+  border-color: var(--primary);
+}
+
+.settings-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: var(--secondary);
+  font-size: 24px;
+}
+
+.settings-menu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.settings-menu-info strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.settings-menu-info small {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.settings-menu-arrow {
+  font-size: 27px;
+  color: var(--muted);
+}
+
+/* BACK BUTTON */
+
+.settings-back-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* THEME LIST */
+
+.theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 13px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.theme-option:active {
+  transform: scale(0.99);
+}
+
+.theme-option.selected {
+  border: 2px solid var(--primary);
+}
+
+.theme-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* FULL COLOUR STRIPS */
+
+.theme-colours {
+  display: flex;
+  width: 100%;
+  height: 38px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.theme-colours i {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+/* APPEARANCE OPTIONS */
+
+.display-mode-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.display-mode-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 145px;
+  padding: 16px 8px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.display-mode-option.selected {
+  border: 2px solid var(--primary);
+}
+
+.mode-icon {
+  font-size: 34px;
+}
+
+.display-mode-option strong {
+  font-size: 15px;
+}
+
+.display-mode-option small {
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+/* MOBILE SPACING */
+
+@media (max-width: 600px) {
+
+  .settings-menu-card {
+    padding: 16px;
+  }
+
+  .theme-option {
+    padding: 14px;
+  }
+
+  .display-mode-options {
+    gap: 10px;
+  }
+
+  .display-mode-option {
+    min-height: 130px;
+  }
+
+}
+/* =========================================
+   REMINDER PREFERENCES
+========================================= */
+
+.reminder-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.reminder-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+}
+
+.reminder-option div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reminder-option strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.reminder-option small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.reminder-option input[type="checkbox"] {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .reminder-option {
+    padding: 15px;
+  }
+}
+/* =========================================
+   DATA MANAGEMENT
+========================================= */
+
+.data-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.data-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+}
+
+.data-option div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.data-option strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.data-option small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.data-option button {
+  padding: 9px 15px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.data-option button:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 600px) {
+  .data-option {
+    padding: 15px;
+  }
+}
+/* =========================================
+   FONT SETTINGS
+========================================= */
+
+.font-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.font-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.font-option strong {
+  font-size: 16px;
+}
+
+.font-option span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.font-option.selected {
+  border: 2px solid var(--primary);
+}
+
+.font-option:active {
+  transform: scale(0.99);
+}
+/* =========================================
+   ABOUT KUMI
+========================================= */
+
+.about-kumi-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 25px;
+  padding: 25px 20px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  color: var(--text);
+  text-align: center;
+}
+
+.about-kumi-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 22px;
+  background: var(--secondary);
+  font-size: 38px;
+}
+
+.about-kumi-card h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.about-kumi-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.about-divider {
+  width: 100%;
+  height: 1px;
+  margin: 8px 0;
+  background: var(--border);
+}
+
+.about-info {
+  width: 100%;
+  text-align: left;
+}
+
+.about-info strong {
+  font-size: 15px;
+}
+
+.about-info p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* KUMI CUTE FONT COLLECTION */
+
+@font-face {
+  font-family: "Camellia";
+  src: url("./fonts/Nice Tango.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tulip";
+  src: url("./fonts/Cute Dino.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Wisteria";
+  src: url("./fonts/Sobiscuit.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lotus";
+  src: url("./fonts/Like Eat.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rosemary";
+  src: url("./fonts/Bobaland.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Petunia";
+  src: url("./fonts/Bip Hope.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alpinia";
+  src: url("./fonts/Boohong.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Orchid";
+  src: url("./fonts/Dobidoo.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Freesia";
+  src: url("./fonts/Catfiles.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Verbena";
+  src: url("./fonts/Duck Spicy.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lavender";
+  src: url("./fonts/Dino Care.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Daisy";
+  src: url("./fonts/Buycat.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Oxalis";
+  src: url("./fonts/Catcut.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Forsythia";
+  src: url("./fonts/Huglove.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marigold";
+  src: url("./fonts/Darling Coffee.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gardenia";
+  src: url("./fonts/Strike Coffee.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pansy";
+  src: url("./fonts/Brocats.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Daffodil";
+  src: url("./fonts/Cat Song.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peony";
+  src: url("./fonts/Nice Honey.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sunflower";
+  src: url("./fonts/Maybe Coffee.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amaryllis";
+  src: url("./fonts/Eazy Chat.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* EXPORT NOTES POPUP */
+
+#export-options[hidden] {
+  display: none;
+}
+
+#export-options:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.export-popup {
+  width: 100%;
+  max-width: 450px;
+  padding: 30px 25px;
+  border-radius: 35px;
+  background: #272B36;
+  color: #F5F1FA;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+}
+
+.export-popup h3 {
+  font-size: 26px;
+  font-weight: normal;
+  margin: 0 0 18px;
+}
+
+.export-popup p {
+  color: #C9C8D2;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.export-popup button {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 15px;
+  background: #414653;
+  color: #F5F1FA;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.export-popup #close-export-popup {
+  background: transparent;
+  color: #B8C7F5;
+  text-align: right;
+  margin-top: 15px;
+}

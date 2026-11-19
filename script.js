@@ -66,7 +66,7 @@ function getDayName(date) {
   ][(date.getDay() + 6) % 7];
 }
 // NATIVE TIME PICKER
-["class-start", "class-end"].forEach(id => {
+["class-start", "class-end"].forEach((id) => {
   const input = document.getElementById(id);
 
   if (input) {
@@ -133,8 +133,7 @@ navItems.forEach((button) => {
 // Restore the last opened page after refreshing.
 const savedPage = localStorage.getItem("kumiLastPage");
 
-const pageToOpen =
-  savedPage && getElement(savedPage) ? savedPage : "home";
+const pageToOpen = savedPage && getElement(savedPage) ? savedPage : "home";
 
 openPage(pageToOpen);
 
@@ -180,7 +179,7 @@ if (photoUpload) {
 ========================================= */
 
 const profileFields = document.querySelectorAll(
-  ".profile-details p[contenteditable='true']"
+  ".profile-details p[contenteditable='true']",
 );
 
 profileFields.forEach((field, index) => {
@@ -212,7 +211,7 @@ tasks = tasks.filter(
   (task) =>
     task &&
     typeof task.text === "string" &&
-    typeof task.completed === "boolean"
+    typeof task.completed === "boolean",
 );
 
 function saveTasks() {
@@ -306,46 +305,6 @@ if (taskFilter) {
 renderTasks();
 
 /* =========================================
-   7. THEME SYSTEM
-========================================= */
-
-const themeButtons = document.querySelectorAll(".theme-option");
-
-function applyTheme(theme) {
-  const allowedThemes = [
-    "lavender",
-    "pink",
-    "blue",
-    "green",
-    "peach",
-    "dark",
-  ];
-
-  if (!allowedThemes.includes(theme)) {
-    theme = "lavender";
-  }
-
-  document.documentElement.dataset.theme = theme;
-
-  localStorage.setItem("kumiTheme", theme);
-
-  themeButtons.forEach((button) => {
-    button.classList.toggle(
-      "selected",
-      button.dataset.theme === theme
-    );
-  });
-}
-
-themeButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    applyTheme(button.dataset.theme);
-  });
-});
-
-applyTheme(localStorage.getItem("kumiTheme") || "lavender");
-
-/* =========================================
    8. PHOTO EDITOR
 ========================================= */
 
@@ -381,8 +340,7 @@ applyTheme(localStorage.getItem("kumiTheme") || "lavender");
   let dragging = false;
 
   function updatePreview() {
-    preview.style.transform =
-      `translate(${offsetX}px, ${offsetY}px) scale(${zoom})`;
+    preview.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoom})`;
   }
 
   function openEditor() {
@@ -492,7 +450,7 @@ applyTheme(localStorage.getItem("kumiTheme") || "lavender");
 
       const baseScale = Math.max(
         rect.width / sourceImage.width,
-        rect.height / sourceImage.height
+        rect.height / sourceImage.height,
       );
 
       const scale = baseScale * zoom;
@@ -504,16 +462,16 @@ applyTheme(localStorage.getItem("kumiTheme") || "lavender");
         0,
         Math.min(
           sourceImage.width - cropWidth,
-          (sourceImage.width - cropWidth) / 2 - offsetX / scale
-        )
+          (sourceImage.width - cropWidth) / 2 - offsetX / scale,
+        ),
       );
 
       const cropY = Math.max(
         0,
         Math.min(
           sourceImage.height - cropHeight,
-          (sourceImage.height - cropHeight) / 2 - offsetY / scale
-        )
+          (sourceImage.height - cropHeight) / 2 - offsetY / scale,
+        ),
       );
 
       const canvas = document.createElement("canvas");
@@ -533,7 +491,7 @@ applyTheme(localStorage.getItem("kumiTheme") || "lavender");
         0,
         0,
         outputSize,
-        outputSize
+        outputSize,
       );
 
       try {
@@ -659,11 +617,7 @@ if (mottoCard) {
 
   const today = new Date();
 
-  let currentMonth = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    1
-  );
+  let currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
   let selectedDate = formatISODate(today);
   let editingEventId = null;
@@ -677,7 +631,7 @@ if (mottoCard) {
       event &&
       event.id !== undefined &&
       typeof event.title === "string" &&
-      typeof event.date === "string"
+      typeof event.date === "string",
   );
 
   const categoryColours = {
@@ -708,7 +662,7 @@ if (mottoCard) {
     selectedDateEvents.innerHTML = "";
 
     const selectedEvents = events.filter(
-      (event) => event.date === selectedDate
+      (event) => event.date === selectedDate,
     );
 
     if (selectedEvents.length === 0) {
@@ -731,7 +685,7 @@ if (mottoCard) {
 
       card.style.setProperty(
         "--event-colour",
-        categoryColours[event.category] || "#E8B4C8"
+        categoryColours[event.category] || "#E8B4C8",
       );
 
       const title = document.createElement("h3");
@@ -792,9 +746,7 @@ if (mottoCard) {
         button.classList.add("selected");
       }
 
-      const dayEvents = events.filter(
-        (event) => event.date === dateString
-      );
+      const dayEvents = events.filter((event) => event.date === dateString);
 
       if (dayEvents.length) {
         const dots = document.createElement("span");
@@ -808,8 +760,7 @@ if (mottoCard) {
           const dot = document.createElement("span");
 
           dot.className = "calendar-category-dot";
-          dot.style.backgroundColor =
-            categoryColours[category] || "#E8B4C8";
+          dot.style.backgroundColor = categoryColours[category] || "#E8B4C8";
 
           dots.appendChild(dot);
         });
@@ -820,11 +771,7 @@ if (mottoCard) {
       button.addEventListener("click", () => {
         selectedDate = dateString;
 
-        currentMonth = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          1
-        );
+        currentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
 
         renderAll();
       });
@@ -875,8 +822,7 @@ if (mottoCard) {
       const card = document.createElement("div");
       card.className = "calendar-event-item";
 
-      const colour =
-        categoryColours[event.category] || "#E8B4C8";
+      const colour = categoryColours[event.category] || "#E8B4C8";
 
       card.style.setProperty("--event-colour", colour);
 
@@ -893,7 +839,7 @@ if (mottoCard) {
           weekday: "short",
           day: "numeric",
           month: "long",
-        }
+        },
       );
 
       const category = document.createElement("span");
@@ -985,9 +931,7 @@ if (mottoCard) {
     }
 
     if (editingEventId !== null) {
-      const existing = events.find(
-        (event) => event.id === editingEventId
-      );
+      const existing = events.find((event) => event.id === editingEventId);
 
       if (existing) {
         existing.title = title;
@@ -1008,11 +952,7 @@ if (mottoCard) {
     selectedDate = date;
 
     const selected = parseISODate(date);
-    currentMonth = new Date(
-      selected.getFullYear(),
-      selected.getMonth(),
-      1
-    );
+    currentMonth = new Date(selected.getFullYear(), selected.getMonth(), 1);
 
     resetEventForm();
     renderAll();
@@ -1093,7 +1033,7 @@ if (mottoCard) {
       typeof item.subject === "string" &&
       typeof item.day === "string" &&
       typeof item.start === "string" &&
-      typeof item.end === "string"
+      typeof item.end === "string",
   );
 
   attendanceRecords = attendanceRecords.filter(
@@ -1101,7 +1041,7 @@ if (mottoCard) {
       record &&
       record.classId !== undefined &&
       typeof record.date === "string" &&
-      ["Present", "Absent"].includes(record.status)
+      ["Present", "Absent", "Cancelled"].includes(record.status),
   );
 
   let editingClassId = null;
@@ -1112,33 +1052,25 @@ if (mottoCard) {
   let attendanceMonth = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
-    1
+    1,
   );
 
   /* TIME HELPERS */
 
-   function parseTime12(value) {
+  function parseTime12(value) {
     if (!value) return null;
 
     const cleaned = value.trim().toUpperCase();
 
     // Accept 24-hour input such as 09:45 or 14:30
-    const time24 = cleaned.match(
-      /^([01]?\d|2[0-3]):([0-5]\d)$/
-    );
+    const time24 = cleaned.match(/^([01]?\d|2[0-3]):([0-5]\d)$/);
 
     if (time24) {
-      return (
-        String(Number(time24[1])).padStart(2, "0") +
-        ":" +
-        time24[2]
-      );
+      return String(Number(time24[1])).padStart(2, "0") + ":" + time24[2];
     }
 
     // Accept 12-hour input such as 9:45 AM or 2:30 PM
-    const time12 = cleaned.match(
-      /^(\d{1,2}):([0-5]\d)\s*(AM|PM)$/
-    );
+    const time12 = cleaned.match(/^(\d{1,2}):([0-5]\d)\s*(AM|PM)$/);
 
     if (!time12) return null;
 
@@ -1152,9 +1084,7 @@ if (mottoCard) {
     if (period === "PM" && hours !== 12) hours += 12;
 
     return (
-      String(hours).padStart(2, "0") +
-      ":" +
-      String(minutes).padStart(2, "0")
+      String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0")
     );
   }
 
@@ -1165,14 +1095,14 @@ if (mottoCard) {
     const hours = Number(hourPart);
 
     if (!Number.isInteger(hours) || hours < 0 || hours > 23 || !minutes) {
-        return value;
+      return value;
     }
 
     const period = hours >= 12 ? "PM" : "AM";
     const displayHours = hours % 12 || 12;
 
     return `${displayHours}:${minutes} ${period}`;
-}
+  }
 
   /* SAVE DATA */
 
@@ -1219,8 +1149,8 @@ if (mottoCard) {
         button.classList.add("active");
       }
       if (dateString === formatISODate(new Date())) {
-    button.classList.add("today");
-}
+        button.classList.add("today");
+      }
 
       const name = document.createElement("span");
       name.textContent = day.slice(0, 3).toUpperCase();
@@ -1284,8 +1214,7 @@ if (mottoCard) {
       subject.textContent = item.subject;
 
       const time = document.createElement("p");
-      time.textContent =
-        `${formatTime12(item.start)} – ${formatTime12(item.end)}`;
+      time.textContent = `${formatTime12(item.start)} – ${formatTime12(item.end)}`;
 
       const room = document.createElement("small");
       room.textContent = item.room || "Room not specified";
@@ -1295,7 +1224,7 @@ if (mottoCard) {
       const record = attendanceRecords.find(
         (entry) =>
           String(entry.classId) === String(item.id) &&
-          entry.date === selectedDate
+          entry.date === selectedDate,
       );
 
       const status = record?.status || "";
@@ -1329,7 +1258,22 @@ if (mottoCard) {
         markAttendance(item, "Absent");
       });
 
-      actions.append(presentButton, absentButton);
+     const cancelledButton = document.createElement("button");
+cancelledButton.type = "button";
+cancelledButton.textContent = "Cancelled";
+cancelledButton.className = "attendance-mark-button";
+
+if (status === "Cancelled") {
+  cancelledButton.classList.add("marked-cancelled");
+}
+
+cancelledButton.addEventListener("click", () => {
+  markAttendance(item, "Cancelled");
+});
+
+actions.append(presentButton, absentButton, cancelledButton);
+
+      actions.append(presentButton, absentButton, cancelledButton);
 
       const management = document.createElement("div");
       management.className = "timetable-management";
@@ -1353,11 +1297,11 @@ if (mottoCard) {
         if (!confirm("Delete this class from your timetable?")) return;
 
         classes = classes.filter(
-          (classItem) => String(classItem.id) !== String(item.id)
+          (classItem) => String(classItem.id) !== String(item.id),
         );
 
         attendanceRecords = attendanceRecords.filter(
-          (entry) => String(entry.classId) !== String(item.id)
+          (entry) => String(entry.classId) !== String(item.id),
         );
 
         saveClasses();
@@ -1374,53 +1318,52 @@ if (mottoCard) {
 
   /* MARK ATTENDANCE */
 
-  function markAttendance(item, status) {
-    const existing = attendanceRecords.find(
-      (record) =>
-        String(record.classId) === String(item.id) &&
-        record.date === selectedDate
+function markAttendance(item, status) {
+  const existing = attendanceRecords.find((record) => {
+    return (
+      String(record.classId) === String(item.id) &&
+      record.date === selectedDate
     );
+  });
 
-    if (existing) {
-      existing.status = status;
-      existing.subject = item.subject;
-    } else {
-      attendanceRecords.push({
-        classId: item.id,
-        subject: item.subject,
-        date: selectedDate,
-        status,
-      });
-    }
-
-    saveAttendance();
-    renderAll();
+  if (existing) {
+    existing.status = status;
+    existing.subject = item.subject;
+  } else {
+    attendanceRecords.push({
+      classId: item.id,
+      subject: item.subject,
+      date: selectedDate,
+      status: status,
+    });
   }
+
+  saveAttendance();
+  renderAll();
+}
 
   /* SUBJECT ATTENDANCE PERCENTAGES */
 
-    /* OVERALL ATTENDANCE CIRCLE */
+  /* OVERALL ATTENDANCE CIRCLE */
 
   function renderOverallAttendance() {
-    const percentageElement = getElement(
-      "overall-attendance-percentage"
-    );
+    const percentageElement = getElement("overall-attendance-percentage");
 
     const ring = getElement("overall-attendance-ring");
 
-    const total = attendanceRecords.length;
+    const total = attendanceRecords.filter((record) =>
+      ["Present", "Absent", "Cancelled"].includes(record.status),
+    ).length;
 
     const present = attendanceRecords.filter(
-      (record) => record.status === "Present"
+      (record) => record.status === "Present",
     ).length;
 
     const absent = attendanceRecords.filter(
-      (record) => record.status === "Absent"
+      (record) => record.status === "Absent",
     ).length;
 
-    const percentage = total
-      ? Math.round((present / total) * 100)
-      : 0;
+    const percentage = total ? Math.round((present / total) * 100) : 0;
 
     if (percentageElement) {
       percentageElement.textContent = `${percentage}%`;
@@ -1431,8 +1374,7 @@ if (mottoCard) {
       const circumference = 2 * Math.PI * radius;
 
       ring.style.strokeDasharray = circumference;
-      ring.style.strokeDashoffset =
-        circumference * (1 - percentage / 100);
+      ring.style.strokeDashoffset = circumference * (1 - percentage / 100);
     }
   }
   function renderSubjectAttendance() {
@@ -1440,9 +1382,7 @@ if (mottoCard) {
 
     subjectAttendanceList.innerHTML = "";
 
-    const subjects = [
-      ...new Set(classes.map((item) => item.subject)),
-    ];
+    const subjects = [...new Set(classes.map((item) => item.subject))];
 
     if (subjects.length === 0) {
       subjectAttendanceList.innerHTML =
@@ -1454,18 +1394,16 @@ if (mottoCard) {
       const records = attendanceRecords.filter(
         (record) =>
           record.subject === subject &&
-          ["Present", "Absent"].includes(record.status)
+          ["Present", "Absent"].includes(record.status),
       );
 
       const present = records.filter(
-        (record) => record.status === "Present"
+        (record) => record.status === "Present",
       ).length;
 
       const total = records.length;
 
-      const percentage = total
-        ? Math.round((present / total) * 100)
-        : 0;
+      const percentage = total ? Math.round((present / total) * 100) : 0;
 
       const item = document.createElement("div");
       item.className = "subject-attendance-item";
@@ -1477,9 +1415,7 @@ if (mottoCard) {
       name.textContent = subject;
 
       const value = document.createElement("strong");
-      value.textContent = total
-        ? `${percentage}%`
-        : "Not marked yet";
+      value.textContent = total ? `${percentage}%` : "Not marked yet";
 
       heading.append(name, value);
 
@@ -1494,8 +1430,7 @@ if (mottoCard) {
 
       const summary = document.createElement("small");
       summary.className = "attendance-summary";
-      summary.textContent =
-        `${present} present · ${total - present} absent · ${total} recorded`;
+      summary.textContent = `${present} present · ${total - present} absent · ${total} recorded`;
 
       item.append(heading, track, summary);
       subjectAttendanceList.appendChild(item);
@@ -1507,18 +1442,12 @@ if (mottoCard) {
   function openClassForm(item = null) {
     editingClassId = item ? item.id : null;
 
-    classFormTitle.textContent = item
-      ? "Edit Class ♡"
-      : "New Class ♡";
+    classFormTitle.textContent = item ? "Edit Class ♡" : "New Class ♡";
 
-    saveClassButton.textContent = item
-      ? "Update Class"
-      : "Save Class";
+    saveClassButton.textContent = item ? "Update Class" : "Save Class";
 
     subjectInput.value = item ? item.subject : "";
-    dayInput.value = item
-      ? item.day
-      : getDayName(parseISODate(selectedDate));
+    dayInput.value = item ? item.day : getDayName(parseISODate(selectedDate));
 
     startInput.value = item ? item.start : "";
     endInput.value = item ? item.end : "";
@@ -1570,7 +1499,7 @@ if (mottoCard) {
 
     if (editingClassId !== null) {
       const item = classes.find(
-        (entry) => String(entry.id) === String(editingClassId)
+        (entry) => String(entry.id) === String(editingClassId),
       );
 
       if (item) {
@@ -1581,18 +1510,14 @@ if (mottoCard) {
         item.room = room;
 
         attendanceRecords.forEach((record) => {
-          if (
-            String(record.classId) === String(editingClassId)
-          ) {
+          if (String(record.classId) === String(editingClassId)) {
             record.subject = subject;
           }
         });
       }
     } else {
       classes.push({
-        id:
-          Date.now().toString() +
-          Math.random().toString(16).slice(2),
+        id: Date.now().toString() + Math.random().toString(16).slice(2),
         subject,
         day,
         start,
@@ -1636,11 +1561,10 @@ if (mottoCard) {
 
   /* MONTHLY ATTENDANCE CALENDAR */
 
-
   let calendarDisplayedMonth = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
-    1
+    1,
   );
 
   let calendarSelectedDate =
@@ -1661,17 +1585,15 @@ if (mottoCard) {
     previous.textContent = "‹";
 
     previous.addEventListener("click", () => {
-      calendarDisplayedMonth.setMonth(
-        calendarDisplayedMonth.getMonth() - 1
-      );
+      calendarDisplayedMonth.setMonth(calendarDisplayedMonth.getMonth() - 1);
       renderAttendanceCalendar();
     });
 
     const heading = document.createElement("h3");
-    heading.textContent = calendarDisplayedMonth.toLocaleDateString(
-      "en-IN",
-      { month: "long", year: "numeric" }
-    );
+    heading.textContent = calendarDisplayedMonth.toLocaleDateString("en-IN", {
+      month: "long",
+      year: "numeric",
+    });
 
     const next = document.createElement("button");
     next.type = "button";
@@ -1679,9 +1601,7 @@ if (mottoCard) {
     next.textContent = "›";
 
     next.addEventListener("click", () => {
-      calendarDisplayedMonth.setMonth(
-        calendarDisplayedMonth.getMonth() + 1
-      );
+      calendarDisplayedMonth.setMonth(calendarDisplayedMonth.getMonth() + 1);
       renderAttendanceCalendar();
     });
 
@@ -1691,7 +1611,7 @@ if (mottoCard) {
     const weekdays = document.createElement("div");
     weekdays.className = "attendance-calendar-weekdays";
 
-    ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach(day => {
+    ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach((day) => {
       const label = document.createElement("span");
       label.textContent = day;
       weekdays.appendChild(label);
@@ -1720,20 +1640,20 @@ if (mottoCard) {
       const key = formatISODate(date);
 
       const dayName = date.toLocaleDateString("en-US", {
-        weekday: "long"
+        weekday: "long",
       });
 
-      const scheduled = classes.filter(item => item.day === dayName);
+      const scheduled = classes.filter((item) => item.day === dayName);
       const dayRecords = attendanceRecords.filter(
-        record => record.date === key
+        (record) => record.date === key,
       );
 
       const present = dayRecords.filter(
-        record => record.status === "Present"
+        (record) => record.status === "Present",
       ).length;
 
       const absent = dayRecords.filter(
-        record => record.status === "Absent"
+        (record) => record.status === "Absent",
       ).length;
 
       const button = document.createElement("button");
@@ -1752,24 +1672,30 @@ if (mottoCard) {
       number.className = "attendance-calendar-number";
       number.textContent = day;
       button.appendChild(number);
+if (scheduled.length > 0) {
+  const indicator = document.createElement("small");
 
-      if (scheduled.length > 0) {
-        const indicator = document.createElement("small");
+  const cancelledCount = dayRecords.filter(
+    (record) => record.status === "Cancelled"
+  ).length;
 
-       if (dayRecords.length === 0) {
-    button.classList.add("attendance-day-unmarked");
-    indicator.textContent = "";
-} else if (absent > 0) {
-    button.classList.add("attendance-day-absent");
-    indicator.textContent = `${present}/${scheduled.length}`;
-} else {
-    button.classList.add("attendance-day-recorded");
-    indicator.textContent = `${present}/${scheduled.length}`;
+  const effectiveTotal = scheduled.length - cancelledCount;
+
+  if (effectiveTotal === 0 && cancelledCount > 0) {
+    button.classList.add("attendance-day-cancelled");
+    indicator.textContent = "Cancelled";
+  } else if (present + absent > 0) {
+    if (absent > 0) {
+      button.classList.add("attendance-day-absent");
+    } else {
+      button.classList.add("attendance-day-recorded");
+    }
+
+    indicator.textContent = `${present}/${effectiveTotal}`;
+  }
+
+  button.appendChild(indicator);
 }
-
-        button.appendChild(indicator);
-      }
-
       button.addEventListener("click", () => {
         calendarSelectedDate = key;
         localStorage.setItem("kumiSelectedAttendanceDate", key);
@@ -1777,8 +1703,8 @@ if (mottoCard) {
         attendanceCalendar.dispatchEvent(
           new CustomEvent("kumi-date-selected", {
             bubbles: true,
-            detail: { date: key }
-          })
+            detail: { date: key },
+          }),
         );
 
         renderAttendanceCalendar();
@@ -1793,35 +1719,28 @@ if (mottoCard) {
     legend.className = "attendance-calendar-legend";
 
     legend.innerHTML = `
-      <span><i class="legend-present"></i> Present</span>
-      <span><i class="legend-absent"></i> Absent</span>
-      <span><i class="legend-unmarked"></i> Not marked</span>
-    `;
+  <span><i class="legend-present"></i> Present</span>
+  <span><i class="legend-absent"></i> Absent</span>
+  <span><i class="legend-cancelled"></i> Cancelled</span>
+`;
 
     attendanceCalendar.appendChild(legend);
   }
 
   window.addEventListener("storage", renderAttendanceCalendar);
 
-
-
   attendanceCalendar?.addEventListener("kumi-date-selected", (event) => {
     const dateString = event.detail.date;
     const parts = dateString.split("-").map(Number);
 
-    const chosenDate = new Date(
-      parts[0],
-      parts[1] - 1,
-      parts[2]
-    );
+    const chosenDate = new Date(parts[0], parts[1] - 1, parts[2]);
 
-   selectedDate = dateString;
-calendarSelectedDate = dateString;
-currentWeek = getMonday(chosenDate);
+    selectedDate = dateString;
+    calendarSelectedDate = dateString;
+    currentWeek = getMonday(chosenDate);
 
-renderAll();
+    renderAll();
   });
-
 
   /* RENDER EVERYTHING */
   function renderAll() {
@@ -1831,7 +1750,7 @@ renderAll();
     renderSubjectAttendance();
     renderAttendanceCalendar();
   }
-renderAll();
+  renderAll();
 })();
 /* =========================================
    END KUMI APPLICATION

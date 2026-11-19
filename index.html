@@ -1,467 +1,1385 @@
-
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kumi | Student Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kumi | Student Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="settings.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-<div class="app-layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="logo">
-      <span class="logo-icon">✿</span>
-      <h2>Kumi<span>.</span></h2>
-    </div>
-
-    <p class="nav-label">WORKSPACE</p>
-
-    <nav class="navigation">
-      <button class="nav-item active" data-page="home"><span>⌂</span> Home</button>
-      <button class="nav-item" data-page="calendar"><span>▦</span> Calendar</button>
-      <button class="nav-item" data-page="attendance"><span>▤</span> Attendance</button>
-      <button class="nav-item" data-page="notes"><span>✎</span> Notes</button>
-      <button class="nav-item" data-page="exams"><span>☆</span> Exams</button>
-      <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <p class="nav-label">PERSONAL</p>
-      <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
-
-      <div class="sidebar-footer">
-        <span>Made with ♡</span>
-        <small>Your little study space</small>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
-
-    <!-- HOME PAGE -->
-    <section class="page active" id="home">
-      <header class="welcome-section">
-        <div>
-   <h1 id="greeting" onclick="editGreeting()">
-  Hello, Kinjal ♡
-</h1>
-          <p id="current-date">Loading date...</p>
+  <body>
+    <div class="app-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">
+          <span class="logo-icon">✿</span>
+          <h2>Kumi<span>.</span></h2>
         </div>
-        <button class="header-icon">♡</button>
-      </header>
 
-      <!-- PROFILE CARD -->
-      <section class="profile-card">
-        <div class="profile-top">
-          <div class="profile-photo-container">
-            <img src="https://placehold.co/150x150" id="profile-image" alt="Profile photo" />
-            <input type="file" id="photo-upload" accept="image/*" hidden />
+        <p class="nav-label">WORKSPACE</p>
 
-            <div class="photo-editor" id="photo-editor" hidden>
-              <div class="photo-editor-box">
-                <h2>Edit profile photo ♡</h2>
+        <nav class="navigation">
+          <button class="nav-item" data-page="home"><span>⌂</span> Home</button>
+          <button class="nav-item" data-page="calendar">
+            <span>▦</span> Calendar
+          </button>
+          <button class="nav-item" data-page="attendance">
+            <span>▤</span> Attendance
+          </button>
+          <button class="nav-item" data-page="assignments">
+            <span>▧</span> Assignment Tracker
+          </button>
+          <button class="nav-item" data-page="notes">
+            <span>✎</span> Notes
+          </button>
+          <button class="nav-item" data-page="settings">
+            <span>⚙</span> Settings
+          </button>
+        </nav>
 
-                <div class="photo-preview">
-                  <img id="photo-preview-image" src=" " alt="Photo preview" />
+        <div class="sidebar-bottom">
+          <div class="sidebar-footer">
+            <span>Made with ♡</span>
+            <small>Your little study space</small>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <!-- HOME PAGE -->
+        <section class="page active" id="home">
+          <header class="welcome-section">
+            <div>
+              <h1 id="greeting" onclick="editGreeting()">Hello, Kinjal ♡</h1>
+              <p id="current-date">Loading date...</p>
+            </div>
+            <button class="header-icon">♡</button>
+          </header>
+
+          <!-- PROFILE CARD -->
+          <section class="profile-card">
+            <div class="profile-top">
+              <div class="profile-photo-container">
+                <img
+                  src="https://placehold.co/150x150"
+                  id="profile-image"
+                  alt="Profile photo"
+                />
+                <input type="file" id="photo-upload" accept="image/*" hidden />
+
+                <div class="photo-editor" id="photo-editor" hidden>
+                  <div class="photo-editor-box">
+                    <h2>Edit profile photo ♡</h2>
+
+                    <div class="photo-preview">
+                      <img
+                        id="photo-preview-image"
+                        src=" "
+                        alt="Photo preview"
+                      />
+                    </div>
+
+                    <label for="new-photo-upload">Change photo</label>
+                    <input type="file" id="new-photo-upload" accept="image/*" />
+
+                    <label for="photo-zoom">Zoom</label>
+                    <input
+                      type="range"
+                      id="photo-zoom"
+                      min="1"
+                      max="3"
+                      step="0.05"
+                      value="1"
+                    />
+
+                    <div class="photo-editor-actions">
+                      <button id="reset-photo">Reset</button>
+                      <button id="cancel-photo">Cancel</button>
+                      <button id="save-photo">Save</button>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
-                <label for="new-photo-upload">Change photo</label>
-                <input type="file" id="new-photo-upload" accept="image/*" />
+              <div class="star-badge" contenteditable="true">
+                <p>
+                  STAR <br />
+                  STUDENT
+                </p>
+              </div>
+            </div>
 
-                <label for="photo-zoom">Zoom</label>
-                <input type="range" id="photo-zoom" min="1" max="3" step="0.05" value="1" />
+            <div class="profile-divider"></div>
 
-                <div class="photo-editor-actions">
-                  <button id="reset-photo">Reset</button>
-                  <button id="cancel-photo">Cancel</button>
-                  <button id="save-photo">Save</button>
+            <div class="profile-details">
+              <div>
+                <span>NAME</span>
+                <p contenteditable="true">Your Name</p>
+              </div>
+              <div>
+                <span>YEAR LEVEL</span>
+                <p contenteditable="true">Year / Semester</p>
+              </div>
+            </div>
+
+            <div id="profile-stickers" class="profile-stickers"></div>
+
+            <div class="sticker-area">
+              <button id="add-sticker" class="sticker-add">＋ Sticker</button>
+              <input
+                type="text"
+                id="custom-sticker"
+                class="sticker-keyboard"
+                autocomplete="off"
+                aria-label="Type a sticker emoji"
+              />
+            </div>
+          </section>
+
+          <!-- PERSONAL MOTTO -->
+          <section class="motto-card" contenteditable="true">
+            <div class="motto-decoration">✦</div>
+            <p id="personal-motto">Dream big, work hard, stay kind ♡</p>
+            <span class="motto-footer">a little reminder for myself ✧</span>
+          </section>
+
+          <!-- TO-DO -->
+          <section class="todo-section">
+            <div class="section-heading">
+              <h2>To-do list</h2>
+              <select id="task-filter">
+                <option value="all">All tasks</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
+            <div id="todo-list">
+              <p class="empty-message">Your tasks will appear here ♡</p>
+            </div>
+
+            <div class="add-task-area">
+              <input
+                type="text"
+                id="task-input"
+                placeholder="Add a new task..."
+              />
+              <button id="add-task">+</button>
+            </div>
+          </section>
+        </section>
+
+        <!-- CALENDAR PAGE -->
+        <section class="page" id="calendar">
+          <div class="page-heading">
+            <p class="eyebrow">PLAN YOUR DAYS</p>
+            <h1>Calendar ♡</h1>
+            <p>Keep track of your important dates and events.</p>
+          </div>
+
+          <!-- CATEGORY INDEX -->
+          <div class="category-index">
+            <div class="category-heading">
+              <p class="eyebrow">YOUR CATEGORIES</p>
+              <h3>Calendar Key ♡</h3>
+            </div>
+
+            <div class="category-list">
+              <div class="category-item">
+                <span class="category-colour college-colour"></span
+                ><span>College</span>
+              </div>
+              <div class="category-item">
+                <span class="category-colour study-colour"></span
+                ><span>Study</span>
+              </div>
+              <div class="category-item">
+                <span class="category-colour exam-colour"></span
+                ><span>Exam</span>
+              </div>
+              <div class="category-item">
+                <span class="category-colour personal-colour"></span
+                ><span>Personal</span>
+              </div>
+              <div class="category-item">
+                <span class="category-colour other-colour"></span
+                ><span>Other</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CALENDAR CARD -->
+          <div class="calendar-card">
+            <div class="calendar-header">
+              <button id="prev-month" class="calendar-nav">‹</button>
+              <div class="calendar-month-year">
+                <h2 id="calendar-month">November</h2>
+                <p id="calendar-year">2026</p>
+              </div>
+              <button id="next-month" class="calendar-nav">›</button>
+            </div>
+
+            <div class="calendar-weekdays">
+              <span>Mon</span><span>Tue</span><span>Wed</span> <span>Thu</span
+              ><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+
+            <div id="calendar-days" class="calendar-days"></div>
+
+            <div class="calendar-legend">
+              <span class="today-dot"></span><small>Today</small>
+              <span class="event-dot"></span><small>Has an event</small>
+            </div>
+          </div>
+
+          <!-- SELECTED DATE -->
+          <div class="selected-date-section">
+            <div class="selected-date-header">
+              <div>
+                <p class="eyebrow">YOUR DAY</p>
+                <h2 id="selected-date-heading">Selected Date ♡</h2>
+              </div>
+            </div>
+
+            <div id="selected-date-events" class="selected-date-events">
+              <div class="selected-date-empty">
+                <span>✧</span>
+                <p>Select a date to see your plans.</p>
+                <small>Your daily schedule will appear here ♡</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- MONTHLY EVENTS -->
+          <div class="calendar-events">
+            <div class="calendar-events-header">
+              <div>
+                <p class="eyebrow">YOUR SCHEDULE</p>
+                <h2 id="monthly-events-title">This Month's Events</h2>
+                <p class="monthly-events-subtitle">
+                  Everything you have planned ♡
+                </p>
+              </div>
+              <button id="add-event-btn" class="add-event-btn">
+                + Add Event
+              </button>
+            </div>
+
+            <div id="calendar-event-list" class="calendar-event-list">
+              <div class="calendar-empty">
+                <span>✧</span>
+                <p>No events planned for this month yet.</p>
+                <small>Your upcoming plans will appear here ♡</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADD EVENT FORM -->
+          <div id="event-form" class="event-form" hidden>
+            <div class="event-form-card">
+              <div class="event-form-header">
+                <h2>New Event ♡</h2>
+                <button id="close-event-form" type="button">×</button>
+              </div>
+
+              <label for="event-title">Event name</label>
+              <input
+                type="text"
+                id="event-title"
+                placeholder="e.g. Physics assignment"
+              />
+
+              <label for="event-date">Date</label>
+              <input type="date" id="event-date" />
+
+              <label for="event-category">Category</label>
+              <select id="event-category">
+                <option value="College">College</option>
+                <option value="Study">Study</option>
+                <option value="Exam">Exam</option>
+                <option value="Personal">Personal</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <button id="save-event-btn" class="save-event-btn" type="button">
+                Save Event
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTENDANCE PAGE -->
+        <section class="page" id="attendance">
+          <div class="page-heading">
+            <p class="eyebrow">YOUR COLLEGE ROUTINE</p>
+            <h1>Attendance ♡</h1>
+            <p>Your timetable, classes and attendance in one place.</p>
+          </div>
+
+          <!-- WEEKLY TIMETABLE -->
+          <div class="attendance-timetable">
+            <div class="attendance-section-header">
+              <div>
+                <p class="eyebrow">YOUR SCHEDULE</p>
+                <h2>Weekly Timetable</h2>
+              </div>
+              <button id="add-class-btn" class="add-event-btn">
+                + Add Class
+              </button>
+            </div>
+
+            <div class="timetable-week-header">
+              <button id="prev-week" class="calendar-nav">‹</button>
+              <h3 id="timetable-week-label">This Week</h3>
+              <button id="next-week" class="calendar-nav">›</button>
+            </div>
+
+            <div id="timetable-day-picker" class="timetable-day-picker">
+              <button class="timetable-day active" data-day="Monday">
+                <span>MON</span><strong>16</strong>
+              </button>
+              <button class="timetable-day" data-day="Tuesday">
+                <span>TUE</span><strong>17</strong>
+              </button>
+              <button class="timetable-day" data-day="Wednesday">
+                <span>WED</span><strong>18</strong>
+              </button>
+              <button class="timetable-day" data-day="Thursday">
+                <span>THU</span><strong>19</strong>
+              </button>
+              <button class="timetable-day" data-day="Friday">
+                <span>FRI</span><strong>20</strong>
+              </button>
+              <button class="timetable-day" data-day="Saturday">
+                <span>SAT</span><strong>21</strong>
+              </button>
+              <button class="timetable-day" data-day="Sunday">
+                <span>SUN</span><strong>22</strong>
+              </button>
+            </div>
+
+            <div class="timetable-daily-view">
+              <div class="timetable-daily-header">
+                <div>
+                  <p class="eyebrow">YOUR DAY</p>
+                  <h3 id="timetable-selected-day">Monday</h3>
+                </div>
+              </div>
+
+              <div id="timetable-schedule" class="timetable-schedule">
+                <div class="timetable-empty">
+                  <span>✧</span>
+                  <p>Your classes will appear here.</p>
+                  <small>Add your first class to get started ♡</small>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="star-badge" contenteditable="true">
-            <p>STAR <br /> STUDENT</p>
-          </div>
-        </div>
+          <!-- OVERALL ATTENDANCE -->
+          <div class="overall-attendance-section">
+            <p class="eyebrow">YOUR PROGRESS</p>
+            <h2>Overall Attendance</h2>
 
-        <div class="profile-divider"></div>
+            <div class="overall-attendance-card">
+              <div class="overall-attendance-circle">
+                <svg
+                  class="attendance-progress-ring"
+                  viewBox="0 0 200 200"
+                  aria-label="Overall attendance progress"
+                >
+                  <defs>
+                    <linearGradient
+                      id="attendanceGreenGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stop-color="#315C43" />
+                      <stop offset="45%" stop-color="#A8CBAE" />
+                      <stop offset="75%" stop-color="#D5E8D5" />
+                      <stop offset="100%" stop-color="#527E60" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    class="attendance-ring-background"
+                    cx="100"
+                    cy="100"
+                    r="82"
+                  ></circle>
+                  <circle
+                    class="attendance-ring-progress"
+                    id="overall-attendance-ring"
+                    cx="100"
+                    cy="100"
+                    r="82"
+                    style="stroke: url(#attendanceGreenGradient)"
+                  ></circle>
+                </svg>
 
-        <div class="profile-details">
-          <div>
-            <span>NAME</span>
-            <p contenteditable="true">Your Name</p>
-          </div>
-          <div>
-            <span>YEAR LEVEL</span>
-            <p contenteditable="true">Year / Semester</p>
-          </div>
-        </div>
-
-        <div id="profile-stickers" class="profile-stickers"></div>
-
-        <div class="sticker-area">
-          <button id="add-sticker" class="sticker-add">＋ Sticker</button>
-          <input
-            type="text"
-            id="custom-sticker"
-            class="sticker-keyboard"
-            autocomplete="off"
-            aria-label="Type a sticker emoji"
-          />
-        </div>
-      </section>
-
-      <!-- PERSONAL MOTTO -->
-      <section class="motto-card" contenteditable="true">
-        <div class="motto-decoration">✦</div>
-        <p id="personal-motto">Dream big, work hard, stay kind ♡</p>
-        <span class="motto-footer">a little reminder for myself ✧</span>
-      </section>
-
-      <!-- TO-DO -->
-      <section class="todo-section">
-        <div class="section-heading">
-          <h2>To-do list</h2>
-          <select id="task-filter">
-            <option value="all">All tasks</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-          </select>
-        </div>
-
-        <div id="todo-list">
-          <p class="empty-message">Your tasks will appear here ♡</p>
-        </div>
-
-        <div class="add-task-area">
-          <input type="text" id="task-input" placeholder="Add a new task..." />
-          <button id="add-task">+</button>
-        </div>
-      </section>
-    </section>
-
-    <!-- CALENDAR PAGE -->
-    <section class="page" id="calendar">
-      <div class="page-heading">
-        <p class="eyebrow">PLAN YOUR DAYS</p>
-        <h1>Calendar ♡</h1>
-        <p>Keep track of your important dates and events.</p>
-      </div>
-
-      <!-- CATEGORY INDEX -->
-      <div class="category-index">
-        <div class="category-heading">
-          <p class="eyebrow">YOUR CATEGORIES</p>
-          <h3>Calendar Key ♡</h3>
-        </div>
-
-        <div class="category-list">
-          <div class="category-item"><span class="category-colour college-colour"></span><span>College</span></div>
-          <div class="category-item"><span class="category-colour study-colour"></span><span>Study</span></div>
-          <div class="category-item"><span class="category-colour exam-colour"></span><span>Exam</span></div>
-          <div class="category-item"><span class="category-colour personal-colour"></span><span>Personal</span></div>
-          <div class="category-item"><span class="category-colour other-colour"></span><span>Other</span></div>
-        </div>
-      </div>
-
-      <!-- CALENDAR CARD -->
-      <div class="calendar-card">
-        <div class="calendar-header">
-          <button id="prev-month" class="calendar-nav">‹</button>
-          <div class="calendar-month-year">
-            <h2 id="calendar-month">November</h2>
-            <p id="calendar-year">2026</p>
-          </div>
-          <button id="next-month" class="calendar-nav">›</button>
-        </div>
-
-        <div class="calendar-weekdays">
-          <span>Mon</span><span>Tue</span><span>Wed</span>
-          <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-        </div>
-
-        <div id="calendar-days" class="calendar-days"></div>
-
-        <div class="calendar-legend">
-          <span class="today-dot"></span><small>Today</small>
-          <span class="event-dot"></span><small>Has an event</small>
-        </div>
-      </div>
-
-      <!-- SELECTED DATE -->
-      <div class="selected-date-section">
-        <div class="selected-date-header">
-          <div>
-            <p class="eyebrow">YOUR DAY</p>
-            <h2 id="selected-date-heading">Selected Date ♡</h2>
-          </div>
-        </div>
-
-        <div id="selected-date-events" class="selected-date-events">
-          <div class="selected-date-empty">
-            <span>✧</span>
-            <p>Select a date to see your plans.</p>
-            <small>Your daily schedule will appear here ♡</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- MONTHLY EVENTS -->
-      <div class="calendar-events">
-        <div class="calendar-events-header">
-          <div>
-            <p class="eyebrow">YOUR SCHEDULE</p>
-            <h2 id="monthly-events-title">This Month's Events</h2>
-            <p class="monthly-events-subtitle">Everything you have planned ♡</p>
-          </div>
-          <button id="add-event-btn" class="add-event-btn">+ Add Event</button>
-        </div>
-
-        <div id="calendar-event-list" class="calendar-event-list">
-          <div class="calendar-empty">
-            <span>✧</span>
-            <p>No events planned for this month yet.</p>
-            <small>Your upcoming plans will appear here ♡</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADD EVENT FORM -->
-      <div id="event-form" class="event-form" hidden>
-        <div class="event-form-card">
-          <div class="event-form-header">
-            <h2>New Event ♡</h2>
-            <button id="close-event-form" type="button">×</button>
+                <div class="overall-attendance-value">
+                  <strong id="overall-attendance-percentage">0%</strong>
+                  <span>Overall</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <label for="event-title">Event name</label>
-          <input type="text" id="event-title" placeholder="e.g. Physics assignment" />
+          <!-- SUBJECT-WISE ATTENDANCE -->
+          <div class="subject-attendance-section">
+            <p class="eyebrow">SUBJECT BREAKDOWN</p>
+            <h2>Subject-wise Attendance</h2>
 
-          <label for="event-date">Date</label>
-          <input type="date" id="event-date" />
-
-          <label for="event-category">Category</label>
-          <select id="event-category">
-            <option value="College">College</option>
-            <option value="Study">Study</option>
-            <option value="Exam">Exam</option>
-            <option value="Personal">Personal</option>
-            <option value="Other">Other</option>
-          </select>
-
-          <button id="save-event-btn" class="save-event-btn" type="button">Save Event</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ATTENDANCE PAGE -->
-    <section class="page" id="attendance">
-
-      <div class="page-heading">
-        <p class="eyebrow">YOUR COLLEGE ROUTINE</p>
-        <h1>Attendance ♡</h1>
-        <p>Your timetable, classes and attendance in one place.</p>
-      </div>
-
-      <!-- WEEKLY TIMETABLE -->
-      <div class="attendance-timetable">
-        <div class="attendance-section-header">
-          <div>
-            <p class="eyebrow">YOUR SCHEDULE</p>
-            <h2>Weekly Timetable</h2>
+            <div id="subject-attendance-list">
+              <p class="empty-message">
+                Your attendance percentages will appear here ♡
+              </p>
+            </div>
           </div>
-          <button id="add-class-btn" class="add-event-btn">+ Add Class</button>
-        </div>
 
-        <div class="timetable-week-header">
-          <button id="prev-week" class="calendar-nav">‹</button>
-          <h3 id="timetable-week-label">This Week</h3>
-          <button id="next-week" class="calendar-nav">›</button>
-        </div>
+          <!-- MONTHLY ATTENDANCE CALENDAR -->
+          <div class="attendance-calendar-section">
+            <p class="eyebrow">YOUR MONTH</p>
+            <h2>Attendance Calendar</h2>
 
-        <div id="timetable-day-picker" class="timetable-day-picker">
-          <button class="timetable-day active" data-day="Monday"><span>MON</span><strong>16</strong></button>
-          <button class="timetable-day" data-day="Tuesday"><span>TUE</span><strong>17</strong></button>
-          <button class="timetable-day" data-day="Wednesday"><span>WED</span><strong>18</strong></button>
-          <button class="timetable-day" data-day="Thursday"><span>THU</span><strong>19</strong></button>
-          <button class="timetable-day" data-day="Friday"><span>FRI</span><strong>20</strong></button>
-          <button class="timetable-day" data-day="Saturday"><span>SAT</span><strong>21</strong></button>
-          <button class="timetable-day" data-day="Sunday"><span>SUN</span><strong>22</strong></button>
-        </div>
+            <div id="attendance-calendar">
+              <!-- Calendar generated by JavaScript -->
+            </div>
+          </div>
 
-        <div class="timetable-daily-view">
-          <div class="timetable-daily-header">
+          <!-- ADD / EDIT CLASS FORM -->
+          <div id="class-form" class="event-form" hidden>
+            <div class="event-form-card">
+              <div class="event-form-header">
+                <h2 id="class-form-title">New Class ♡</h2>
+                <button id="close-class-form" type="button">×</button>
+              </div>
+
+              <label for="class-subject">Subject name</label>
+              <input
+                type="text"
+                id="class-subject"
+                placeholder="e.g. Mathematics"
+              />
+
+              <label for="class-day">Day</label>
+              <select id="class-day">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+              </select>
+
+              <label for="class-start">Start time</label>
+              <input type="time" id="class-start" required />
+
+              <label for="class-end">End time</label>
+              <input type="time" id="class-end" required />
+
+              <label for="class-room">Classroom</label>
+              <input type="text" id="class-room" placeholder="e.g. Room 204" />
+
+              <button id="save-class-btn" class="save-event-btn" type="button">
+                Save Class
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ASSIGNMENT TRACKER PAGE -->
+        <section class="page assignment-tracker-page" id="assignments">
+          <div class="assignment-heading">
             <div>
-              <p class="eyebrow">YOUR DAY</p>
-              <h3 id="timetable-selected-day">Monday</h3>
+              <p class="eyebrow">YOUR ACADEMIC SPACE</p>
+              <h1>Assignments</h1>
+              <p>Stay organised. Stay ahead.</p>
+            </div>
+            <span class="assignment-heading-icon">▤</span>
+          </div>
+
+          <!-- ASSIGNMENT OVERVIEW -->
+          <div class="assignment-overview">
+            <div class="assignment-stat">
+              <strong id="assignment-total">0</strong>
+              <span>Total</span>
+            </div>
+
+            <div class="assignment-stat">
+              <strong id="assignment-pending">0</strong>
+              <span>Pending</span>
+            </div>
+
+            <div class="assignment-stat">
+              <strong id="assignment-completed">0</strong>
+              <span>Completed</span>
             </div>
           </div>
 
-          <div id="timetable-schedule" class="timetable-schedule">
-            <div class="timetable-empty">
-              <span>✧</span>
-              <p>Your classes will appear here.</p>
-              <small>Add your first class to get started ♡</small>
+          <!-- OVERALL PROGRESS -->
+          <div class="assignment-progress-section">
+            <div class="assignment-progress-heading">
+              <h3>Overall Progress</h3>
+              <strong id="assignment-progress-text">0%</strong>
+            </div>
+
+            <div class="assignment-progress-track">
+              <div id="assignment-progress-fill"></div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- OVERALL ATTENDANCE -->
-      <div class="overall-attendance-section">
-        <p class="eyebrow">YOUR PROGRESS</p>
-        <h2>Overall Attendance</h2>
+          <!-- YOUR ASSIGNMENTS -->
+          <div class="assignment-list-section">
+            <div class="assignment-section-heading">
+              <h2>Your Assignments</h2>
 
-        <div class="overall-attendance-card">
-          <div class="overall-attendance-circle">
-            <svg class="attendance-progress-ring" viewBox="0 0 200 200" aria-label="Overall attendance progress">
-              <defs>
-  <linearGradient id="attendanceGreenGradient"
-                  x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#315C43"/>
-    <stop offset="45%" stop-color="#A8CBAE"/>
-    <stop offset="75%" stop-color="#D5E8D5"/>
-    <stop offset="100%" stop-color="#527E60"/>
-  </linearGradient>
-</defs>
-              <circle class="attendance-ring-background" cx="100" cy="100" r="82"></circle>
-              <circle
-  class="attendance-ring-progress"
-  id="overall-attendance-ring"
-  cx="100"
-  cy="100"
-  r="82"
-  style="stroke: url(#attendanceGreenGradient);"
-></circle>
-            </svg>
+              <button id="add-assignment-btn" class="assignment-add-btn">
+                + Add
+              </button>
+            </div>
 
-            <div class="overall-attendance-value">
-              <strong id="overall-attendance-percentage">0%</strong>
-              <span>Overall</span>
+            <div id="assignment-list">
+              <div class="assignment-empty">
+                <span>✧</span>
+                <p>No assignments added yet.</p>
+                <small>Click Add to create your first assignment ♡</small>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- SUBJECT-WISE ATTENDANCE -->
-      <div class="subject-attendance-section">
-        <p class="eyebrow">SUBJECT BREAKDOWN</p>
-        <h2>Subject-wise Attendance</h2>
+          <!-- YOUR FILES -->
+          <div class="assignment-files-section">
+            <div class="assignment-section-heading">
+              <div>
+                <p class="eyebrow">ORGANISE YOUR WORK</p>
+                <h2>Your Files</h2>
+              </div>
 
-        <div id="subject-attendance-list">
-          <p class="empty-message">Your attendance percentages will appear here ♡</p>
-        </div>
-      </div>
+              <button id="add-folder-btn" class="assignment-folder-add">
+                + Folder
+              </button>
+            </div>
 
-      <!-- MONTHLY ATTENDANCE CALENDAR -->
-      <div class="attendance-calendar-section">
-        <p class="eyebrow">YOUR MONTH</p>
-        <h2>Attendance Calendar</h2>
-
-        <div id="attendance-calendar">
-          <!-- Calendar generated by JavaScript -->
-        </div>
-      </div>
-
-      <!-- ADD / EDIT CLASS FORM -->
-      <div id="class-form" class="event-form" hidden>
-        <div class="event-form-card">
-          <div class="event-form-header">
-            <h2 id="class-form-title">New Class ♡</h2>
-            <button id="close-class-form" type="button">×</button>
+            <div
+              id="assignment-folder-list"
+              class="assignment-folder-grid"
+            ></div>
           </div>
 
-          <label for="class-subject">Subject name</label>
-          <input type="text" id="class-subject" placeholder="e.g. Mathematics" />
+          <!-- ADD / EDIT ASSIGNMENT FORM -->
+          <div id="assignment-modal" class="assignment-modal" hidden>
+            <form id="assignment-form" class="assignment-form">
+              <div class="assignment-form-header">
+                <h2 id="assignment-form-heading">New Assignment ♡</h2>
+                <button type="button" id="close-assignment-modal">×</button>
+              </div>
 
-          <label for="class-day">Day</label>
-          <select id="class-day">
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-            <option>Sunday</option>
-          </select>
+              <label for="assignment-title">Assignment title</label>
+              <input
+                type="text"
+                id="assignment-title"
+                placeholder="e.g. Database Practical"
+                required
+              />
 
-          <label for="class-start">Start time</label>
-          <input type="time" id="class-start" required >
+              <label for="assignment-subject">Subject</label>
+              <input
+                type="text"
+                id="assignment-subject"
+                placeholder="e.g. Database Management"
+              />
 
-          <label for="class-end">End time</label>
-          <input type="time" id="class-end" required >
+              <label for="assignment-due-date">Due date</label>
+              <input type="date" id="assignment-due-date" />
 
-          <label for="class-room">Classroom</label>
-          <input type="text" id="class-room" placeholder="e.g. Room 204" />
+              <label for="assignment-folder-select">Folder</label>
+              <select id="assignment-folder-select">
+                <option value="">No folder</option>
+              </select>
 
-          <button id="save-class-btn" class="save-event-btn" type="button">Save Class</button>
-        </div>
-      </div>
+              <label for="assignment-description">Description</label>
+              <textarea
+                id="assignment-description"
+                placeholder="Add assignment details..."
+                rows="3"
+              ></textarea>
 
-    </section>
+              <button type="submit" class="assignment-save-btn">
+                Save Assignment
+              </button>
+            </form>
+          </div>
+        </section>
 
-    <!-- NOTES PAGE -->
-    <section class="page" id="notes">
-      <div class="page-heading">
-        <p class="eyebrow">YOUR IDEAS</p>
-        <h1>My Notes ✎</h1>
-        <p>A little space for all your notes.</p>
-      </div>
+        <!-- NOTES PAGE -->
+        <section class="page notes-page" id="notes">
+          <!-- NOTES HOME VIEW -->
+          <div id="notes-home-view">
+            <div class="page-heading notes-heading">
+              <div>
+                <p class="eyebrow">YOUR PERSONAL SPACE</p>
+                <h1>My Notes ♡</h1>
+                <p>Keep your thoughts and studies organised.</p>
+              </div>
+            </div>
 
-      <div class="placeholder-card">
-        <span>✎</span>
-        <h2>Your notes collection</h2>
-        <p>We'll build a notes editor here.</p>
-      </div>
-    </section>
+            <!-- SEARCH -->
+            <div class="notes-search">
+              <span>⌕</span>
+              <input
+                type="search"
+                id="notes-search-input"
+                placeholder="Search your notes..."
+                autocomplete="off"
+              />
+            </div>
 
-    <!-- EXAMS PAGE -->
-    <section class="page" id="exams">
-      <div class="page-heading">
-        <p class="eyebrow">STAY PREPARED</p>
-        <h1>Exams ☆</h1>
-        <p>Keep your examination schedule organised.</p>
-      </div>
+            <!-- NOTEBOOKS -->
+            <div class="notes-notebooks-section" id="notes-notebooks-section">
+              <div class="notes-section-heading" id="notes-recent-heading">
+                <div>
+                  <p class="eyebrow">YOUR WRITING SPACE</p>
+                  <h2>Your Notebooks</h2>
+                </div>
 
-      <div class="placeholder-card">
-        <span>☆</span>
-        <h2>Your exam planner</h2>
-        <p>We'll add exam dates and countdowns here.</p>
-      </div>
-    </section>
+                <button
+                  type="button"
+                  id="add-notebook-btn"
+                  class="notes-small-button"
+                >
+                  + Notebook
+                </button>
+              </div>
 
-    <!-- SETTINGS PAGE -->
-    <section class="page" id="settings">
-      <div class="page-heading">
-        <h1>Settings ♡</h1>
-        <p>Make Kumi feel like yours.</p>
-      </div>
+              <div id="notes-notebook-slider" class="notes-notebook-slider">
+                <!-- Notebook cards are created by JavaScript -->
+              </div>
 
-      <div class="settings-card">
-        <h2>Choose your theme</h2>
-        <p>Pick a colour for your Kumi workspace.</p>
+              <p class="notes-slider-hint">
+                Scroll sideways to explore your notebooks →
+              </p>
+            </div>
 
-        <div class="theme-options">
-          <button class="theme-option" data-theme="lavender"><span class="theme-circle lavender"></span>Lavender</button>
-          <button class="theme-option" data-theme="pink"><span class="theme-circle pink"></span>Pink</button>
-          <button class="theme-option" data-theme="blue"><span class="theme-circle blue"></span>Blue</button>
-          <button class="theme-option" data-theme="green"><span class="theme-circle green"></span>Green</button>
-          <button class="theme-option" data-theme="peach"><span class="theme-circle peach"></span>Peach</button>
-          <button class="theme-option" data-theme="dark"><span class="theme-circle dark"></span>Dark</button>
-        </div>
-      </div>
-    </section>
+            <!-- RECENT NOTES -->
+            <div class="notes-recent-section">
+              <div class="notes-section-heading">
+                <div>
+                  <p class="eyebrow">YOUR WRITING SPACE</p>
+                  <h2>Recent Notes</h2>
+                </div>
 
-  </main>
-</div>
+                <button
+                  type="button"
+                  id="create-note-btn"
+                  class="notes-small-button"
+                >
+                  + Create Note
+                </button>
+              </div>
 
-<script src="script.js"></script>
-<script src="attendance-calendar.js"></script>
-</body>
+              <div id="notes-recent-list" class="notes-list">
+                <!-- Recent notes are created by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- OPEN NOTEBOOK VIEW -->
+          <div id="notes-notebook-view" hidden>
+            <div class="notes-detail-heading">
+              <p class="eyebrow">YOUR NOTEBOOK</p>
+              <h1 id="opened-notebook-title">College</h1>
+              <p id="opened-notebook-count">0 notes</p>
+            </div>
+
+            <div class="notes-section-heading">
+              <h2>All Notes</h2>
+              <button
+                type="button"
+                id="create-notebook-note-btn"
+                class="notes-small-button"
+              >
+                + Create Note
+              </button>
+            </div>
+
+            <div id="opened-notebook-list" class="notes-list">
+              <!-- Notebook notes are created by JavaScript -->
+            </div>
+          </div>
+
+          <!-- NOTE EDITOR -->
+          <div id="notes-editor-modal" class="notes-modal" hidden>
+            <div class="notes-editor-card">
+              <div class="notes-editor-header">
+                <div>
+                  <p class="eyebrow">YOUR WRITING SPACE</p>
+                  <h2 id="notes-editor-heading">New Note ♡</h2>
+                </div>
+
+                <button
+                  type="button"
+                  id="close-notes-editor"
+                  class="notes-close-button"
+                >
+                  ×
+                </button>
+              </div>
+
+              <label for="note-title-input">Note title</label>
+              <input
+                type="text"
+                id="note-title-input"
+                placeholder="Give your note a title..."
+                maxlength="100"
+              />
+
+              <label for="note-notebook-select">Notebook</label>
+              <select id="note-notebook-select"></select>
+
+              <label for="note-content-input">Your note</label>
+              <textarea
+                id="note-content-input"
+                placeholder="Start writing here..."
+                rows="12"
+              ></textarea>
+
+              <div class="notes-editor-footer">
+                <span id="notes-save-status"
+                  >Changes are saved automatically.</span
+                >
+                <button
+                  type="button"
+                  id="save-notes-btn"
+                  class="notes-save-button"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOTEBOOK EDITOR -->
+          <div id="notebook-modal" class="notes-modal" hidden>
+            <form id="notebook-form" class="notes-editor-card">
+              <div class="notes-editor-header">
+                <div>
+                  <p class="eyebrow">YOUR COLLECTION</p>
+                  <h2 id="notebook-form-heading">New Notebook</h2>
+                </div>
+
+                <button
+                  type="button"
+                  id="close-notebook-modal"
+                  class="notes-close-button"
+                >
+                  ×
+                </button>
+              </div>
+
+              <label for="notebook-name-input">Notebook name</label>
+              <input
+                type="text"
+                id="notebook-name-input"
+                placeholder="e.g. Projects"
+                maxlength="40"
+                required
+              />
+
+              <button type="submit" class="notes-save-button">
+                Save Notebook
+              </button>
+            </form>
+          </div>
+
+          <!-- NOTEBOOK MENU -->
+          <div id="notebook-menu" class="notes-context-menu" hidden>
+            <button type="button" id="edit-notebook-menu-btn">
+              ✎ Edit Notebook
+            </button>
+            <button type="button" id="delete-notebook-menu-btn">
+              ⌫ Delete Notebook
+            </button>
+          </div>
+        </section>
+
+        <!-- EXAMS PAGE -->
+        <section class="page" id="exams">
+          <div class="page-heading">
+            <p class="eyebrow">STAY PREPARED</p>
+            <h1>Exams ☆</h1>
+            <p>Keep your examination schedule organised.</p>
+          </div>
+
+          <div class="placeholder-card">
+            <span>☆</span>
+            <h2>Your exam planner</h2>
+            <p>We'll add exam dates and countdowns here.</p>
+          </div>
+        </section>
+
+        <!-- SETTINGS PAGE -->
+        <section class="page" id="settings">
+          <!-- SETTINGS HOME -->
+          <div id="settings-home-view">
+            <div class="page-heading">
+              <h1>Settings ♡</h1>
+              <p>Make Kumi feel like yours.</p>
+            </div>
+
+            <div class="settings-menu">
+              <button class="settings-menu-card" id="open-theme-settings">
+                <span class="settings-menu-icon">🎨</span>
+                <span class="settings-menu-info">
+                  <strong>Theme</strong>
+                  <small>Choose your favourite colour palette.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+
+              <button class="settings-menu-card" id="open-appearance-settings">
+                <span class="settings-menu-icon">☀</span>
+                <span class="settings-menu-info">
+                  <strong>Appearance</strong>
+                  <small>Switch between Light and Dark Mode.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+              <button class="settings-menu-card" id="open-reminder-settings">
+                <span class="settings-menu-icon">🔔</span>
+                <span class="settings-menu-info">
+                  <strong>Reminder Preferences</strong>
+                  <small>Manage your reminders.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+              <button class="settings-menu-card" id="open-data-settings">
+                <span class="settings-menu-icon">📂</span>
+                <span class="settings-menu-info">
+                  <strong>Data Management</strong>
+                  <small>Import, export and manage your data.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+              <button class="settings-menu-card" id="open-font-settings">
+                <span class="settings-menu-icon">🔤</span>
+                <span class="settings-menu-info">
+                  <strong>Font Settings</strong>
+                  <small>Choose your favourite font style.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+              <button class="settings-menu-card" id="open-about-settings">
+                <span class="settings-menu-icon">♡</span>
+                <span class="settings-menu-info">
+                  <strong>About Kumi</strong>
+                  <small>Learn more about Kumi.</small>
+                </span>
+                <span class="settings-menu-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- THEME SELECTION VIEW -->
+          <div id="settings-theme-view" hidden>
+            <div class="page-heading">
+              <h1>Choose your theme</h1>
+              <p>Pick a palette for your Kumi workspace.</p>
+            </div>
+
+            <div class="theme-options">
+              <button class="theme-option" data-theme="strawberry-matcha">
+                <span class="theme-name">Strawberry Matcha</span>
+                <span class="theme-colours">
+                  <i style="background: #4a6644"></i>
+                  <i style="background: #c66f80"></i>
+                  <i style="background: #fcebf1"></i>
+                  <i style="background: #9faa74"></i>
+                  <i style="background: #f4c7d0"></i>
+                  <i style="background: #d7dab3"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="sweet-raspberry">
+                <span class="theme-name">Sweet Raspberry</span>
+                <span class="theme-colours">
+                  <i style="background: #823c44"></i>
+                  <i style="background: #eaa6ae"></i>
+                  <i style="background: #b04859"></i>
+                  <i style="background: #d8798a"></i>
+                  <i style="background: #f5d5d9"></i>
+                  <i style="background: #fbeff1"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="morning-coffee">
+                <span class="theme-name">Morning Coffee</span>
+                <span class="theme-colours">
+                  <i style="background: #a49a98"></i>
+                  <i style="background: #9d8a7c"></i>
+                  <i style="background: #796254"></i>
+                  <i style="background: #523f31"></i>
+                  <i style="background: #dcc8b0"></i>
+                  <i style="background: #8b725d"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="lavender-skies">
+                <span class="theme-name">Lavender Skies</span>
+                <span class="theme-colours">
+                  <i style="background: #5b506c"></i>
+                  <i style="background: #b1a4c3"></i>
+                  <i style="background: #d0bfdd"></i>
+                  <i style="background: #e6ddf0"></i>
+                  <i style="background: #e2d3f2"></i>
+                  <i style="background: #c9beda"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="sylva-green">
+                <span class="theme-name">Sylva Green</span>
+                <span class="theme-colours">
+                  <i style="background: #455826"></i>
+                  <i style="background: #6b7f3a"></i>
+                  <i style="background: #92aa58"></i>
+                  <i style="background: #b6c77b"></i>
+                  <i style="background: #f3f5e3"></i>
+                  <i style="background: #dde3ba"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="ocean-blues">
+                <span class="theme-name">Ocean Blues</span>
+                <span class="theme-colours">
+                  <i style="background: #b3d2e3"></i>
+                  <i style="background: #c4d6d4"></i>
+                  <i style="background: #e2ecfb"></i>
+                  <i style="background: #b0d2d2"></i>
+                  <i style="background: #a8d1f0"></i>
+                  <i style="background: #c2d0e9"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="midnight-tides">
+                <span class="theme-name">Midnight Tides</span>
+                <span class="theme-colours">
+                  <i style="background: #263042"></i>
+                  <i style="background: #354e6b"></i>
+                  <i style="background: #acbfd4"></i>
+                  <i style="background: #889bb0"></i>
+                  <i style="background: #15253f"></i>
+                  <i style="background: #566c86"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="warm-autumn">
+                <span class="theme-name">Warm Autumn</span>
+                <span class="theme-colours">
+                  <i style="background: #9A5937"></i>
+                  <i style="background: #958C71"></i>
+                  <i style="background: #956361"></i>
+                  <i style="background: #7B0E02"></i>
+                  <i style="background: #F0CCAC"></i>
+                  <i style="background: #F4E2D4"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="woodland-kiss">
+                <span class="theme-name">Woodland Kiss</span>
+                <span class="theme-colours">
+                  <i style="background: #e2b8ad"></i>
+                  <i style="background: #87564b"></i>
+                  <i style="background: #6d322a"></i>
+                  <i style="background: #d2bdab"></i>
+                  <i style="background: #cfa195"></i>
+                  <i style="background: #a59383"></i>
+                  <i style="background: #c6b8ab"></i>
+                </span>
+              </button>
+
+              <button class="theme-option" data-theme="dusty-rose">
+                <span class="theme-name">Dusty Rose</span>
+                <span class="theme-colours">
+                  <i style="background: #574144"></i>
+                  <i style="background: #f9f1e8"></i>
+                  <i style="background: #bf7e81"></i>
+                  <i style="background: #b79ea1"></i>
+                  <i style="background: #ffe4e1"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- APPEARANCE VIEW -->
+          <div id="settings-appearance-view" hidden>
+            <div class="page-heading">
+              <h1>Appearance</h1>
+              <p>Choose how Kumi looks on your device.</p>
+            </div>
+
+            <div class="display-mode-options">
+              <button class="display-mode-option" data-mode="light">
+                <span class="mode-icon">☀</span>
+                <strong>Light Mode</strong>
+                <small>Bright and comfortable.</small>
+              </button>
+
+              <button class="display-mode-option" data-mode="dark">
+                <span class="mode-icon">☾</span>
+                <strong>Dark Mode</strong>
+                <small>Pure black background.</small>
+              </button>
+            </div>
+          </div>
+          <!-- REMINDER PREFERENCES VIEW -->
+          <div id="settings-reminder-view" hidden>
+            <div class="page-heading">
+              <h1>Reminder Preferences ♡</h1>
+              <p>Choose which reminders you want.</p>
+            </div>
+
+            <div class="reminder-options">
+              <div class="reminder-option">
+                <div>
+                  <strong>All Reminders</strong>
+                  <small>Turn all reminders on or off.</small>
+                </div>
+                <input type="checkbox" id="all-reminders" checked />
+              </div>
+
+              <div class="reminder-option">
+                <div>
+                  <strong>Assignment Reminders</strong>
+                  <small>Remember your assignment deadlines.</small>
+                </div>
+                <input
+                  type="checkbox"
+                  class="reminder-toggle"
+                  id="assignment-reminders"
+                  checked
+                />
+              </div>
+
+              <div class="reminder-option">
+                <div>
+                  <strong>Calendar Reminders</strong>
+                  <small>Remember important events and classes.</small>
+                </div>
+                <input
+                  type="checkbox"
+                  class="reminder-toggle"
+                  id="calendar-reminders"
+                  checked
+                />
+              </div>
+
+              <div class="reminder-option">
+                <div>
+                  <strong>Attendance Reminders</strong>
+                  <small>Keep track of your attendance.</small>
+                </div>
+                <input
+                  type="checkbox"
+                  class="reminder-toggle"
+                  id="attendance-reminders"
+                  checked
+                />
+              </div>
+            </div>
+          </div>
+          <!-- DATA MANAGEMENT VIEW -->
+
+          <div id="settings-data-view" hidden>
+            <div class="page-heading">
+              <h1>Data Management ♡</h1>
+              <p>Manage your Kumi information.</p>
+            </div>
+
+            <div class="data-options">
+              <div class="data-option">
+                <div>
+                  <strong>Import Notes</strong>
+                  <small>Import notes from another Notes app.</small>
+                </div>
+                <button id="import-notes-button">Import</button>
+              </div>
+
+              <div class="data-option">
+                <div>
+                  <strong>Export Notes</strong>
+                  <small>Save your Kumi notes as a file.</small>
+                </div>
+                <button id="export-notes-button">Export</button>
+              </div>
+
+              <div class="data-option">
+                <div>
+                  <strong>Backup Data</strong>
+                  <small>Create a backup of your Kumi data.</small>
+                </div>
+                <button id="backup-data-button">Backup</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- EXPORT POPUP -->
+
+          <div id="export-options" hidden>
+            <div class="export-popup">
+              <h3>Export Notes ♡</h3>
+
+              <p>Your notes are ready! Where would you like to save them?</p>
+
+              <button id="share-notes-button">♡ Share Notes</button>
+
+              <button id="google-drive-button">Google Drive</button>
+
+              <button id="close-export-popup">CANCEL</button>
+            </div>
+          </div>
+
+          <!-- FONT SETTINGS VIEW -->
+
+          <div id="settings-font-view" hidden>
+            <div class="page-heading">
+              <h1>Font Settings ♡</h1>
+              <p>Choose a font style for your Kumi workspace.</p>
+            </div>
+
+            <div class="font-options">
+              <button class="font-option selected" data-font="default">
+                <strong>Default</strong>
+                <span style="font-family: Arial, sans-serif">
+                  The quick brown fox jumps over the lazy dog.
+                </span>
+              </button>
+
+              <button class="font-option" data-font="serif">
+                <strong>Classic</strong>
+                <span style="font-family: Georgia, serif">
+                  The quick brown fox jumps over the lazy dog.
+                </span>
+              </button>
+
+              <button class="font-option" data-font="rounded">
+                <strong>Rounded</strong>
+                <span
+                  style="
+                    font-family:
+                      Trebuchet MS,
+                      sans-serif;
+                  "
+                >
+                  The quick brown fox jumps over the lazy dog.
+                </span>
+              </button>
+
+              <button class="font-option" data-font="mono">
+                <strong>Monospace</strong>
+                <span style="font-family: monospace">
+                  The quick brown fox jumps over the lazy dog.
+                </span>
+              </button>
+
+              <button class="font-option" data-font="camellia">
+                <strong>Camellia</strong>
+                <span style="font-family: Camellia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="tulip">
+                <strong>Tulip</strong>
+                <span style="font-family: Tulip"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="wisteria">
+                <strong>Wisteria</strong>
+                <span style="font-family: Wisteria"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="lotus">
+                <strong>Lotus</strong>
+                <span style="font-family: Lotus"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="rosemary">
+                <strong>Rosemary</strong>
+                <span style="font-family: Rosemary"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="petunia">
+                <strong>Petunia</strong>
+                <span style="font-family: Petunia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="alpinia">
+                <strong>Alpinia</strong>
+                <span style="font-family: Alpinia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="orchid">
+                <strong>Orchid</strong>
+                <span style="font-family: Orchid"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="freesia">
+                <strong>Freesia</strong>
+                <span style="font-family: Freesia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="verbena">
+                <strong>Verbena</strong>
+                <span style="font-family: Verbena"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="lavender">
+                <strong>Lavender</strong>
+                <span style="font-family: Lavender"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="daisy">
+                <strong>Daisy</strong>
+                <span style="font-family: Daisy"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="oxalis">
+                <strong>Oxalis</strong>
+                <span style="font-family: Oxalis"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="forsythia">
+                <strong>Forsythia</strong>
+                <span style="font-family: Forsythia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="marigold">
+                <strong>Marigold</strong>
+                <span style="font-family: Marigold"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="gardenia">
+                <strong>Gardenia</strong>
+                <span style="font-family: Gardenia"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="pansy">
+                <strong>Pansy</strong>
+                <span style="font-family: Pansy"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="daffodil">
+                <strong>Daffodil</strong>
+                <span style="font-family: Daffodil"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="peony">
+                <strong>Peony</strong>
+                <span style="font-family: Peony"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="sunflower">
+                <strong>Sunflower</strong>
+                <span style="font-family: Sunflower"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+
+              <button class="font-option" data-font="amaryllis">
+                <strong>Amaryllis</strong>
+                <span style="font-family: Amaryllis"
+                  >The quick brown fox jumps over the lazy dog.</span
+                >
+              </button>
+            </div>
+          </div>
+          <!-- ABOUT KUMI VIEW -->
+
+          <div id="settings-about-view" hidden>
+            <div class="page-heading">
+              <h1>About Kumi ♡</h1>
+              <p>A little space made for your college life.</p>
+            </div>
+
+            <div class="about-kumi-card">
+              <div class="about-kumi-logo">♡</div>
+
+              <h2>Kumi</h2>
+              <p>Your College Companion</p>
+
+              <div class="about-divider"></div>
+
+              <div class="about-info">
+                <strong>About the App</strong>
+                <p>
+                  Kumi helps you organise your college life with calendars,
+                  attendance, assignments and personal notes.
+                </p>
+              </div>
+
+              <div class="about-info">
+                <strong>Version</strong>
+                <p>Version 1.0</p>
+              </div>
+
+              <div class="about-info">
+                <strong>Made with</strong>
+                <p>♡ Love and creativity</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="attendance-calendar.js"></script>
+    <script src="assignment-tracker.js"></script>
+    <script src="notes.js"></script>
+    <script src="settings.js" defer></script>
+  </body>
 </html>
