@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.6.2",
+    "@capacitor/core": "^8.6.2"
+  },
+  "name": "Orbit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "assignment-tracker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinjal-devs/orbit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kinjal-devs/orbit/issues"
+  },
+  "homepage": "https://github.com/kinjal-devs/orbit#readme",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

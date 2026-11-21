@@ -1,6 +1,6 @@
 (() => {
-  const NOTEBOOKS_KEY = "kumiNotebooks";
-  const NOTES_KEY = "kumiNotes";
+  const NOTEBOOKS_KEY = "orbitNotebooks";
+  const NOTES_KEY = "orbitNotes";
 
   const $ = (id) => document.getElementById(id);
 
@@ -270,7 +270,7 @@ $("notes-recent-heading").hidden = Boolean(query);
 function openNotebook(notebookId) {
   if (!activeNotebookId) {
     history.pushState(
-      { ...history.state, kumiNotesNotebook: true },
+      { ...history.state, orbitNotesNotebook: true },
       ""
     );
   }
@@ -284,7 +284,7 @@ function openNotebook(notebookId) {
 }
 
   function closeNotebookView(fromPopState = false) {
-    if (!fromPopState && history.state?.kumiNotesNotebook) {
+    if (!fromPopState && history.state?.orbitNotesNotebook) {
   history.back();
 }
     activeNotebookId = null;

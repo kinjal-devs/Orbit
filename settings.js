@@ -1,6 +1,6 @@
 
 /* =========================================
-   KUMI SETTINGS SYSTEM
+   ORBIT SETTINGS SYSTEM
 ========================================= */
 
 (() => {
@@ -63,10 +63,10 @@
   };
 
   let currentPalette =
-    localStorage.getItem("kumiPalette") || "strawberry-matcha";
+    localStorage.getItem("orbitPalette") || "strawberry-matcha";
 
   let currentMode =
-    localStorage.getItem("kumiDisplayMode") || "light";
+    localStorage.getItem("orbitDisplayMode") || "light";
 
 
   /* FIND LIGHTEST COLOUR IN PALETTE */
@@ -90,7 +90,7 @@
     });
   }
 
-/* KUMI THEME WALLPAPERS */
+/* ORBIT THEME WALLPAPERS */
 
 const wallpaperFiles = {
   "strawberry-matcha": "strawberry.jpeg",
@@ -138,8 +138,8 @@ const wallpaperFiles = {
 
     root.dataset.displayMode = currentMode;
 
-    localStorage.setItem("kumiPalette", currentPalette);
-    localStorage.setItem("kumiDisplayMode", currentMode);
+    localStorage.setItem("orbitPalette", currentPalette);
+    localStorage.setItem("orbitDisplayMode", currentMode);
 
     updateSelectedButtons();
     updateSelectedButtons();
@@ -229,7 +229,7 @@ document.getElementById("open-data-settings")
   });
 
 /* OPEN FONT SETTINGS */
-/* OPEN ABOUT KUMI */
+/* OPEN ABOUT ORBIT */
 
 document.getElementById("open-about-settings")
   .addEventListener("click", () => {
@@ -250,6 +250,8 @@ window.addEventListener("popstate", () => {
     showSettingsView("home");
   }
 });
+
+
 
 /* FONT SELECTION */
 
@@ -282,7 +284,7 @@ const fontStyles = {
   amaryllis: "Amaryllis, sans-serif"
 };
 let currentFont =
-  localStorage.getItem("kumiFont") || "default";
+  localStorage.getItem("orbitFont") || "default";
 
 function applyFont() {
   if (!fontStyles[currentFont]) {
@@ -291,7 +293,7 @@ function applyFont() {
 
   document.body.style.fontFamily = fontStyles[currentFont];
 
-  localStorage.setItem("kumiFont", currentFont);
+  localStorage.setItem("orbitFont", currentFont);
 
   document.querySelectorAll(".font-option").forEach((button) => {
     button.classList.toggle(
@@ -375,17 +377,17 @@ if (exportNotesButton) {
   exportNotesButton.addEventListener("click", () => {
 
     const notebooks = JSON.parse(
-      localStorage.getItem("kumiNotebooks") || "[]"
+      localStorage.getItem("orbitNotebooks") || "[]"
     );
 
     const notes = JSON.parse(
-      localStorage.getItem("kumiNotes") || "[]"
+      localStorage.getItem("orbitNotes") || "[]"
     );
 
     // Download JSON backup
 
     const backup = {
-      app: "Kumi",
+      app: "Orbit",
       type: "notes-export",
       exportedAt: new Date().toISOString(),
       notebooks,
@@ -401,7 +403,7 @@ if (exportNotesButton) {
     const jsonLink = document.createElement("a");
 
     jsonLink.href = jsonUrl;
-    jsonLink.download = "Kumi-Notes-Backup.json";
+    jsonLink.download = "Orbit-Notes-Backup.json";
     jsonLink.click();
 
     setTimeout(() => URL.revokeObjectURL(jsonUrl), 1000);
@@ -409,7 +411,7 @@ if (exportNotesButton) {
 
     // Create readable TXT file
 
-    let textContent = "KUMI NOTES\n\n";
+    let textContent = "ORBIT NOTES\n\n";
 
     notes.forEach((note) => {
       textContent += "TITLE: " + note.title + "\n\n";
@@ -419,7 +421,7 @@ if (exportNotesButton) {
 
     readableNotesFile = new File(
       [textContent],
-      "Kumi-Notes.txt",
+      "Orbit-Notes.txt",
       { type: "text/plain" }
     );
 
@@ -458,14 +460,14 @@ if (shareNotesButton) {
     ) {
       await navigator.share({
         files: [readableNotesFile],
-        title: "My Kumi Notes"
+        title: "My Orbit Notes"
       });
     } else {
       const url = URL.createObjectURL(readableNotesFile);
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = "Kumi-Notes.txt";
+      link.download = "Orbit-Notes.txt";
       link.click();
 
       setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -488,7 +490,7 @@ if (googleDriveButton) {
     ) {
       await navigator.share({
         files: [readableNotesFile],
-        title: "Save Kumi Notes"
+        title: "Save Orbit Notes"
       });
     } else {
       alert("Please use Share Notes to save your TXT file to Google Drive.");

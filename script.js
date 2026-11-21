@@ -1,5 +1,5 @@
 /* =========================================
-   KUMI - APPLICATION
+   ORBIT - APPLICATION
    Complete application JavaScript
 ========================================= */
 
@@ -26,7 +26,7 @@ function saveStorage(key, value) {
     return true;
   } catch (error) {
     console.error(`Could not save ${key}:`, error);
-    alert("Kumi couldn't save this change. Your browser storage may be full.");
+    alert("Orbit couldn't save this change. Your browser storage may be full.");
     return false;
   }
 }
@@ -118,7 +118,7 @@ function openPage(targetPage) {
     .forEach((item) => item.classList.add("active"));
 
   try {
-    localStorage.setItem("kumiLastPage", targetPage);
+    localStorage.setItem("orbitLastPage", targetPage);
   } catch (error) {
     console.warn("Could not save the current page.");
   }
@@ -131,7 +131,7 @@ navItems.forEach((button) => {
 });
 
 // Restore the last opened page after refreshing.
-const savedPage = localStorage.getItem("kumiLastPage");
+const savedPage = localStorage.getItem("orbitLastPage");
 
 const pageToOpen = savedPage && getElement(savedPage) ? savedPage : "home";
 
@@ -144,7 +144,7 @@ openPage(pageToOpen);
 const profileImage = getElement("profile-image");
 const photoUpload = getElement("photo-upload");
 
-const savedPhoto = localStorage.getItem("kumiProfilePhoto");
+const savedPhoto = localStorage.getItem("orbitProfilePhoto");
 
 if (profileImage && savedPhoto) {
   profileImage.src = savedPhoto;
@@ -160,7 +160,7 @@ if (photoUpload) {
 
     reader.onload = function (event) {
       try {
-        localStorage.setItem("kumiProfilePhoto", event.target.result);
+        localStorage.setItem("orbitProfilePhoto", event.target.result);
 
         if (profileImage) {
           profileImage.src = event.target.result;
@@ -183,14 +183,14 @@ const profileFields = document.querySelectorAll(
 );
 
 profileFields.forEach((field, index) => {
-  const savedValue = localStorage.getItem(`kumiProfile_${index}`);
+  const savedValue = localStorage.getItem(`orbitProfile_${index}`);
 
   if (savedValue !== null) {
     field.textContent = savedValue;
   }
 
   field.addEventListener("input", () => {
-    localStorage.setItem(`kumiProfile_${index}`, field.textContent);
+    localStorage.setItem(`orbitProfile_${index}`, field.textContent);
   });
 });
 
@@ -203,7 +203,7 @@ const addTaskButton = getElement("add-task");
 const todoList = getElement("todo-list");
 const taskFilter = getElement("task-filter");
 
-let tasks = loadStorage("kumiTasks", []);
+let tasks = loadStorage("orbitTasks", []);
 
 if (!Array.isArray(tasks)) tasks = [];
 
@@ -215,7 +215,7 @@ tasks = tasks.filter(
 );
 
 function saveTasks() {
-  saveStorage("kumiTasks", tasks);
+  saveStorage("orbitTasks", tasks);
 }
 
 function addTask() {
@@ -497,7 +497,7 @@ renderTasks();
       try {
         const saved = canvas.toDataURL("image/jpeg", 0.88);
 
-        localStorage.setItem("kumiProfilePhoto", saved);
+        localStorage.setItem("orbitProfilePhoto", saved);
         image.src = saved;
 
         editor.hidden = true;
@@ -522,14 +522,14 @@ renderTasks();
 const mottoCard = document.querySelector(".motto-card");
 
 if (mottoCard) {
-  const savedMotto = localStorage.getItem("kumiPersonalMotto");
+  const savedMotto = localStorage.getItem("orbitPersonalMotto");
 
   if (savedMotto) {
     mottoCard.innerHTML = savedMotto;
   }
 
   mottoCard.addEventListener("input", () => {
-    localStorage.setItem("kumiPersonalMotto", mottoCard.innerHTML);
+    localStorage.setItem("orbitPersonalMotto", mottoCard.innerHTML);
   });
 }
 
@@ -544,7 +544,7 @@ if (mottoCard) {
 
   if (!stickerArea || !input || !container) return;
 
-  let stickers = loadStorage("kumiStickers", []);
+  let stickers = loadStorage("orbitStickers", []);
 
   if (!Array.isArray(stickers)) stickers = [];
 
@@ -560,7 +560,7 @@ if (mottoCard) {
 
       item.addEventListener("click", () => {
         stickers.splice(index, 1);
-        saveStorage("kumiStickers", stickers);
+        saveStorage("orbitStickers", stickers);
         renderStickers();
       });
 
@@ -577,7 +577,7 @@ if (mottoCard) {
 
     stickers.push(value);
 
-    if (saveStorage("kumiStickers", stickers)) {
+    if (saveStorage("orbitStickers", stickers)) {
       input.value = "";
       renderStickers();
     } else {
@@ -622,7 +622,7 @@ if (mottoCard) {
   let selectedDate = formatISODate(today);
   let editingEventId = null;
 
-  let events = loadStorage("kumiCalendarEvents", []);
+  let events = loadStorage("orbitCalendarEvents", []);
 
   if (!Array.isArray(events)) events = [];
 
@@ -643,7 +643,7 @@ if (mottoCard) {
   };
 
   function saveEvents() {
-    return saveStorage("kumiCalendarEvents", events);
+    return saveStorage("orbitCalendarEvents", events);
   }
 
   function getDateLabel(dateString) {
@@ -1020,8 +1020,8 @@ if (mottoCard) {
 
   if (!dayPicker || !scheduleContainer || !classForm) return;
 
-  let classes = loadStorage("kumiTimetable", []);
-  let attendanceRecords = loadStorage("kumiAttendanceRecords", []);
+  let classes = loadStorage("orbitTimetable", []);
+  let attendanceRecords = loadStorage("orbitAttendanceRecords", []);
 
   if (!Array.isArray(classes)) classes = [];
   if (!Array.isArray(attendanceRecords)) attendanceRecords = [];
@@ -1107,11 +1107,11 @@ if (mottoCard) {
   /* SAVE DATA */
 
   function saveClasses() {
-    return saveStorage("kumiTimetable", classes);
+    return saveStorage("orbitTimetable", classes);
   }
 
   function saveAttendance() {
-    return saveStorage("kumiAttendanceRecords", attendanceRecords);
+    return saveStorage("orbitAttendanceRecords", attendanceRecords);
   }
 
   /* WEEK LABEL AND DAY PICKER */
@@ -1568,7 +1568,7 @@ function markAttendance(item, status) {
   );
 
   let calendarSelectedDate =
-    localStorage.getItem("kumiSelectedAttendanceDate") ||
+    localStorage.getItem("orbitSelectedAttendanceDate") ||
     formatISODate(new Date());
 
   function renderAttendanceCalendar() {
@@ -1698,10 +1698,10 @@ if (scheduled.length > 0) {
 }
       button.addEventListener("click", () => {
         calendarSelectedDate = key;
-        localStorage.setItem("kumiSelectedAttendanceDate", key);
+        localStorage.setItem("orbitSelectedAttendanceDate", key);
 
         attendanceCalendar.dispatchEvent(
-          new CustomEvent("kumi-date-selected", {
+          new CustomEvent("orbit-date-selected", {
             bubbles: true,
             detail: { date: key },
           }),
@@ -1729,7 +1729,7 @@ if (scheduled.length > 0) {
 
   window.addEventListener("storage", renderAttendanceCalendar);
 
-  attendanceCalendar?.addEventListener("kumi-date-selected", (event) => {
+  attendanceCalendar?.addEventListener("orbit-date-selected", (event) => {
     const dateString = event.detail.date;
     const parts = dateString.split("-").map(Number);
 
@@ -1753,9 +1753,9 @@ if (scheduled.length > 0) {
   renderAll();
 })();
 /* =========================================
-   END KUMI APPLICATION
+   END ORBIT APPLICATION
 ========================================= */
-let greeting = localStorage.getItem("kumiGreeting") || "Hello, Kinjal ♡";
+let greeting = localStorage.getItem("orbitGreeting") || "Hello, Kinjal ♡";
 
 function updateGreeting() {
   document.getElementById("greeting").textContent = greeting;
@@ -1766,7 +1766,7 @@ function editGreeting() {
 
   if (newGreeting && newGreeting.trim()) {
     greeting = newGreeting.trim();
-    localStorage.setItem("kumiGreeting", greeting);
+    localStorage.setItem("orbitGreeting", greeting);
     updateGreeting();
   }
 }

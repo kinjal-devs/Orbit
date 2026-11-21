@@ -1,6 +1,6 @@
 
 /* =========================================
-   KUMI SETTINGS DESIGN
+   ORBIT SETTINGS DESIGN
 ========================================= */
 
 /* HIDDEN SCREENS */
@@ -370,10 +370,10 @@
   transform: scale(0.99);
 }
 /* =========================================
-   ABOUT KUMI
+   ABOUT ORBIT
 ========================================= */
 
-.about-kumi-card {
+.about-orbit-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -387,7 +387,7 @@
   text-align: center;
 }
 
-.about-kumi-logo {
+.about-orbit-logo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -398,12 +398,12 @@
   font-size: 38px;
 }
 
-.about-kumi-card h2 {
+.about-orbit-card h2 {
   margin: 0;
   font-size: 25px;
 }
 
-.about-kumi-card > p {
+.about-orbit-card > p {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
@@ -432,7 +432,7 @@
   line-height: 1.6;
 }
 
-/* KUMI CUTE FONT COLLECTION */
+/* ORBIT CUTE FONT COLLECTION */
 
 @font-face {
   font-family: "Camellia";
@@ -642,7 +642,7 @@
     --muted: #C3B8CE;
     --border: #51445F;
 }
-/* KUMI LOGO THEME COLOUR */
+/* ORBIT LOGO THEME COLOUR */
 
 [data-theme="light"] .logo {
     color: #000000;
@@ -651,7 +651,7 @@
 [data-theme="dark"] .logo {
     color: #FFFFFF;
 }
-/* KUMI LOGO COLOURS */
+/* ORBIT LOGO COLOURS */
 
 [data-display-mode="light"] .logo h2,
 [data-display-mode="light"] .logo h2 span,

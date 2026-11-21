@@ -29,8 +29,8 @@
   }
 
   function renderCalendar() {
-    const classes = getData("kumiTimetable");
-    const records = getData("kumiAttendanceRecords");
+    const classes = getData("orbitTimetable");
+    const records = getData("orbitAttendanceRecords");
 
     calendar.innerHTML = "";
 
@@ -150,10 +150,10 @@
 
       button.addEventListener("click", () => {
         selectedDate = key;
-        localStorage.setItem("kumiSelectedAttendanceDate", key);
+        localStorage.setItem("orbitSelectedAttendanceDate", key);
 
         calendar.dispatchEvent(
-          new CustomEvent("kumi-date-selected", {
+          new CustomEvent("orbit-date-selected", {
             bubbles: true,
             detail: { date: key }
           })

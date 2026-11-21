@@ -1,0 +1,3587 @@
+
+/* =========================================
+   ORBIT COLOUR SYSTEM
+========================================= */
+
+:root {
+  --primary: #4A6644;
+  --secondary: #C66F80;
+
+  --background: #FFFFFF;
+  --text: #FFFFFF;
+  --muted: #938A99;
+  --border: #E9E2EF;
+  --card: #F8F5FC;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+/* APP LAYOUT */
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 235px;
+    min-height: 100vh;
+    padding: 30px 20px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    background: var(--background);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 55px;
+}
+
+.logo h2 {
+    font-family: Georgia, serif;
+    font-size: 29px;
+    font-weight: normal;
+    color:#000000;
+}
+
+.logo h2 span {
+    color: #000000;
+}
+
+.logo-icon {
+    color: var(--primary);
+    font-size: 30px;
+}
+
+.nav-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #000000;
+    margin: 0 0 15px 10px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #000000;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-item span {
+    font-size: 19px;
+    width: 22px;
+    text-align: center;
+    color:#000000;
+}
+
+.nav-item:hover {
+    background: var(--secondary);
+    color: #000000;
+}
+
+.nav-item.active {
+    background: var(--secondary);
+    color: #000000;
+    font-weight: bold;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.sidebar-footer {
+    margin: 40px 5px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.sidebar-footer small {
+    font-size: 10px;
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 40px;
+}
+
+.page {
+    display: none;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.page.active {
+    display: block;
+}
+
+/* WELCOME HEADER */
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.welcome-section h1 {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    font-style: italic;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.welcome-section p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.header-icon {
+    border: none;
+    background: var(--secondary);
+    color: var(--text);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+
+/* PROFILE CARD */
+
+.profile-card {
+    width: 100%;
+    background: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+}
+
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    min-height: 125px;
+}
+
+.profile-photo-container {
+    width: 125px;
+    height: 125px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: 12px;
+}
+
+.profile-photo-container > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
+.profile-divider {
+    border-top: 2px dashed var(--primary);
+    margin: 25px 0;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.profile-details span {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.profile-details p {
+    margin-top: 7px;
+    font-size: 14px;
+    min-height: 18px;
+    outline: none;
+}
+
+/* STAR STUDENT BADGE */
+
+.star-badge {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 120px;
+    padding: 30px 12px;
+    color: var(--text);
+    background: var(--card);
+    border-radius: 30px;
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: text;
+    outline: none;
+}
+
+.star-badge::before,
+.star-badge::after {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.star-badge::before {
+    content: "✦";
+    top: 7px;
+}
+
+.star-badge::after {
+    content: "✦";
+    bottom: 7px;
+}
+
+/* STICKERS */
+
+.profile-stickers {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin: 8px 0;
+}
+
+.profile-sticker {
+    font-size: 25px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sticker-area {
+    position: relative;
+    display: inline-block;
+}
+
+.sticker-add {
+    background: var(--secondary);
+    color: var(--text);
+    border: 1px dashed var(--primary);
+    border-radius: 20px;
+    padding: 5px 9px;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sticker-keyboard {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+/* TODO */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.section-heading select {
+    border: 1px solid var(--border);
+    padding: 9px 14px;
+    border-radius: 20px;
+    background: white;
+    color: var(--text);
+}
+
+#todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty-message {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 20px 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.task-item input {
+    accent-color: var(--primary);
+    width: 17px;
+    height: 17px;
+}
+
+.task-item.completed span {
+    text-decoration: line-through;
+    color: var(--muted);
+}
+
+.add-task-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.add-task-area input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+}
+
+.add-task-area input:focus {
+    border-color: var(--primary);
+}
+
+.add-task-area button {
+    width: 45px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* OTHER PAGES */
+
+.page-heading {
+    margin: 15px 0 35px;
+}
+
+.eyebrow {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.page-heading h1 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.page-heading > p:last-child {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.placeholder-card {
+    min-height: 270px;
+    background: var(--secondary);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+}
+
+.placeholder-card > span {
+    font-size: 38px;
+    color: #80699f;
+    margin-bottom: 18px;
+}
+
+.placeholder-card h2 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.placeholder-card p {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* MOBILE DESIGN */
+
+@media (max-width: 700px) {
+
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+        margin-bottom: 18px;
+    }
+
+    .nav-label,
+    .sidebar-bottom,
+    .sidebar-footer {
+        display: none;
+    }
+
+    .navigation {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 5px;
+    }
+
+    .nav-item {
+        flex: 0 0 auto;
+        width: auto;
+        padding: 10px;
+        gap: 7px;
+        font-size: 12px;
+    }
+
+    .nav-item span {
+        font-size: 16px;
+        width: auto;
+    }
+
+    .main-content {
+        padding: 25px 16px;
+    }
+
+    .welcome-section h1 {
+        font-size: 32px;
+    }
+
+    .profile-card {
+    padding: 20px;
+}
+
+.profile-photo-container {
+    width: 105px;
+    height: 105px;
+}
+
+.profile-top {
+    min-height: 105px;
+}
+
+.star-badge {
+    min-width: 105px;
+    padding: 27px 8px;
+    font-size: 12px;
+}
+    }
+
+    .profile-details {
+        gap: 20px 12px;
+    }
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* THEME SETTINGS */
+
+.settings-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  margin-top: 20px;
+  color: var(--text);
+}
+
+.settings-card h2 {
+  margin-top: 0;
+}
+
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--background);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+}
+
+.theme-option.selected {
+  border: 2px solid var(--primary);
+}
+
+.theme-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+body {
+  background-color: var(--background);
+  background-image: var(--theme-wallpaper, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+@media (max-width: 600px) {
+  .theme-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .settings-card {
+    padding: 16px;
+  }
+}
+
+/* ORBIT PROFILE PHOTO EDITOR */
+
+.photo-editor[hidden] {
+  display: none !important;
+}
+
+.photo-editor {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(30, 25, 38, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.photo-editor-box {
+  width: 100%;
+  max-width: 360px;
+  background: var(--background);
+  color: var(--text);
+  padding: 24px;
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.photo-editor-box h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.photo-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--secondary);
+  margin: 18px 0;
+  touch-action: none;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.photo-editor-box label {
+  display: block;
+  margin: 14px 0 8px;
+  color: var(--text);
+}
+
+.photo-editor-box input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.photo-editor-box input[type="file"] {
+  width: 100%;
+  font-size: 13px;
+}
+
+.photo-editor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.photo-editor-actions button {
+  flex: 1;
+  padding: 11px 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--secondary);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+}
+
+#save-photo {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* STAR STUDENT BADGE */
+
+.star-badge {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 15px auto;
+  padding: 10px 20px;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 30px;
+  background: var(--secondary);
+  color: var(--text);
+  font-weight: 600;
+  cursor: text;
+  outline: none;
+}
+/* VERTICAL STAR DECORATION */
+
+.star-badge {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 30px 12px;
+  line-height: 1.3;
+  min-width: 150px;
+}
+
+.star-badge::before,
+.star-badge::after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text);
+  font-size: 16px;
+}
+
+.star-badge::before {
+  content: "✦";
+  top: 0;
+}
+
+.star-badge::after {
+  content: "✦";
+  bottom: 0;
+}
+/* ORBIT HOME CARD SPACING */
+
+.profile-card {
+  margin-bottom: 18px;
+}
+
+.motto-card {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+}
+
+.todo-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* PERSONAL MOTTO CARD */
+
+.motto-card {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 25px 22px;
+    margin: 18px 0 28px;
+    text-align: center;
+    color: var(--text);
+    position: relative;
+}
+
+.motto-decoration {
+    color: var(--primary);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.motto-card p {
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.6;
+    outline: none;
+}
+
+.motto-footer {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 12px;
+}
+
+/* =========================
+   ORBIT CALENDAR
+========================= */
+
+.calendar-card {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 28px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.calendar-month-year {
+    text-align: center;
+}
+
+.calendar-month-year h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+.calendar-month-year p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.calendar-nav {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--background);
+    color: var(--text);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.calendar-weekdays,
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    text-align: center;
+}
+
+.calendar-weekdays {
+    margin-bottom: 12px;
+}
+
+.calendar-weekdays span {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.calendar-days {
+    gap: 7px 3px;
+}
+
+.calendar-day {
+    position: relative;
+    min-width: 0;
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    background: var(--secondary);
+}
+
+.calendar-day.today {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.selected {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.calendar-day.other-month {
+    color: var(--muted);
+    opacity: 0.4;
+}
+
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 22px;
+    color: var(--muted);
+}
+
+.calendar-legend small {
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.today-dot,
+.event-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.event-dot {
+    opacity: 0.6;
+}
+
+/* EVENTS SECTION */
+
+.calendar-events {
+    width: 100%;
+}
+
+.calendar-events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 10px;
+}
+
+.calendar-events-header h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+.add-event-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 20px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.calendar-empty {
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+    padding: 28px 15px;
+    text-align: center;
+}
+
+.calendar-empty span {
+    color: var(--primary);
+    font-size: 25px;
+}
+
+.calendar-empty p {
+    font-size: 13px;
+    margin: 8px 0;
+}
+
+.calendar-empty small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* EVENT FORM */
+
+.event-form[hidden] {
+    display: none !important;
+}
+
+.event-form {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: rgba(30, 25, 38, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+.event-form-card {
+    width: 100%;
+    max-width: 380px;
+    padding: 23px;
+    border-radius: 20px;
+    background: var(--background);
+    color: var(--text);
+}
+
+.event-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.event-form-header h2 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+.event-form-header button {
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.event-form-card label {
+    display: block;
+    font-size: 12px;
+    margin: 14px 0 7px;
+}
+
+.event-form-card input,
+.event-form-card select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+}
+
+.save-event-btn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+}
+
+/* MOBILE CALENDAR */
+
+@media (max-width: 700px) {
+    .calendar-card {
+        padding: 17px 12px;
+        border-radius: 18px;
+    }
+
+    .calendar-days {
+        gap: 8px 2px;
+    }
+
+    .calendar-day {
+        font-size: 12px;
+    }
+
+    .calendar-weekdays span {
+        font-size: 10px;
+    }
+
+    .calendar-month-year h2 {
+        font-size: 21px;
+    }
+}
+
+/* CALENDAR EVENT ITEMS */
+
+.calendar-event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--card);
+}
+
+.calendar-event-details h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.calendar-event-details small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.delete-event {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--secondary);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* EDIT EVENT BUTTON */
+
+.edit-event {
+    border: none;
+    background: var(--secondary);
+    color: var(--text);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.edit-event:hover {
+    opacity: 0.75;
+}
+
+/* ============================= */
+/* CALENDAR CATEGORY INDEX */
+/* ============================= */
+
+.category-index {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.category-heading h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 18px;
+    margin-top: 16px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.category-colour {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* FIXED CATEGORY PALETTE */
+
+.college-colour {
+    background: #A8B99A;
+}
+
+.study-colour {
+    background: #F3E5B5;
+}
+
+.exam-colour {
+    background: #C77B83;
+}
+
+.personal-colour {
+    background: #A9C6D8;
+}
+
+.other-colour {
+    background: #E8B4C8;
+}
+
+/* ============================= */
+/* CALENDAR CATEGORY DATE DOTS */
+/* ============================= */
+
+.calendar-day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.calendar-day-number {
+    display: block;
+    line-height: 1.2;
+}
+
+.calendar-day-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 5px;
+}
+
+.calendar-category-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* ============================= */
+/* COLOURED MONTHLY EVENT CARDS */
+/* ============================= */
+
+.calendar-event-item {
+    border-left: 4px solid var(--event-colour, var(--border));
+}
+
+.event-category-tag {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 9px;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #393333;
+}
+
+/* ============================= */
+/* SELECTED DATE DETAILS */
+/* ============================= */
+
+.selected-date-section {
+    margin-top: 24px;
+    margin-bottom: 28px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+.selected-date-header {
+    margin-bottom: 16px;
+}
+
+.selected-date-header h2 {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.selected-date-events {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selected-date-empty {
+    text-align: center;
+    padding: 20px 10px;
+    color: var(--muted);
+}
+
+.selected-date-empty span {
+    font-size: 25px;
+}
+
+.selected-date-empty p {
+    font-size: 13px;
+    margin: 8px 0 5px;
+}
+
+.selected-date-empty small {
+    font-size: 11px;
+}
+
+.selected-date-event {
+    padding: 13px;
+    border-radius: 12px;
+    border-left: 4px solid var(--event-colour);
+    background: var(--secondary);
+}
+
+.selected-date-event h3 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.selected-date-event small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* =========================
+   ORBIT ATTENDANCE PAGE
+========================= */
+
+.attendance-timetable,
+.subject-attendance-section,
+.attendance-calendar-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+
+.attendance-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.attendance-section-header h2,
+.subject-attendance-section h2,
+.attendance-calendar-section h2 {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.timetable-week-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.timetable-week-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timetable-day-picker {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.timetable-day {
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+.timetable-day span {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.timetable-day strong {
+  font-size: 15px;
+}
+
+/* WEEKLY TIMETABLE - THEME-AWARE SELECTED DATE */
+
+.timetable-day.active {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+}
+
+.timetable-day.active span {
+  color: white !important;
+}
+
+.timetable-daily-header {
+  margin-bottom: 15px;
+}
+
+.timetable-daily-header h3 {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.timetable-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timetable-empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: var(--muted);
+}
+
+.timetable-empty span {
+  font-size: 26px;
+}
+
+.timetable-empty p {
+  font-size: 13px;
+  margin: 8px 0 5px;
+}
+
+.timetable-empty small {
+  font-size: 11px;
+}
+
+.subject-attendance-section,
+.attendance-calendar-section {
+  padding: 20px;
+}
+
+/* MOBILE TIMETABLE */
+
+@media (max-width: 700px) {
+  .attendance-timetable,
+  .subject-attendance-section,
+  .attendance-calendar-section {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .attendance-section-header {
+    align-items: flex-start;
+  }
+
+  .attendance-section-header h2 {
+    font-size: 16px;
+  }
+
+  .attendance-section-header .add-event-btn {
+    padding: 9px 11px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .timetable-day-picker {
+    gap: 4px;
+  }
+
+  .timetable-day {
+    padding: 9px 1px;
+    border-radius: 9px;
+  }
+
+  .timetable-day span {
+    font-size: 8px;
+  }
+
+  .timetable-day strong {
+    font-size: 13px;
+  }
+}
+
+/* ATTENDANCE CLASS CARDS */
+
+.timetable-class-card {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.timetable-class-details h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.timetable-class-details p {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.timetable-class-details small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.timetable-class-actions,
+.timetable-management {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.attendance-mark-button {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.attendance-mark-button.marked-present {
+  background: #DCEBDD;
+  color: #365D3A;
+  border-color: #A8C9AA;
+}
+
+.attendance-mark-button.marked-absent {
+  background: #F4DDDF;
+  color: #8B454D;
+  border-color: #DCAEB3;
+}
+.attendance-mark-button.marked-cancelled {
+  background: #E8DFF0;
+  color: #765987;
+  border-color: #CDB8DC;
+}
+
+.subject-attendance-item {
+  margin-top: 17px;
+}
+
+.subject-attendance-heading {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.subject-attendance-track {
+  height: 7px;
+  background: var(--secondary);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.subject-attendance-fill {
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #315C43 0%,
+    #A8CBAE 45%,
+    #D5E8D5 75%,
+    #527E60 100%
+  );
+  border-radius: 20px;
+}
+
+.timetable-management .delete-event {
+  margin-left: 0;
+}
+
+@media (max-width: 700px) {
+  .timetable-class-card {
+    padding: 12px;
+  }
+}
+
+/* ===== ORBIT ATTENDANCE LAYOUT FIX ===== */
+
+/* WEEKLY TIMETABLE */
+#timetable-day-picker {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 6px;
+  width: 100%;
+}
+
+#timetable-day-picker .timetable-day {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0;
+  width: 100%;
+  white-space: nowrap;
+  gap: 5px;
+  box-sizing: border-box;
+}
+
+.timetable-day span,
+.timetable-day strong {
+  display: block !important;
+  position: static !important;
+  line-height: 1.4;
+}
+
+/* MONTHLY CALENDAR */
+#attendance-calendar {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  width: 100%;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+#attendance-calendar .attendance-calendar-weekdays span {
+  display: block !important;
+  text-align: center;
+  min-width: 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-day,
+#attendance-calendar .attendance-calendar-blank {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0;
+  width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
+}
+
+#attendance-calendar .attendance-calendar-number {
+  display: block !important;
+  position: static !important;
+  line-height: 1.3;
+  font-size: 12px;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 480px) {
+  #timetable-day-picker {
+    gap: 3px;
+  }
+
+  #attendance-calendar .attendance-calendar-weekdays,
+  #attendance-calendar .attendance-calendar-grid {
+    gap: 3px;
+  }
+
+  #attendance-calendar .attendance-calendar-day,
+  #attendance-calendar .attendance-calendar-blank {
+    min-height: 26px;
+  }
+}
+
+/* =================================
+   ORBIT ATTENDANCE LAYOUT FIX
+================================= */
+
+/* Weekly timetable: 7 equal columns */
+#timetable-day-picker {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+#timetable-day-picker .timetable-day {
+    min-width: 0;
+    width: 100%;
+    min-height: 76px;
+    padding: 10px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#timetable-day-picker .timetable-day span {
+    display: block;
+    width: 100%;
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+#timetable-day-picker .timetable-day strong {
+    display: block;
+    font-size: 17px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Monthly attendance calendar */
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+
+#attendance-calendar .attendance-calendar-weekdays span {
+    min-width: 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-day {
+    min-width: 0;
+    width: 100%;
+    min-height: 40px;
+    padding: 4px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    position: relative;
+    text-align: center;
+}
+
+#attendance-calendar .attendance-calendar-number {
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+#attendance-calendar .attendance-calendar-day small {
+    display: block;
+    position: static;
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+#attendance-calendar .attendance-calendar-blank {
+    min-width: 0;
+    visibility: hidden;
+}
+
+@media (max-width: 400px) {
+    #timetable-day-picker {
+        gap: 3px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 68px;
+        padding: 8px 1px;
+    }
+
+    #timetable-day-picker .timetable-day span {
+        font-size: 10px;
+    }
+
+    #attendance-calendar .attendance-calendar-weekdays,
+    #attendance-calendar .attendance-calendar-grid {
+        gap: 3px;
+    }
+
+    #attendance-calendar .attendance-calendar-day {
+        min-height: 40px;
+    }
+}
+
+/* ORBIT MONTHLY ATTENDANCE CALENDAR */
+
+#attendance-calendar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.attendance-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.attendance-calendar-header h3 {
+  margin: 0;
+  color: #665477;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.calendar-nav {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #eee5f5;
+  border-radius: 12px;
+  background: #f5effb;
+  color: #80679b;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+#attendance-calendar .attendance-calendar-weekdays,
+#attendance-calendar .attendance-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
+}
+
+.attendance-calendar-weekdays {
+  margin-bottom: 10px;
+}
+
+.attendance-calendar-weekdays span {
+  text-align: center;
+  color: #9888a8;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.attendance-calendar-blank {
+  min-height: 65px;
+}
+
+.attendance-calendar-day {
+  min-width: 0;
+  min-height: 65px;
+  padding: 6px 1px;
+  border: 1px solid #eee7f4;
+  border-radius: 13px;
+  background: #fff;
+  color: #5d5068;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.attendance-calendar-number {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.attendance-calendar-day small {
+  font-size: 8px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.attendance-day-recorded {
+  background: #edf6ef;
+  border-color: #d2e8d6;
+  color: #527b5a;
+}
+
+.attendance-day-absent {
+  background: #fcecef;
+  border-color: #f2d1d8;
+  color: #a85b6c;
+}
+
+.attendance-day-unmarked {
+  background: #fff7eb;
+  border-color: #f1e1c7;
+  color: #98794e;
+}
+
+.attendance-calendar-day.selected {
+  outline: 2px solid #b69bd3;
+  outline-offset: 1px;
+}
+
+.attendance-calendar-day.today .attendance-calendar-number {
+  text-decoration: underline;
+  text-decoration-color: #a98ac8;
+  text-underline-offset: 4px;
+}
+
+.attendance-calendar-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 19px;
+  color: #82758c;
+  font-size: 10px;
+}
+
+.attendance-calendar-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.attendance-calendar-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-present {
+  background: #a3c9a9;
+}
+
+.legend-absent {
+  background: #e6a4b1;
+}
+
+.legend-unmarked {
+  background: #e8c995;
+}
+
+@media (max-width: 400px) {
+  #attendance-calendar .attendance-calendar-grid,
+  #attendance-calendar .attendance-calendar-weekdays {
+    gap: 4px;
+  }
+
+  .attendance-calendar-day,
+  .attendance-calendar-blank {
+    min-height: 55px;
+  }
+
+  .attendance-calendar-day {
+    border-radius: 10px;
+  }
+
+  .attendance-calendar-day small {
+    font-size: 7px;
+  }
+}
+/* FIX: Attendance calendar status text */
+
+#attendance-calendar .attendance-calendar-day small {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    font-size: 8px;
+}
+/* ORBIT - Slightly Smaller Timetable */
+
+.attendance-timetable {
+    padding: 18px;
+}
+
+#timetable-day-picker .timetable-day {
+    min-height: 70px;
+    padding: 8px 2px;
+    gap: 6px;
+}
+
+.timetable-class-card {
+    padding: 12px;
+    gap: 11px;
+}
+
+@media (max-width: 700px) {
+    .attendance-timetable {
+        padding: 13px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 64px;
+        padding: 7px 1px;
+    }
+
+    .timetable-class-card {
+        padding: 11px;
+    }
+}
+/* ORBIT - More Compact Timetable */
+
+@media (max-width: 700px) {
+    .attendance-timetable {
+        padding: 11px;
+    }
+
+    #timetable-day-picker {
+        gap: 3px;
+    }
+
+    #timetable-day-picker .timetable-day {
+        min-height: 56px;
+        padding: 6px 1px;
+        gap: 4px;
+    }
+
+    #timetable-day-picker .timetable-day span {
+        font-size: 9px;
+    }
+
+    #timetable-day-picker .timetable-day strong {
+        font-size: 14px;
+    }
+
+    .timetable-schedule {
+        gap: 9px;
+    }
+
+    .timetable-class-card {
+        padding: 9px;
+        gap: 8px;
+    }
+}
+/* ORBIT - TODAY'S DATE HIGHLIGHT */
+#timetable-day-picker .timetable-day.today {
+    background: #E5F0E5;
+    border: 1px solid #88A98C;
+    color: #426A49;
+}
+
+#timetable-day-picker .timetable-day.today span {
+    color: #52765A;
+}
+
+/* Today's date when it is also selected */
+#timetable-day-picker .timetable-day.today.active {
+    background: #789B7D;
+    border-color: #789B7D;
+    color: white;
+}
+
+#timetable-day-picker .timetable-day.today.active span {
+    color: white;
+}
+
+/* OVERALL ATTENDANCE CIRCLE */
+#overall-attendance-ring {
+    fill: none;
+    stroke: #789B7D;
+    stroke-width: 14;
+    stroke-linecap: round;
+}
+
+/* ORBIT - Smaller Overall Attendance Circle */
+
+.overall-attendance-circle {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin: 12px auto;
+}
+
+.attendance-progress-ring {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: rotate(-90deg);
+}
+
+.attendance-ring-background {
+    fill: none;
+    stroke: var(--secondary);
+    stroke-width: 10;
+}
+
+.attendance-ring-progress {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 10;
+    stroke-linecap: round;
+}
+
+.overall-attendance-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+}
+
+.overall-attendance-value strong {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.overall-attendance-value span {
+    font-size: 11px;
+    color: var(--muted);
+}
+/* WEEKLY CALENDAR - REMOVE TODAY'S SPECIAL HIGHLIGHT */
+
+#timetable-day-picker .timetable-day.today:not(.active) {
+    background: var(--secondary) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
+}
+
+#timetable-day-picker .timetable-day.today:not(.active) span {
+    color: var(--muted) !important;
+}
+/* ORBIT - Cancelled Attendance */
+.attendance-day-cancelled {
+  background: #f1edf5;
+  border-color: #ddd2e8;
+  color: #796987;
+}
+.legend-cancelled {
+  background: #cbbbd9;
+}
+/* =================================
+   ORBIT ASSIGNMENT TRACKER
+================================= */
+
+.assignment-tracker-page {
+  --assignment-bg: #171717;
+  --assignment-card: #242321;
+  --assignment-box: #292722;
+  --assignment-gold: #C8AA70;
+  --assignment-text: #F5F0E6;
+  --assignment-muted: #AAA49A;
+  --assignment-green: #A7C6A5;
+
+  color: var(--assignment-text);
+}
+
+/* HEADING */
+
+.assignment-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0 30px;
+}
+
+.assignment-heading h1 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+.assignment-heading p:last-child {
+  color: var(--assignment-muted);
+  font-size: 13px;
+}
+
+.assignment-heading-icon {
+  font-size: 38px;
+  color: var(--assignment-gold);
+}
+
+/* OVERVIEW */
+
+.assignment-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.assignment-stat {
+  background: var(--assignment-box);
+  border: 1px solid #403B31;
+  border-radius: 15px;
+  padding: 17px 12px;
+}
+
+.assignment-stat strong {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 27px;
+  margin-bottom: 5px;
+}
+
+.assignment-stat span {
+  color: var(--assignment-muted);
+  font-size: 12px;
+}
+
+#assignment-pending {
+  color: var(--assignment-gold);
+}
+
+#assignment-completed {
+  color: var(--assignment-green);
+}
+
+/* PROGRESS */
+
+.assignment-progress-section {
+  margin-bottom: 30px;
+}
+
+.assignment-progress-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.assignment-progress-heading h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.assignment-progress-heading strong {
+  color: var(--assignment-gold);
+}
+
+.assignment-progress-track {
+  height: 8px;
+  background: #38352F;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#assignment-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--assignment-gold);
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+/* SECTION HEADINGS */
+
+.assignment-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.assignment-section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: normal;
+}
+
+/* ADD BUTTON */
+
+.assignment-add-btn {
+  background: var(--assignment-gold);
+  color: #211D16;
+  border: none;
+  border-radius: 9px;
+  padding: 8px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ASSIGNMENT LIST */
+
+#assignment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.assignment-card {
+  background: var(--assignment-card);
+  border: 1px solid #39362F;
+  border-radius: 15px;
+  padding: 17px;
+}
+
+.assignment-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.assignment-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  overflow-wrap: anywhere;
+}
+
+.assignment-card-subject {
+  color: var(--assignment-muted);
+  font-size: 12px;
+}
+
+.assignment-card-description {
+  color: var(--assignment-muted);
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.assignment-due-date {
+  display: block;
+  color: var(--assignment-gold);
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+.assignment-status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.assignment-status.pending {
+  background: #3B3324;
+  color: var(--assignment-gold);
+}
+
+.assignment-status.completed {
+  background: #29382B;
+  color: var(--assignment-green);
+}
+
+.assignment-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #39362F;
+}
+
+.assignment-card-actions button {
+  border: 1px solid #514A3B;
+  background: transparent;
+  color: var(--assignment-text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.assignment-card-actions .assignment-complete-btn {
+  color: var(--assignment-green);
+  border-color: #526B50;
+}
+
+.assignment-card-actions .assignment-delete-btn {
+  color: #D69A9A;
+  border-color: #765052;
+}
+
+.assignment-empty {
+  text-align: center;
+  padding: 30px 12px;
+  color: var(--assignment-muted);
+  background: var(--assignment-card);
+  border-radius: 15px;
+}
+
+.assignment-empty span {
+  display: block;
+  font-size: 26px;
+  color: var(--assignment-gold);
+  margin-bottom: 9px;
+}
+
+.assignment-empty p {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.assignment-empty small {
+  font-size: 11px;
+}
+
+/* YOUR FILES */
+
+.assignment-files-section {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #39362F;
+}
+
+.assignment-folder-add {
+  background: transparent;
+  color: var(--assignment-gold);
+  border: 1px solid var(--assignment-gold);
+  border-radius: 9px;
+  padding: 7px 11px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.assignment-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.assignment-folder {
+  min-width: 0;
+  background: var(--assignment-box);
+  border: 1px solid #403B31;
+  border-radius: 12px;
+  padding: 14px 7px;
+  color: var(--assignment-text);
+  cursor: pointer;
+  text-align: center;
+}
+
+.assignment-folder.selected {
+  border-color: var(--assignment-gold);
+  background: #332F25;
+}
+
+.assignment-folder-icon {
+  display: block;
+  font-size: 25px;
+  color: var(--assignment-gold);
+  margin-bottom: 8px;
+}
+
+.assignment-folder-name {
+  display: block;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.assignment-folder-count {
+  display: block;
+  color: var(--assignment-muted);
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.assignment-no-folders {
+  grid-column: 1 / -1;
+  color: var(--assignment-muted);
+  font-size: 12px;
+  padding: 15px 0;
+}
+
+/* ASSIGNMENT FORM */
+
+.assignment-modal[hidden] {
+  display: none !important;
+}
+
+.assignment-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.assignment-form {
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #242321;
+  color: var(--assignment-text);
+  border: 1px solid #514A3B;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.assignment-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.assignment-form-header h2 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: normal;
+}
+
+.assignment-form-header button {
+  border: none;
+  background: transparent;
+  color: var(--assignment-text);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.assignment-form label {
+  display: block;
+  font-size: 12px;
+  margin: 14px 0 7px;
+  color: var(--assignment-muted);
+}
+
+.assignment-form input,
+.assignment-form select,
+.assignment-form textarea {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  border-radius: 9px;
+  border: 1px solid #514A3B;
+  background: #171717;
+  color: var(--assignment-text);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.assignment-form input:focus,
+.assignment-form select:focus,
+.assignment-form textarea:focus {
+  border-color: var(--assignment-gold);
+}
+
+.assignment-save-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: var(--assignment-gold);
+  color: #211D16;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .assignment-heading h1 {
+    font-size: 32px;
+  }
+
+  .assignment-overview {
+    gap: 8px;
+  }
+
+  .assignment-stat {
+    padding: 13px 9px;
+  }
+
+  .assignment-stat strong {
+    font-size: 23px;
+  }
+
+  .assignment-folder-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+/* ========================================
+   ORBIT — ASSIGNMENT TRACKER
+   AUTOMATIC APP THEME SUPPORT
+======================================== */
+
+.assignment-tracker-page {
+  padding: 24px 20px 40px;
+  background: transparent;
+  color: var(--text);
+}
+
+/* PAGE HEADING */
+
+.assignment-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.assignment-heading .eyebrow,
+.assignment-files-section .eyebrow {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.assignment-heading h1 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0 0 7px;
+  color: var(--text);
+}
+
+.assignment-heading p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.assignment-heading-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--primary);
+  font-size: 22px;
+  background: var(--secondary);
+}
+
+/* STATISTICS */
+
+.assignment-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.assignment-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.assignment-stat strong {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--primary);
+}
+
+.assignment-stat span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* OVERALL PROGRESS */
+
+.assignment-progress-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 18px;
+  margin-bottom: 32px;
+}
+
+.assignment-progress-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.assignment-progress-heading h3 {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text);
+}
+
+.assignment-progress-heading strong {
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.assignment-progress-track {
+  width: 100%;
+  height: 7px;
+  background: var(--secondary);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#assignment-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+/* SECTION HEADINGS */
+
+.assignment-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.assignment-section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ADD BUTTONS */
+
+.assignment-add-btn,
+.assignment-folder-add {
+  border: 1px solid var(--primary);
+  background: var(--secondary);
+  color: var(--text);
+  border-radius: 9px;
+  padding: 8px 13px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.assignment-add-btn:hover,
+.assignment-folder-add:hover {
+  background: var(--primary);
+}
+
+/* ASSIGNMENT LIST */
+
+#assignment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.assignment-empty {
+  text-align: center;
+  padding: 35px 15px;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: 13px;
+}
+
+.assignment-empty span {
+  display: block;
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.assignment-empty p {
+  color: var(--text);
+  font-size: 14px;
+  margin: 0 0 7px;
+}
+
+.assignment-empty small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ASSIGNMENT CARDS */
+
+.assignment-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.assignment-card h3 {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+
+.assignment-card p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.assignment-card small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.assignment-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.assignment-card button {
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.assignment-card button:hover {
+  border-color: var(--primary);
+}
+
+/* STATUS BADGES */
+
+.assignment-status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  margin-top: 8px;
+}
+
+.assignment-status.pending {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+.assignment-status.completed {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* YOUR FILES */
+
+.assignment-files-section {
+  margin-top: 38px;
+}
+
+.assignment-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.assignment-folder-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.assignment-folder-card:hover {
+  border-color: var(--primary);
+}
+
+.assignment-folder-card strong {
+  display: block;
+  color: var(--text);
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.assignment-folder-card small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ASSIGNMENT MODAL */
+
+.assignment-modal[hidden] {
+  display: none !important;
+}
+
+.assignment-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+}
+
+.assignment-form {
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.assignment-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.assignment-form-header h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 21px;
+  color: var(--text);
+  margin: 0;
+}
+
+.assignment-form-header button {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.assignment-form label {
+  display: block;
+  color: var(--text);
+  font-size: 12px;
+  margin: 14px 0 7px;
+}
+
+.assignment-form input,
+.assignment-form select,
+.assignment-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.assignment-form input:focus,
+.assignment-form select:focus,
+.assignment-form textarea:focus {
+  border-color: var(--primary);
+}
+
+.assignment-form textarea {
+  resize: vertical;
+}
+
+.assignment-save-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: var(--primary);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 480px) {
+  .assignment-tracker-page {
+    padding: 20px 15px 35px;
+  }
+
+  .assignment-heading h1 {
+    font-size: 28px;
+  }
+
+  .assignment-overview {
+    gap: 8px;
+  }
+
+  .assignment-stat {
+    padding: 14px 9px;
+  }
+
+  .assignment-stat strong {
+    font-size: 23px;
+  }
+
+  .assignment-stat span {
+    font-size: 11px;
+  }
+
+  .assignment-folder-grid {
+    gap: 9px;
+  }
+}
+/* ==================================
+   NOTES PAGE
+================================== */
+
+.notes-page {
+  position: relative;
+  color: var(--text);
+}
+
+.notes-heading {
+  margin-bottom: 25px;
+}
+
+/* SEARCH */
+
+.notes-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  margin-bottom: 35px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.notes-search span {
+  font-size: 23px;
+  color: var(--muted);
+}
+
+.notes-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.notes-search input::placeholder {
+  color: var(--muted);
+}
+
+/* SECTION HEADINGS */
+
+.notes-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.notes-section-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.notes-notebooks-section {
+  margin-bottom: 38px;
+}
+
+/* SMALL BUTTONS */
+
+.notes-small-button {
+  padding: 9px 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--secondary);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.notes-small-button:hover {
+  border-color: var(--primary);
+}
+
+/* NOTEBOOK SLIDER */
+
+.notes-notebook-slider {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 3px 2px 12px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.notes-notebook-card {
+  position: relative;
+  flex: 0 0 calc((100% - 15px) / 2);
+  min-width: 0;
+  min-height: 155px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.notes-notebook-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.notes-notebook-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.notes-notebook-icon {
+  font-size: 27px;
+}
+
+.notes-notebook-menu-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.notes-notebook-menu-button:hover {
+  background: var(--secondary);
+}
+
+.notes-notebook-name {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.notes-notebook-count {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.notes-slider-hint {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* RECENT NOTES */
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.notes-note-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--card);
+}
+
+.notes-note-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.notes-note-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.notes-note-pin {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.notes-note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.notes-note-notebook {
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: var(--secondary);
+  color: var(--text);
+  font-size: 11px;
+}
+
+.notes-note-date {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.notes-note-preview {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.notes-note-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 13px;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.notes-note-actions button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.notes-note-actions button:hover {
+  color: var(--text);
+}
+
+/* EMPTY STATE */
+
+.notes-empty {
+  grid-column: 1 / -1;
+  padding: 35px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 15px;
+  text-align: center;
+  background: var(--card);
+}
+
+.notes-empty span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 28px;
+  color: var(--muted);
+}
+
+.notes-empty h3 {
+  margin: 0 0 7px;
+  color: var(--text);
+}
+
+.notes-empty p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* OPEN NOTEBOOK VIEW */
+
+.notes-detail-heading {
+  margin-bottom: 28px;
+}
+
+.notes-back-button {
+  margin-bottom: 24px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.notes-detail-heading h1 {
+  margin: 5px 0;
+}
+
+.notes-detail-heading > p:last-child {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* MODALS */
+
+.notes-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 35%);
+  overflow-y: auto;
+}
+
+.notes-modal[hidden] {
+  display: none;
+}
+
+.notes-editor-card {
+  width: min(100%, 560px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--background);
+  color: var(--text);
+}
+
+.notes-editor-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.notes-editor-header h2 {
+  margin: 5px 0 0;
+}
+
+.notes-close-button {
+  width: 33px;
+  height: 33px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.notes-editor-card label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.notes-editor-card input,
+.notes-editor-card select,
+.notes-editor-card textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.notes-editor-card input:focus,
+.notes-editor-card select:focus,
+.notes-editor-card textarea:focus {
+  border-color: var(--primary);
+}
+
+.notes-editor-card textarea {
+  resize: vertical;
+  min-height: 200px;
+  line-height: 1.7;
+}
+
+.notes-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+#notes-save-status {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.notes-save-button {
+  padding: 11px 20px;
+  margin-top: 12px;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  background: var(--primary);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* NOTEBOOK MENU */
+
+.notes-context-menu {
+  position: fixed;
+  z-index: 1100;
+  width: 190px;
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+  box-shadow: 0 8px 25px rgb(0 0 0 / 12%);
+}
+
+.notes-context-menu[hidden] {
+  display: none;
+}
+
+.notes-context-menu button {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.notes-context-menu button:hover {
+  background: var(--secondary);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+  .notes-list {
+    grid-template-columns: 1fr;
+  }
+
+  .notes-notebook-card {
+    flex-basis: calc((100% - 15px) / 2);
+  }
+
+  .notes-editor-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .notes-notebook-card {
+    padding: 13px;
+  }
+
+  .notes-section-heading h2 {
+    font-size: 17px;
+  }
+
+  .notes-small-button {
+    padding: 8px 9px;
+    font-size: 11px;
+  }
+}
+#notebook-form .notes-save-button {
+  margin-top: 24px;
+}
+
+/* EXPORT NOTES OPTIONS */
+
+#export-options {
+  margin-top: 25px;
+  padding: 22px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+#export-options h3 {
+  font-size: 22px;
+  font-weight: normal;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+
+#export-options p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+#share-notes-button,
+#google-drive-button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--background);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#share-notes-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+
+#google-drive-button {
+  background: var(--secondary);
+}
+/* THEME-AWARE NAVIGATION */
+
+.sidebar {
+    background: var(--background);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.logo {
+    color: var(--text) !important;
+}
+
+.navigation {
+    background: transparent;
+}
+
+.nav-item {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid transparent;
+}
+
+.nav-item:hover {
+    background: var(--secondary);
+    color: var(--text);
+}
+
+.nav-item.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.nav-item span {
+    color: inherit;
+}
+

@@ -1,0 +1,14 @@
+
+# Dependencies
+node_modules/
+
+# Generated build files
+**/build/
+**/.gradle/
+
+# IDE temporary files
+.idea/
+**/.idea/
+
+# Android local files
+android/local.properties

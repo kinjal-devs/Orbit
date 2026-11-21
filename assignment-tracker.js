@@ -1,11 +1,11 @@
 /* =================================
-   KUMI ASSIGNMENT TRACKER
+   ORBIT ASSIGNMENT TRACKER
 ================================= */
 
 (() => {
 
-  const STORAGE_KEY = "kumiAssignments";
-  const FOLDER_KEY = "kumiAssignmentFolders";
+  const STORAGE_KEY = "orbitAssignments";
+  const FOLDER_KEY = "orbitAssignmentFolders";
 
   const $ = (id) => document.getElementById(id);
 

@@ -1,6 +1,6 @@
 
 /* =========================================
-   KUMI COLOUR SYSTEM
+   ORBIT COLOUR SYSTEM
 ========================================= */
 
 :root {
@@ -616,7 +616,7 @@ body {
   }
 }
 
-/* KUMI PROFILE PHOTO EDITOR */
+/* ORBIT PROFILE PHOTO EDITOR */
 
 .photo-editor[hidden] {
   display: none !important;
@@ -753,7 +753,7 @@ body {
   content: "✦";
   bottom: 0;
 }
-/* KUMI HOME CARD SPACING */
+/* ORBIT HOME CARD SPACING */
 
 .profile-card {
   margin-bottom: 18px;
@@ -807,7 +807,7 @@ body {
 }
 
 /* =========================
-   KUMI CALENDAR
+   ORBIT CALENDAR
 ========================= */
 
 .calendar-card {
@@ -1320,7 +1320,7 @@ body {
 }
 
 /* =========================
-   KUMI ATTENDANCE PAGE
+   ORBIT ATTENDANCE PAGE
 ========================= */
 
 .attendance-timetable,
@@ -1587,7 +1587,7 @@ body {
   }
 }
 
-/* ===== KUMI ATTENDANCE LAYOUT FIX ===== */
+/* ===== ORBIT ATTENDANCE LAYOUT FIX ===== */
 
 /* WEEKLY TIMETABLE */
 #timetable-day-picker {
@@ -1677,7 +1677,7 @@ body {
 }
 
 /* =================================
-   KUMI ATTENDANCE LAYOUT FIX
+   ORBIT ATTENDANCE LAYOUT FIX
 ================================= */
 
 /* Weekly timetable: 7 equal columns */
@@ -1791,7 +1791,7 @@ body {
     }
 }
 
-/* KUMI MONTHLY ATTENDANCE CALENDAR */
+/* ORBIT MONTHLY ATTENDANCE CALENDAR */
 
 #attendance-calendar {
   width: 100%;
@@ -1968,7 +1968,7 @@ body {
     line-height: 1.2;
     font-size: 8px;
 }
-/* KUMI - Slightly Smaller Timetable */
+/* ORBIT - Slightly Smaller Timetable */
 
 .attendance-timetable {
     padding: 18px;
@@ -1999,7 +1999,7 @@ body {
         padding: 11px;
     }
 }
-/* KUMI - More Compact Timetable */
+/* ORBIT - More Compact Timetable */
 
 @media (max-width: 700px) {
     .attendance-timetable {
@@ -2033,7 +2033,7 @@ body {
         gap: 8px;
     }
 }
-/* KUMI - TODAY'S DATE HIGHLIGHT */
+/* ORBIT - TODAY'S DATE HIGHLIGHT */
 #timetable-day-picker .timetable-day.today {
     background: #E5F0E5;
     border: 1px solid #88A98C;
@@ -2063,7 +2063,7 @@ body {
     stroke-linecap: round;
 }
 
-/* KUMI - Smaller Overall Attendance Circle */
+/* ORBIT - Smaller Overall Attendance Circle */
 
 .overall-attendance-circle {
     width: 150px;
@@ -2122,7 +2122,7 @@ body {
 #timetable-day-picker .timetable-day.today:not(.active) span {
     color: var(--muted) !important;
 }
-/* KUMI - Cancelled Attendance */
+/* ORBIT - Cancelled Attendance */
 .attendance-day-cancelled {
   background: #f1edf5;
   border-color: #ddd2e8;
@@ -2132,7 +2132,7 @@ body {
   background: #cbbbd9;
 }
 /* =================================
-   KUMI ASSIGNMENT TRACKER
+   ORBIT ASSIGNMENT TRACKER
 ================================= */
 
 .assignment-tracker-page {
@@ -2582,12 +2582,7 @@ body {
 }
 
 /* ========================================
-   KUMI — ASSIGNMENT TRACKER
-======================================== */
-
-
-/* ========================================
-   KUMI — ASSIGNMENT TRACKER
+   ORBIT — ASSIGNMENT TRACKER
    AUTOMATIC APP THEME SUPPORT
 ======================================== */
 
