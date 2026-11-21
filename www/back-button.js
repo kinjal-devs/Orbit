@@ -1,15 +1,7 @@
-
 import { App } from "@capacitor/app";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const originalOpenPage = window.openPage;
-
-  if (typeof originalOpenPage !== "function") {
-    console.error("ORBIT: openPage function not found.");
-    return;
-  }
-
-  const settingsViews = [
+document.addEventListener("DOMContentLoaded", () => {
+  const settingsViewIds = [
     "settings-theme-view",
     "settings-appearance-view",
     "settings-reminder-view",
@@ -18,55 +10,60 @@ document.addEventListener("DOMContentLoaded", async () => {
     "settings-about-view"
   ];
 
-  let currentPage =
-    document.querySelector(".page.active")?.id || "home";
+  const settingsHome = document.getElementById("settings-home-view");
+  const pageHistory = [];
+  let currentPage = document.querySelector(".page.active")?.id || "home";
+  let handlingBack = false;
 
-  const history = [];
+  const originalOpenPage = window.openPage;
+  if (typeof originalOpenPage === "function") {
+    window.openPage = function (targetPage) {
+      if (targetPage && targetPage !== currentPage) pageHistory.push(currentPage);
+      const result = originalOpenPage.apply(this, arguments);
+      currentPage = document.querySelector(".page.active")?.id || targetPage || currentPage;
+      return result;
+    };
+  }
 
-  window.openPage = function (targetPage) {
-    if (targetPage !== currentPage) {
-      history.push(currentPage);
-      currentPage = targetPage;
-    }
-
-    return originalOpenPage.apply(this, arguments);
-  };
-
-  await App.addListener("backButton", async () => {
-
-    const activeSettingsView = settingsViews.find(id => {
-      const element = document.getElementById(id);
-      return element && !element.hidden;
+  function closeSettingsSubpage() {
+    const isOpen = settingsViewIds.some((id) => {
+      const view = document.getElementById(id);
+      return view && !view.hidden;
     });
+    if (!isOpen) return false;
 
-    if (activeSettingsView) {
-      settingsViews.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) element.hidden = true;
-      });
+    settingsViewIds.forEach((id) => {
+      const view = document.getElementById(id);
+      if (view) view.hidden = true;
+    });
+    if (settingsHome) settingsHome.hidden = false;
+    return true;
+  }
 
-      document.getElementById("settings-home-view").hidden = false;
-      return;
-    }
+  App.addListener("backButton", async () => {
+    if (handlingBack) return;
+    handlingBack = true;
+    try {
+      if (closeSettingsSubpage()) return;
 
-    if (currentPage === "settings") {
-      history.length = 0;
-      currentPage = "home";
-      originalOpenPage("home");
-      return;
-    }
-
-    if (history.length > 0) {
-      currentPage = history.pop();
-      originalOpenPage(currentPage);
-      return;
-    }
-
-    if (currentPage === "home") {
-      if (window.confirm("Do you want to exit ORBIT?")) {
-        await App.exitApp();
+      while (pageHistory.length) {
+        const previousPage = pageHistory.pop();
+        if (previousPage && document.getElementById(previousPage)) {
+          if (typeof originalOpenPage === "function") originalOpenPage(previousPage);
+          currentPage = previousPage;
+          return;
+        }
       }
+
+      if (currentPage !== "home") {
+        if (typeof originalOpenPage === "function") originalOpenPage("home");
+        currentPage = "home";
+        return;
+      }
+
+      if (window.confirm("Do you want to exit ORBIT?")) await App.exitApp();
+    } finally {
+      handlingBack = false;
     }
   });
 });
-
