@@ -189,13 +189,23 @@ body {
 /* PROFILE CARD */
 
 .profile-card {
-    width: 100%;
-    background: var(--secondary);
+    background: radial-gradient(
+    ellipse at center,
+    var(--card) 0%,
+    var(--secondary) 45%,
+    var(--primary) 100%
+);
     border: 1px solid var(--border);
-    border-radius: 18px;
     padding: 25px;
     margin-bottom: 25px;
     box-sizing: border-box;
+}
+
+.profile-card {
+    width: 100%;
+    min-height: 190px;
+    border-radius: 22px;
+    padding: 20px;
 }
 
 .profile-top {
@@ -3902,4 +3912,55 @@ body {
 
 .page-section.active {
     display: block;
+}
+/* ORBIT PROFILE CARD — COMPACT RECTANGLE */
+
+.profile-card {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.profile-top {
+    min-height: 105px;
+    gap: 12px;
+}
+
+.profile-photo-container {
+    width: 125px;
+    height: 125px;
+    flex-shrink: 0;
+}
+
+.star-badge {
+    min-width: 105px;
+    padding: 18px 8px;
+}
+
+.profile-divider {
+    margin: 14px 0;
+}
+
+.profile-details {
+    gap: 12px;
+}
+
+.profile-stickers {
+    margin: 8px 0 0;
+}
+.profile-details p {
+    font-size: 20px;
+    font-weight: 500;
+}
+.daily-snapshot {
+    background: color-mix(
+        in srgb,
+        var(--primary) 2%,
+        var(--secondary)
+    );
+
+    border: 1px solid var(--secondary);
+    color: var(--text);
 }
