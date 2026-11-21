@@ -1750,6 +1750,10 @@ if (scheduled.length > 0) {
     renderSubjectAttendance();
     renderAttendanceCalendar();
   }
+  if (typeof updateHomeDashboard === "function")
+  {
+    updateHomeDashboard();
+  }
   renderAll();
 })();
 /* =========================================
@@ -1772,3 +1776,180 @@ function editGreeting() {
 }
 
 updateGreeting();
+
+/* =========================================
+   ORBIT HOME DASHBOARD
+========================================= */
+
+function updateHomeDashboard() {
+  const today = new Date();
+
+  const dateKey = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0")
+  ].join("-");
+
+  const todayName = today.toLocaleDateString("en-US", {
+    weekday: "long"
+  });
+
+  const readData = (key) => {
+    try {
+      const data = JSON.parse(localStorage.getItem(key));
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  };
+
+  // LOAD EXISTING DATA
+
+  const classes = readData("orbitTimetable");
+  const tasks = readData("orbitTasks");
+  const assignments = readData("orbitAssignments");
+  const events = readData("orbitCalendarEvents");
+
+  // TODAY'S CLASSES
+
+  const todayClasses = classes
+    .filter(item => item.day === todayName)
+    .sort((a, b) => a.start.localeCompare(b.start));
+
+  // PENDING TASKS
+
+  const pendingTasks = [
+    ...tasks.filter(item => !item.completed),
+    ...assignments.filter(item => !item.completed)
+  ];
+
+  // UPCOMING EVENTS
+
+  const upcomingEvents = events
+    .filter(event => event.date >= dateKey)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  // UPDATE SNAPSHOT
+
+  document.getElementById("snapshot-date").textContent =
+    today.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short"
+    });
+
+  document.getElementById("snapshot-classes").textContent =
+    todayClasses.length;
+
+  document.getElementById("snapshot-tasks").textContent =
+    pendingTasks.length;
+
+  document.getElementById("snapshot-events").textContent =
+    upcomingEvents.length;
+
+  // RENDER CLASSES
+
+  const classContainer = document.getElementById("home-classes");
+
+  classContainer.innerHTML = "";
+
+  if (!todayClasses.length) {
+    classContainer.innerHTML =
+      '<p class="empty-message">No classes scheduled today ♡</p>';
+  } else {
+    todayClasses.slice(0, 3).forEach(item => {
+      const row = document.createElement("div");
+      row.className = "home-overview-item";
+
+      const name = document.createElement("strong");
+      name.textContent = item.subject;
+
+      const time = document.createElement("small");
+      time.textContent = `${item.start} – ${item.end}`;
+
+      const details = document.createElement("div");
+      details.append(name, time);
+
+      row.appendChild(details);
+      classContainer.appendChild(row);
+    });
+  }
+
+  // RENDER TASKS
+
+  const taskContainer = document.getElementById("home-tasks");
+
+  taskContainer.innerHTML = "";
+
+  if (!pendingTasks.length) {
+    taskContainer.innerHTML =
+      '<p class="empty-message">All caught up! ♡</p>';
+  } else {
+    pendingTasks.slice(0, 3).forEach(item => {
+      const row = document.createElement("div");
+      row.className = "home-overview-item";
+
+      const name = document.createElement("strong");
+      name.textContent = item.text || item.title || "Untitled task";
+
+      row.appendChild(name);
+      taskContainer.appendChild(row);
+    });
+  }
+
+  // RENDER EVENTS
+
+  const eventContainer = document.getElementById("home-events");
+
+  eventContainer.innerHTML = "";
+
+  if (!upcomingEvents.length) {
+    eventContainer.innerHTML =
+      '<p class="empty-message">No upcoming events ♡</p>';
+  } else {
+    upcomingEvents.slice(0, 3).forEach(item => {
+      const row = document.createElement("div");
+      row.className = "home-overview-item";
+
+      const name = document.createElement("strong");
+      name.textContent = item.title;
+
+      const date = document.createElement("small");
+      date.textContent = new Date(
+        item.date + "T00:00:00"
+      ).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short"
+      });
+
+      const details = document.createElement("div");
+      details.append(name, date);
+
+      row.appendChild(details);
+      eventContainer.appendChild(row);
+    });
+  }
+}
+
+// INITIAL LOAD
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateHomeDashboard);
+} else {
+    updateHomeDashboard();
+}
+
+// REFRESH WHEN STORAGE CHANGES
+window.addEventListener("storage", updateHomeDashboard);
+
+
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (selectedPage) {
+        selectedPage.classList.add("active");
+    }
+}

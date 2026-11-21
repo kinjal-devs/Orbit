@@ -52,129 +52,198 @@
 
       <!-- MAIN CONTENT -->
       <main class="main-content">
+    
         <!-- HOME PAGE -->
-        <section class="page active" id="home">
-          <header class="welcome-section">
-            <div>
-              <h1 id="greeting" onclick="editGreeting()">Hello, Kinjal ♡</h1>
-              <p id="current-date">Loading date...</p>
-            </div>
-            <button class="header-icon">♡</button>
-          </header>
+    
 
-          <!-- PROFILE CARD -->
-          <section class="profile-card">
-            <div class="profile-top">
-              <div class="profile-photo-container">
-                <img
-                  src="https://placehold.co/150x150"
-                  id="profile-image"
-                  alt="Profile photo"
-                />
-                <input type="file" id="photo-upload" accept="image/*" hidden />
+<!-- HOME PAGE -->
+<section class="page active" id="home">
+  <!-- WELCOME -->
+  <header class="welcome-section">
+    <div>
+      <h1 id="greeting" onclick="editGreeting()">Hello, Kinjal ♡</h1>
+      <p id="current-date">Loading date...</p>
+    </div>
+    <button class="header-icon">♡</button>
+  </header>
 
-                <div class="photo-editor" id="photo-editor" hidden>
-                  <div class="photo-editor-box">
-                    <h2>Edit profile photo ♡</h2>
+  <!-- PROFILE CARD -->
+  <section class="profile-card">
+    <div class="profile-top">
+      <div class="profile-photo-container">
+        <img
+          src="https://placehold.co/150x150"
+          id="profile-image"
+          alt="Profile photo"
+        />
+        <input type="file" id="photo-upload" accept="image/*" hidden />
 
-                    <div class="photo-preview">
-                      <img
-                        id="photo-preview-image"
-                        src=" "
-                        alt="Photo preview"
-                      />
-                    </div>
+        <div class="photo-editor" id="photo-editor" hidden>
+          <div class="photo-editor-box">
+            <h2>Edit profile photo ♡</h2>
 
-                    <label for="new-photo-upload">Change photo</label>
-                    <input type="file" id="new-photo-upload" accept="image/*" />
-
-                    <label for="photo-zoom">Zoom</label>
-                    <input
-                      type="range"
-                      id="photo-zoom"
-                      min="1"
-                      max="3"
-                      step="0.05"
-                      value="1"
-                    />
-
-                    <div class="photo-editor-actions">
-                      <button id="reset-photo">Reset</button>
-                      <button id="cancel-photo">Cancel</button>
-                      <button id="save-photo">Save</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="star-badge" contenteditable="true">
-                <p>
-                  STAR <br />
-                  STUDENT
-                </p>
-              </div>
+            <div class="photo-preview">
+              <img id="photo-preview-image" src=" " alt="Photo preview" />
             </div>
 
-            <div class="profile-divider"></div>
+            <label for="new-photo-upload">Change photo</label>
+            <input type="file" id="new-photo-upload" accept="image/*" />
 
-            <div class="profile-details">
-              <div>
-                <span>NAME</span>
-                <p contenteditable="true">Your Name</p>
-              </div>
-              <div>
-                <span>YEAR LEVEL</span>
-                <p contenteditable="true">Year / Semester</p>
-              </div>
+            <label for="photo-zoom">Zoom</label>
+            <input type="range" id="photo-zoom"
+              min="1" max="3" step="0.05" value="1" />
+
+            <div class="photo-editor-actions">
+              <button id="reset-photo">Reset</button>
+              <button id="cancel-photo">Cancel</button>
+              <button id="save-photo">Save</button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div id="profile-stickers" class="profile-stickers"></div>
+      <div class="star-badge" contenteditable="true">
+        <p>STAR <br /> STUDENT</p>
+      </div>
+    </div>
 
-            <div class="sticker-area">
-              <button id="add-sticker" class="sticker-add">＋ Sticker</button>
-              <input
-                type="text"
-                id="custom-sticker"
-                class="sticker-keyboard"
-                autocomplete="off"
-                aria-label="Type a sticker emoji"
-              />
-            </div>
-          </section>
+    <div class="profile-divider"></div>
 
-          <!-- PERSONAL MOTTO -->
-          <section class="motto-card" contenteditable="true">
-            <div class="motto-decoration">✦</div>
-            <p id="personal-motto">Dream big, work hard, stay kind ♡</p>
-            <span class="motto-footer">a little reminder for myself ✧</span>
-          </section>
+    <div class="profile-details">
+      <div>
+        <span>NAME</span>
+        <p contenteditable="true">Your Name</p>
+      </div>
+      <div>
+        <span>YEAR LEVEL</span>
+        <p contenteditable="true">Year / Semester</p>
+      </div>
+    </div>
 
-          <!-- TO-DO -->
-          <section class="todo-section">
-            <div class="section-heading">
-              <h2>To-do list</h2>
-              <select id="task-filter">
-                <option value="all">All tasks</option>
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-              </select>
-            </div>
+    <div id="profile-stickers" class="profile-stickers"></div>
 
-            <div id="todo-list">
-              <p class="empty-message">Your tasks will appear here ♡</p>
-            </div>
+    <div class="sticker-area">
+      <button id="add-sticker" class="sticker-add">＋ Sticker</button>
+      <input type="text" id="custom-sticker"
+        class="sticker-keyboard" autocomplete="off"
+        aria-label="Type a sticker emoji" />
+    </div>
+  </section>
 
-            <div class="add-task-area">
-              <input
-                type="text"
-                id="task-input"
-                placeholder="Add a new task..."
-              />
-              <button id="add-task">+</button>
-            </div>
-          </section>
-        </section>
 
+  <!-- PERSONAL MOTTO -->
+  <section class="motto-card" contenteditable="true">
+    <div class="motto-decoration">✦</div>
+    <p id="personal-motto">Dream big, work hard, stay kind ♡</p>
+    <span class="motto-footer">a little reminder for myself ✧</span>
+  </section>
+
+  
+<!-- DAILY SNAPSHOT -->
+<section class="daily-snapshot">
+
+  <div class="snapshot-header">
+    <div>
+      <span class="snapshot-eyebrow">YOUR DAY AT A GLANCE</span>
+      <h2>Daily Snapshot</h2>
+    </div>
+    <span id="snapshot-date"></span>
+  </div>
+
+  <div class="snapshot-grid">
+
+    <div class="snapshot-item">
+        <span class="snapshot-label">CLASSES</span>
+        <strong id="snapshot-classes">0</strong>
+        <p>Classes today</p>
+    </div>
+
+    <div class="snapshot-item">
+        <span class="snapshot-label">TASKS</span>
+        <strong id="snapshot-tasks">0</strong>
+        <p>Pending tasks</p>
+    </div>
+
+    <div class="snapshot-item">
+        <span class="snapshot-label">EVENTS</span>
+        <strong id="snapshot-events">0</strong>
+        <p>Upcoming events</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+  <!-- QUICK OVERVIEW -->
+  <section class="home-overview">
+
+    <div class="section-heading">
+      <h2>Quick Overview</h2>
+    </div> 
+    
+
+    <!-- TODAY'S CLASSES -->
+    <div class="home-overview-card">
+      <div class="overview-card-heading">
+        <h3>Today's Classes</h3>
+        <button onclick="showPage('attendance')">View all →</button>
+      </div>
+      <div id="home-classes">
+        <p class="empty-message">Your classes will appear here ♡</p>
+      </div>
+    </div>
+
+    <!-- PENDING TASKS -->
+    <div class="home-overview-card">
+      <div class="overview-card-heading">
+        <h3>Pending Tasks</h3>
+        <button onclick="showPage('todo')">View all →</button>
+      </div>
+      <div id="home-tasks">
+        <p class="empty-message">Your tasks will appear here ♡</p>
+      </div>
+    </div>
+
+    <!-- UPCOMING EVENTS -->
+    <div class="home-overview-card">
+      <div class="overview-card-heading">
+        <h3>Upcoming Events</h3>
+        <button onclick="showPage('calendar')">View all →</button>
+      </div>
+      <div id="home-events">
+        <p class="empty-message">Your events will appear here ♡</p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- TO-DO LIST -->
+  <section class="todo-section">
+    <div class="section-heading">
+      <h2>To-do list</h2>
+      <select id="task-filter">
+        <option value="all">All tasks</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+
+    <div id="todo-list">
+      <p class="empty-message">Your tasks will appear here ♡</p>
+    </div>
+
+    <div class="add-task-area">
+      <input type="text" id="task-input"
+        placeholder="Add a new task..." />
+      <button id="add-task">+</button>
+    </div>
+  </section>
+
+</section>
+
+    
         <!-- CALENDAR PAGE -->
         <section class="page" id="calendar">
           <div class="page-heading">

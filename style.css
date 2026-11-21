@@ -3585,3 +3585,321 @@ body {
     color: inherit;
 }
 
+/* =========================================
+   ORBIT HOME PAGE REFINEMENT
+========================================= */
+
+#home.active {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* DAILY SNAPSHOT */
+
+.daily-snapshot,
+.home-overview-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.snapshot-eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  opacity: 0.65;
+}
+
+.snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.snapshot-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 10px;
+  border-radius: 15px;
+  background: var(--surface-bg, rgba(128,128,128,0.08));
+}
+
+.snapshot-icon {
+  font-size: 22px;
+}
+
+.snapshot-item strong {
+  font-size: 23px;
+  display: block;
+}
+
+.snapshot-item p {
+  font-size: 11px;
+  margin: 4px 0 0;
+  opacity: 0.7;
+}
+
+/* QUICK OVERVIEW */
+
+.home-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.home-overview-card {
+  padding: 18px;
+}
+
+.overview-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.overview-card-heading h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.overview-card-heading button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.home-overview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(128,128,128,0.15);
+}
+
+.home-overview-item:last-child {
+  border-bottom: none;
+}
+
+.home-overview-item strong {
+  font-size: 13px;
+}
+
+.home-overview-item small {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.65;
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .snapshot-item {
+    padding: 12px;
+  }
+}
+
+/* =========================================
+   ORBIT DAILY SNAPSHOT
+========================================= */
+
+.daily-snapshot {
+    width: 100%;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+}
+
+/* HEADER */
+
+.snapshot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.snapshot-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.3px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.snapshot-header h2 {
+    font-size: 20px;
+    margin: 5px 0 0;
+    color: var(--text);
+}
+
+#snapshot-date {
+    font-size: 11px;
+    color: var(--text);
+    background: var(--background);
+    padding: 7px 11px;
+    border-radius: 20px;
+}
+
+/* THREE COLUMNS */
+
+.snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.snapshot-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    padding: 8px 4px;
+}
+
+.snapshot-item + .snapshot-item {
+    border-left: 1px solid var(--border);
+}
+
+/* SMALL CATEGORY LABEL */
+
+.snapshot-item p {
+    order: 1;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* LARGE NUMBER */
+
+.snapshot-item strong {
+    order: 2;
+    display: block;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 750;
+    color: var(--text);
+}
+
+/* SMALL DESCRIPTION */
+
+.snapshot-item p {
+    order: 3;
+}
+
+/* MOBILE */
+
+@media (max-width: 380px) {
+    .daily-snapshot {
+        padding: 16px 10px;
+    }
+
+    .snapshot-item strong {
+        font-size: 27px;
+    }
+
+    .snapshot-item p {
+        font-size: 10px;
+    }
+}
+.snapshot-label {
+    order: 1;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.snapshot-item strong {
+    order: 2;
+}
+
+.snapshot-item p {
+    order: 3;
+}
+
+/* =========================================
+   ORBIT QUICK OVERVIEW
+========================================= */
+
+.home-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.overview-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+}
+
+/* OVERVIEW CARDS */
+
+.home-overview-card {
+    width: 100%;
+    padding: 17px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+/* CARD HEADING */
+
+.overview-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.overview-card-heading h3 {
+    font-size: 15px;
+    font-weight: 650;
+    color: var(--text);
+    margin: 0;
+}
+
+.overview-card-heading span {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* CONTENT LIST */
+
+.home-overview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* MOBILE */
+
+@media (max-width: 380px) {
+    .home-overview-card {
+        padding: 14px;
+    }
+
+    .overview-title {
+        font-size: 18px;
+    }
+}
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+}
