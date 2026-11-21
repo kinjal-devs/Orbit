@@ -620,3 +620,47 @@
   text-align: right;
   margin-top: 15px;
 }
+
+/* LIGHT APPEARANCE */
+
+[data-theme="light"] {
+    --background: #F8F5FC;
+    --card: #FFFFFF;
+    --secondary: #EDE5F5;
+    --text: #30283A;
+    --muted: #766D80;
+    --border: #DED4E8;
+}
+
+/* DARK APPEARANCE */
+
+[data-theme="dark"] {
+    --background: #211B2B;
+    --card: #30283A;
+    --secondary: #40354D;
+    --text: #FFFFFF;
+    --muted: #C3B8CE;
+    --border: #51445F;
+}
+/* KUMI LOGO THEME COLOUR */
+
+[data-theme="light"] .logo {
+    color: #000000;
+}
+
+[data-theme="dark"] .logo {
+    color: #FFFFFF;
+}
+/* KUMI LOGO COLOURS */
+
+[data-display-mode="light"] .logo h2,
+[data-display-mode="light"] .logo h2 span,
+[data-display-mode="light"] .logo .logo-icon {
+    color: #000000;
+}
+
+[data-display-mode="dark"] .logo h2,
+[data-display-mode="dark"] .logo h2 span,
+[data-display-mode="dark"] .logo .logo-icon {
+    color: #FFFFFF;
+}

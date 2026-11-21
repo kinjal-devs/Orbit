@@ -107,10 +107,6 @@ const wallpaperFiles = {
   /* APPLY BOTH THEME AND DISPLAY MODE */
 
   function updateAppearance() {
-function updateFontColour() {
-  root.style.setProperty("--text", "#FFFFFF");
-  root.style.setProperty("--muted", "#FFFFFF");
-}
 
     const colours = palettes[currentPalette];
     const lightestColour = getLightestColour(colours);
@@ -122,23 +118,23 @@ function updateFontColour() {
     root.style.setProperty("--primary", colours[0]);
     root.style.setProperty("--secondary", colours[1]);
 
-    if (currentMode === "dark") {
+  if (currentMode === "dark") {
 
-      root.style.setProperty("--background", "#000000");
-      root.style.setProperty("--text", "#FFFFFF");
-      root.style.setProperty("--muted", "#BDBDBD");
-      root.style.setProperty("--border", "#383838");
-      root.style.setProperty("--card", "#202020");
+  root.style.setProperty("--background", "#000000");
+  root.style.setProperty("--text", "#FFFFFF");
+  root.style.setProperty("--muted", "#FFFFFF");
+  root.style.setProperty("--border", "#383838");
+  root.style.setProperty("--card", "#202020");
 
-    } else {
+} else {
 
-      root.style.setProperty("--background", "#FFFFFF");
-      root.style.setProperty("--text", "#38313E");
-      root.style.setProperty("--muted", "#938A99");
-      root.style.setProperty("--border", "#E9E2EF");
-      root.style.setProperty("--card", lightestColour);
+  root.style.setProperty("--background", "#FFFFFF");
+  root.style.setProperty("--text", "#000000");
+  root.style.setProperty("--muted", "#000000");
+  root.style.setProperty("--border", "#E9E2EF");
+  root.style.setProperty("--card", lightestColour);
 
-    }
+}
 
     root.dataset.displayMode = currentMode;
 
@@ -146,7 +142,6 @@ function updateFontColour() {
     localStorage.setItem("kumiDisplayMode", currentMode);
 
     updateSelectedButtons();
-    updateFontColour();
     updateSelectedButtons();
   }
 
@@ -547,5 +542,4 @@ if (googleDriveButton) {
   }
 
   updateAppearance();
-  updateFontColour();
 })();
