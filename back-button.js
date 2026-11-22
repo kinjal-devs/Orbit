@@ -1,3 +1,5 @@
+
+
 import { App } from "@capacitor/app";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,23 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "settings-about-view"
   ];
 
-  const settingsHome = document.getElementById("settings-home-view");
-  const pageHistory = [];
-  let currentPage = document.querySelector(".page.active")?.id || "home";
   let handlingBack = false;
-
-  // Track only real page changes. This does not alter sidebar navigation.
-  const originalOpenPage = window.openPage;
-  if (typeof originalOpenPage === "function") {
-    window.openPage = function (targetPage) {
-      if (targetPage && targetPage !== currentPage) {
-        pageHistory.push(currentPage);
-      }
-      const result = originalOpenPage.apply(this, arguments);
-      currentPage = document.querySelector(".page.active")?.id || targetPage || currentPage;
-      return result;
-    };
-  }
 
   function closeSettingsSubpage() {
     const openSubpage = settingsViewIds.some((id) => {
@@ -41,40 +27,33 @@ document.addEventListener("DOMContentLoaded", () => {
       if (view) view.hidden = true;
     });
 
+    const settingsHome = document.getElementById("settings-home-view");
     if (settingsHome) settingsHome.hidden = false;
+
     return true;
   }
 
   App.addListener("backButton", async () => {
     if (handlingBack) return;
+
     handlingBack = true;
 
     try {
-      // Settings sections return to the Settings menu first.
       if (closeSettingsSubpage()) return;
 
-      // Return to the previously visited main page.
-      while (pageHistory.length) {
-        const previousPage = pageHistory.pop();
-        if (previousPage && document.getElementById(previousPage)) {
-          if (typeof originalOpenPage === "function") {
-            originalOpenPage(previousPage);
-          }
-          currentPage = previousPage;
-          return;
-        }
-      }
+      const activePage = document.querySelector(".page.active");
 
-      // Home is the only page from which Android Back may exit the app.
-      if (currentPage !== "home") {
-        if (typeof originalOpenPage === "function") originalOpenPage("home");
-        currentPage = "home";
+      if (activePage && activePage.id !== "home") {
+        if (typeof window.showPage === "function") {
+          window.showPage("home");
+        }
         return;
       }
 
-      if (window.confirm("Do you want to exit ORBIT?")) {
-        await App.exitApp();
-      }
+      await App.exitApp();
+
+    } catch (error) {
+      console.error("Android back button error:", error);
     } finally {
       handlingBack = false;
     }

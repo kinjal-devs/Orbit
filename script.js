@@ -117,11 +117,6 @@ function openPage(targetPage) {
     .querySelectorAll(`.nav-item[data-page="${targetPage}"]`)
     .forEach((item) => item.classList.add("active"));
 
-  try {
-    localStorage.setItem("orbitLastPage", targetPage);
-  } catch (error) {
-    console.warn("Could not save the current page.");
-  }
 }
 
 navItems.forEach((button) => {
@@ -130,12 +125,8 @@ navItems.forEach((button) => {
   });
 });
 
-// Restore the last opened page after refreshing.
-const savedPage = localStorage.getItem("orbitLastPage");
-
-const pageToOpen = savedPage && getElement(savedPage) ? savedPage : "home";
-
-openPage(pageToOpen);
+// Always open Home when ORBIT starts.
+openPage("home");
 
 /* =========================================
    4. PROFILE PHOTO
