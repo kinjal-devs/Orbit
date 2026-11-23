@@ -132,7 +132,7 @@
     const milestones = [
       { days: 1, title: "First Step", icon: "🌱" },
       { days: 3, title: "Finding Rhythm", icon: "✨" },
-      { days: 7, title: "One Week Strong", icon: "🔥" },
+      { days: 7, title: "One Week Strong", icon: "✨" },
       { days: 14, title: "Two-Week Flow", icon: "🌿" },
       { days: 30, title: "Consistency Star", icon: "⭐" },
       { days: 60, title: "Blooming", icon: "🌸" }
