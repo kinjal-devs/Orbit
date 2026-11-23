@@ -529,7 +529,7 @@ if (mottoCard) {
 ========================================= */
 
 (() => {
-  const stickerArea = getElement("sticker-area");
+  const stickerArea = document.querySelector(".sticker-area");
   const input = getElement("custom-sticker");
   const container = getElement("profile-stickers");
 
