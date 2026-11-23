@@ -6,6 +6,7 @@
     <title>Orbit | Student Dashboard</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="settings.css" />
+    <link rel="stylesheet" href="streak.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -33,6 +34,9 @@
           </button>
           <button class="nav-item" data-page="assignments">
             <span>▧</span> Assignment Tracker
+          </button>
+          <button class="nav-item" data-page="streak">
+            <span>🔥</span> Streak Journey
           </button>
           <button class="nav-item" data-page="notes">
             <span>✎</span> Notes
@@ -698,6 +702,27 @@
               </button>
             </form>
           </div>
+        </section>
+
+        <!-- STREAK JOURNEY PAGE -->
+        <section class="page streak-journey-page" id="streak">
+          <header class="streak-page-heading">
+            <div><p class="streak-eyebrow">YOUR LEARNING JOURNEY</p><h1>Streak Journey <span aria-hidden="true">✦</span></h1><p>Every little step adds up. Keep showing up for yourself.</p></div>
+            <div class="streak-heading-mark" aria-hidden="true">🔥</div>
+          </header>
+          <section class="journey-hero-card">
+            <div class="journey-hero-copy"><span class="journey-kicker">YOUR CURRENT STREAK</span><div class="journey-count-line"><strong id="journey-current">0</strong><span>days</span></div><p id="journey-message">Start with one small learning activity today.</p><div class="journey-best-line">Personal best: <strong id="journey-best">0 days</strong></div></div>
+            <div class="journey-flame" aria-hidden="true">🔥</div><div class="journey-hero-decoration" aria-hidden="true">✦</div>
+          </section>
+          <section class="journey-stats-grid" aria-label="Your streak statistics">
+            <article class="journey-stat-card"><span class="journey-stat-icon">✧</span><span class="journey-stat-label">TOTAL ACTIVE DAYS</span><strong id="journey-total-days">0</strong><small>days of learning</small></article>
+            <article class="journey-stat-card"><span class="journey-stat-icon">⚡</span><span class="journey-stat-label">TOTAL XP</span><strong id="journey-xp">0</strong><small>earned from active days</small></article>
+            <article class="journey-stat-card"><span class="journey-stat-icon">🌱</span><span class="journey-stat-label">CURRENT LEVEL</span><strong id="journey-level">1</strong><small id="journey-level-name">Seedling</small></article>
+          </section>
+          <section class="journey-panel"><div class="journey-section-heading"><div><p class="streak-eyebrow">ONE DAY AT A TIME</p><h2>This Week</h2></div><span class="journey-section-note">Your recent activity</span></div><div class="journey-week-grid" id="journey-week"></div></section>
+          <section class="journey-panel"><div class="journey-section-heading"><div><p class="streak-eyebrow">YOUR CONSISTENCY</p><h2>Activity Garden</h2></div><span class="journey-section-note">Last 28 days</span></div><div class="journey-garden" id="journey-garden" aria-label="Activity over the last 28 days"></div><div class="journey-legend"><span><i class="garden-level-0"></i>No activity</span><span><i class="garden-level-1"></i>Active day</span></div></section>
+          <section class="journey-panel"><div class="journey-section-heading"><div><p class="streak-eyebrow">LITTLE WINS</p><h2>Milestones</h2></div><span class="journey-section-note">Keep collecting them</span></div><div class="journey-milestones" id="journey-milestones"></div></section>
+          <p class="journey-footer-note">Your journey is built from the activities you tick on the Home page. ♡</p>
         </section>
 
         <!-- NOTES PAGE -->
@@ -1457,6 +1482,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="streak.js"></script>
     <script src="navigation.js"></script>
     <script src="attendance-calendar.js"></script>
     <script src="assignment-tracker.js"></script>
