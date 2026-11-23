@@ -1747,6 +1747,162 @@ if (scheduled.length > 0) {
   }
   renderAll();
 })();
+
+
+/* =========================================
+   ORBIT STUDY STREAK
+========================================= */
+(() => {
+  const card = document.querySelector(".study-streak-card");
+  if (!card) return;
+
+  const storageKey = "orbitStudyStreak";
+  const activityInputs = [...card.querySelectorAll("[data-streak-activity]")];
+  const currentEl = getElement("study-streak-current");
+  const bestEl = getElement("study-streak-best");
+  const totalEl = getElement("study-streak-total");
+  const messageEl = getElement("study-streak-message");
+  const weekEl = getElement("study-streak-week");
+
+  let history = {};
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) history = saved;
+  } catch {
+    history = {};
+  }
+
+  const today = formatISODate(new Date());
+  const activityNames = {
+    learning: "Daily Learning",
+    revision: "Revision",
+    focus: "Focus Session",
+    skill: "Skill Building"
+  };
+
+  function saveHistory() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(history));
+      return true;
+    } catch (error) {
+      console.error("Could not save Study Streak:", error);
+      alert("ORBIT couldn't save your Study Streak. Check your browser storage.");
+      return false;
+    }
+  }
+
+  function getActiveDates() {
+    return Object.keys(history).filter(date =>
+      /^\d{4}-\d{2}-\d{2}$/.test(date) &&
+      Array.isArray(history[date]) &&
+      history[date].length > 0
+    ).sort();
+  }
+
+  function calculateStreaks(activeDates) {
+    const active = new Set(activeDates);
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    const yesterday = formatISODate(yesterdayDate);
+
+    let current = 0;
+    let cursor = active.has(today) ? new Date() : active.has(yesterday) ? yesterdayDate : null;
+
+    if (cursor) {
+      cursor.setHours(0, 0, 0, 0);
+      while (active.has(formatISODate(cursor))) {
+        current++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+    }
+
+    let best = 0;
+    let run = 0;
+    let previous = null;
+
+    activeDates.forEach(date => {
+      if (previous) {
+        const next = new Date(previous + "T00:00:00");
+        next.setDate(next.getDate() + 1);
+        run = formatISODate(next) === date ? run + 1 : 1;
+      } else {
+        run = 1;
+      }
+      best = Math.max(best, run);
+      previous = date;
+    });
+
+    return { current, best };
+  }
+
+  function renderWeek(activeDates) {
+    if (!weekEl) return;
+    weekEl.innerHTML = "";
+    const active = new Set(activeDates);
+
+    for (let offset = 6; offset >= 0; offset--) {
+      const date = new Date();
+      date.setDate(date.getDate() - offset);
+      const key = formatISODate(date);
+      const day = document.createElement("div");
+      day.className = "streak-day" + (active.has(key) ? " is-complete" : "") + (key === today ? " is-today" : "");
+      day.innerHTML = '<span class="streak-day-dot">' + (active.has(key) ? "✓" : "") + '</span><small>' +
+        date.toLocaleDateString("en-IN", { weekday: "short" }) + '</small>';
+      day.setAttribute("aria-label", date.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "short" }) + (active.has(key) ? ", activity completed" : ", no activity recorded"));
+      weekEl.appendChild(day);
+    }
+  }
+
+  function render() {
+    const todayActivities = Array.isArray(history[today]) ? history[today] : [];
+    activityInputs.forEach(input => {
+      input.checked = todayActivities.includes(input.dataset.streakActivity);
+      input.closest(".streak-activity")?.classList.toggle("is-checked", input.checked);
+    });
+
+    const activeDates = getActiveDates();
+    const streaks = calculateStreaks(activeDates);
+    if (currentEl) currentEl.textContent = streaks.current;
+    if (bestEl) bestEl.textContent = streaks.best + (streaks.best === 1 ? " day" : " days");
+    if (totalEl) totalEl.textContent = activeDates.length;
+
+    if (messageEl) {
+      if (todayActivities.length) {
+        messageEl.textContent = todayActivities.length === 1
+          ? activityNames[todayActivities[0]] + " completed today. Nice work!"
+          : todayActivities.length + " learning activities completed today. Great work!";
+      } else if (streaks.current) {
+        messageEl.textContent = "Your streak is alive. Add one activity to keep it going today.";
+      } else {
+        messageEl.textContent = "Start with one small learning activity today.";
+      }
+    }
+    renderWeek(activeDates);
+  }
+
+  activityInputs.forEach(input => {
+    input.addEventListener("change", () => {
+      const previous = Array.isArray(history[today]) ? [...history[today]] : [];
+      const next = input.checked
+        ? [...new Set([...previous, input.dataset.streakActivity])]
+        : previous.filter(item => item !== input.dataset.streakActivity);
+
+      if (next.length) history[today] = next;
+      else delete history[today];
+
+      if (!saveHistory()) {
+        history[today] = previous;
+        render();
+        return;
+      }
+
+      render();
+    });
+  });
+
+  render();
+})();
+
 /* =========================================
    END ORBIT APPLICATION
 ========================================= */
@@ -1837,88 +1993,7 @@ function updateHomeDashboard() {
   document.getElementById("snapshot-events").textContent =
     upcomingEvents.length;
 
-  // RENDER CLASSES
-
-  const classContainer = document.getElementById("home-classes");
-
-  classContainer.innerHTML = "";
-
-  if (!todayClasses.length) {
-    classContainer.innerHTML =
-      '<p class="empty-message">No classes scheduled today ♡</p>';
-  } else {
-    todayClasses.slice(0, 3).forEach(item => {
-      const row = document.createElement("div");
-      row.className = "home-overview-item";
-
-      const name = document.createElement("strong");
-      name.textContent = item.subject;
-
-      const time = document.createElement("small");
-      time.textContent = `${item.start} – ${item.end}`;
-
-      const details = document.createElement("div");
-      details.append(name, time);
-
-      row.appendChild(details);
-      classContainer.appendChild(row);
-    });
-  }
-
-  // RENDER TASKS
-
-  const taskContainer = document.getElementById("home-tasks");
-
-  taskContainer.innerHTML = "";
-
-  if (!pendingTasks.length) {
-    taskContainer.innerHTML =
-      '<p class="empty-message">All caught up! ♡</p>';
-  } else {
-    pendingTasks.slice(0, 3).forEach(item => {
-      const row = document.createElement("div");
-      row.className = "home-overview-item";
-
-      const name = document.createElement("strong");
-      name.textContent = item.text || item.title || "Untitled task";
-
-      row.appendChild(name);
-      taskContainer.appendChild(row);
-    });
-  }
-
-  // RENDER EVENTS
-
-  const eventContainer = document.getElementById("home-events");
-
-  eventContainer.innerHTML = "";
-
-  if (!upcomingEvents.length) {
-    eventContainer.innerHTML =
-      '<p class="empty-message">No upcoming events ♡</p>';
-  } else {
-    upcomingEvents.slice(0, 3).forEach(item => {
-      const row = document.createElement("div");
-      row.className = "home-overview-item";
-
-      const name = document.createElement("strong");
-      name.textContent = item.title;
-
-      const date = document.createElement("small");
-      date.textContent = new Date(
-        item.date + "T00:00:00"
-      ).toLocaleDateString("en-IN", {
-        day: "numeric",
-        month: "short"
-      });
-
-      const details = document.createElement("div");
-      details.append(name, date);
-
-      row.appendChild(details);
-      eventContainer.appendChild(row);
-    });
-  }
+  // The Home page now uses Study Streak instead of repeating the snapshot details.
 }
 
 // INITIAL LOAD
