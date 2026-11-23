@@ -143,17 +143,17 @@
 }
 #streak .plant-leaf {
   position: absolute;
-  width: 39px;
-  height: 23px;
-  background: linear-gradient(135deg,#b8d0a8,#6f9b70);
+  width: 34px;
+  height: 19px;
+  background: linear-gradient(135deg, #c5d9b5 0%, #8fb58a 58%, #6f986e 100%);
   border-radius: 100% 0 100% 0;
   box-shadow: inset 2px 2px 4px #ffffff70;
-  transform-origin: bottom right;
+  transform-origin: 0 100%;
 }
-#streak .leaf-left { left: 18px; bottom: 27px; transform: rotate(18deg); }
-#streak .leaf-right { left: 55px; bottom: 48px; transform: rotate(78deg) scaleX(-1); }
-#streak .leaf-top-left { left: 20px; bottom: 66px; width: 33px; height: 20px; transform: rotate(9deg) scale(.85); }
-#streak .leaf-top-right { left: 55px; bottom: 79px; width: 31px; height: 19px; transform: rotate(76deg) scaleX(-1) scale(.8); }
+#streak .leaf-left { left: 22px; bottom: 25px; transform: rotate(-28deg); }
+#streak .leaf-right { left: 55px; bottom: 43px; transform: rotate(28deg) scaleX(-1); }
+#streak .leaf-top-left { left: 27px; bottom: 66px; width: 29px; height: 17px; transform: rotate(-24deg) scale(.9); }
+#streak .leaf-top-right { left: 54px; bottom: 78px; width: 28px; height: 16px; transform: rotate(25deg) scaleX(-1) scale(.9); }
 #streak .plant-pot {
   position: absolute;
   z-index: 2;
@@ -187,35 +187,31 @@
 }
 #streak .plant-bloom {
   position: absolute;
-  left: 39px;
+  left: 43px;
   bottom: 105px;
-  width: 31px;
-  height: 31px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: #d98da0;
   opacity: 1;
   transform: scale(.72);
-  transition: opacity .7s ease, transform .7s ease;
+  transition: transform .7s ease;
+  background:
+    radial-gradient(ellipse 7px 12px at 50% 18%, #f3bdc8 96%, transparent 100%),
+    radial-gradient(ellipse 7px 12px at 78% 38%, #e9a4b4 96%, transparent 100%),
+    radial-gradient(ellipse 7px 12px at 68% 75%, #f3bdc8 96%, transparent 100%),
+    radial-gradient(ellipse 7px 12px at 32% 75%, #e9a4b4 96%, transparent 100%),
+    radial-gradient(ellipse 7px 12px at 22% 38%, #f3bdc8 96%, transparent 100%);
 }
-#streak .plant-bloom::before,
-#streak .plant-bloom::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #e8a8b5;
-}
-#streak .plant-bloom::before { transform: rotate(60deg) scale(.78); }
-#streak .plant-bloom::after { transform: rotate(120deg) scale(.78); }
 #streak .plant-bloom i {
   position: absolute;
   z-index: 1;
-  left: 11px;
-  top: 11px;
-  width: 9px;
-  height: 9px;
+  left: 13px;
+  top: 13px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #f7d68c;
+  box-shadow: 0 0 0 2px #f9e6ad70;
 }
 #streak .plant-sparkle {
   position: absolute;
