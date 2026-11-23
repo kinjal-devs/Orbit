@@ -4,8 +4,8 @@
 ========================================= */
 
 #streak.streak-journey-page {
-  --journey-ink: #34343a;
-  --journey-muted: #817985;
+  --journey-ink: var(--text, #34343a);
+  --journey-muted: var(--muted, #817985);
   --journey-surface: #F8F5FC;
   --journey-line: #E9E2EF;
   color: var(--journey-ink);
@@ -54,7 +54,7 @@
 #streak .journey-count-line { display: flex; align-items: baseline; gap: 10px; margin: 5px 0; }
 #streak .journey-count-line strong { font: 700 76px/1 Georgia, serif; color: var(--primary); }
 #streak .journey-count-line span { font-size: 18px; color: var(--journey-muted); }
-#streak #journey-message { margin: 10px 0 18px; color: #5f5964; font-size: 14px; }
+#streak #journey-message { margin: 10px 0 18px; color: var(--text, #34343a); font-size: 14px; }
 #streak .journey-best-line { color: var(--journey-muted); font-size: 12px; }
 #streak .journey-best-line strong { color: var(--journey-ink); }
 #streak .journey-hero-decoration { position: absolute; right: 24%; top: 20px; color: #C66F80; opacity: .5; font-size: 25px; }
