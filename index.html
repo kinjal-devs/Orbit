@@ -175,47 +175,58 @@
 </section>
 
 
-  <!-- QUICK OVERVIEW -->
-  <section class="home-overview">
-
-    <div class="section-heading">
-      <h2>Quick Overview</h2>
-    </div> 
-    
-
-    <!-- TODAY'S CLASSES -->
-    <div class="home-overview-card">
-      <div class="overview-card-heading">
-        <h3>Today's Classes</h3>
-        <button onclick="showPage('attendance')">View all →</button>
+  <!-- STUDY STREAK -->
+  <section class="study-streak-card" aria-labelledby="study-streak-title">
+    <div class="study-streak-heading">
+      <div>
+        <span class="streak-eyebrow">SMALL STEPS, EVERY DAY</span>
+        <h2 id="study-streak-title">Study Streak</h2>
       </div>
-      <div id="home-classes">
-        <p class="empty-message">Your classes will appear here ♡</p>
-      </div>
+      <div class="streak-flame" aria-label="Animated flame">🔥</div>
     </div>
 
-    <!-- PENDING TASKS -->
-    <div class="home-overview-card">
-      <div class="overview-card-heading">
-        <h3>Pending Tasks</h3>
-        <button onclick="showPage('todo')">View all →</button>
+    <div class="streak-summary">
+      <div class="streak-count">
+        <strong id="study-streak-current">0</strong>
+        <span>day streak</span>
       </div>
-      <div id="home-tasks">
-        <p class="empty-message">Your tasks will appear here ♡</p>
-      </div>
+      <p id="study-streak-message">Start with one small learning activity today.</p>
     </div>
 
-    <!-- UPCOMING EVENTS -->
-    <div class="home-overview-card">
-      <div class="overview-card-heading">
-        <h3>Upcoming Events</h3>
-        <button onclick="showPage('calendar')">View all →</button>
-      </div>
-      <div id="home-events">
-        <p class="empty-message">Your events will appear here ♡</p>
-      </div>
+    <div class="streak-week" id="study-streak-week" aria-label="Last seven days of activity"></div>
+
+    <div class="streak-stats">
+      <div><span>Best streak</span><strong id="study-streak-best">0 days</strong></div>
+      <div><span>Active days</span><strong id="study-streak-total">0</strong></div>
     </div>
 
+    <div class="streak-activities">
+      <div class="streak-activities-heading">
+        <h3>Today's progress</h3>
+        <span>Choose what you worked on</span>
+      </div>
+      <label class="streak-activity">
+        <input type="checkbox" data-streak-activity="learning" />
+        <span class="streak-check"></span>
+        <span class="streak-activity-copy"><strong>Daily Learning</strong><small>Learn something new</small></span>
+      </label>
+      <label class="streak-activity">
+        <input type="checkbox" data-streak-activity="revision" />
+        <span class="streak-check"></span>
+        <span class="streak-activity-copy"><strong>Revision</strong><small>Review a topic</small></span>
+      </label>
+      <label class="streak-activity">
+        <input type="checkbox" data-streak-activity="focus" />
+        <span class="streak-check"></span>
+        <span class="streak-activity-copy"><strong>Focus Session</strong><small>Complete a focused study session</small></span>
+      </label>
+      <label class="streak-activity">
+        <input type="checkbox" data-streak-activity="skill" />
+        <span class="streak-check"></span>
+        <span class="streak-activity-copy"><strong>Skill Building</strong><small>Practise a skill beyond your syllabus</small></span>
+      </label>
+    </div>
+    <p class="streak-footnote">Complete any one activity to keep your streak going. Consistency matters more than hours.</p>
   </section>
 
 
