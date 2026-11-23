@@ -277,3 +277,51 @@
   #streak .journey-week-dot { width: 34px; height: 34px; }
   #streak .journey-milestones { grid-template-columns: 1fr; }
 }
+
+
+/* DARK MODE — keep Streak Journey aligned with ORBIT appearance */
+:root[data-display-mode="dark"] #streak.streak-journey-page {
+  --journey-ink: var(--text, #ffffff);
+  --journey-muted: var(--muted, #bdbdbd);
+  --journey-surface: var(--card, #202020);
+  --journey-line: var(--border, #383838);
+}
+
+:root[data-display-mode="dark"] #streak .journey-hero-card {
+  background: linear-gradient(120deg, #202020 0%, #292126 56%, #202820 100%);
+  border-color: var(--border, #383838);
+}
+
+:root[data-display-mode="dark"] #streak .journey-week-dot,
+:root[data-display-mode="dark"] #streak .journey-milestone {
+  background: #292929;
+  border-color: var(--border, #383838);
+  color: var(--text, #ffffff);
+}
+
+:root[data-display-mode="dark"] #streak .journey-week-day.is-active .journey-week-dot {
+  background: #344333;
+  border-color: #60775b;
+  color: #d8ead2;
+}
+
+:root[data-display-mode="dark"] #streak .journey-milestone.is-unlocked {
+  background: #293528;
+  border-color: #52684d;
+}
+
+:root[data-display-mode="dark"] #streak .journey-milestone-icon {
+  background: #3a2b31;
+}
+
+:root[data-display-mode="dark"] #streak .journey-garden-day,
+:root[data-display-mode="dark"] #streak .journey-legend i {
+  background: #303030;
+  border-color: #454545;
+}
+
+:root[data-display-mode="dark"] #streak .journey-garden-day.is-active,
+:root[data-display-mode="dark"] #streak .journey-legend .garden-level-1 {
+  background: #718d69;
+  border-color: #718d69;
+}
