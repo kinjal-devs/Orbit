@@ -187,35 +187,41 @@
 }
 #streak .plant-bloom {
   position: absolute;
-  left: 39px;
+  left: 43px;
   bottom: 105px;
-  width: 31px;
-  height: 31px;
-  border-radius: 50%;
-  background: #d98da0;
-  opacity: 0;
-  transform: scale(.3);
-  transition: opacity .7s ease, transform .7s ease;
+  width: 36px;
+  height: 36px;
+  opacity: 1;
+  transform: scale(.78);
+  transition: transform .7s ease;
+  z-index: 3;
 }
-#streak .plant-bloom::before,
-#streak .plant-bloom::after {
-  content: "";
+#streak .plant-bloom .petal {
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #e8a8b5;
+  left: 12px;
+  top: 1px;
+  width: 12px;
+  height: 18px;
+  border-radius: 70% 70% 48% 48%;
+  transform-origin: 6px 17px;
+  background: linear-gradient(135deg, #ffdce3, #df91a5);
+  box-shadow: inset 1px 1px 2px #ffffffa0;
 }
-#streak .plant-bloom::before { transform: rotate(60deg) scale(.78); }
-#streak .plant-bloom::after { transform: rotate(120deg) scale(.78); }
+#streak .plant-bloom .petal-1 { transform: rotate(0deg); }
+#streak .plant-bloom .petal-2 { transform: rotate(72deg); }
+#streak .plant-bloom .petal-3 { transform: rotate(144deg); }
+#streak .plant-bloom .petal-4 { transform: rotate(216deg); }
+#streak .plant-bloom .petal-5 { transform: rotate(288deg); }
 #streak .plant-bloom i {
   position: absolute;
-  z-index: 1;
-  left: 11px;
-  top: 11px;
+  z-index: 2;
+  left: 15px;
+  top: 14px;
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: #f7d68c;
+  box-shadow: 0 0 0 2px #f9e6ad70;
 }
 #streak .plant-sparkle {
   position: absolute;
