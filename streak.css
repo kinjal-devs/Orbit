@@ -189,26 +189,36 @@
   position: absolute;
   left: 43px;
   bottom: 105px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   opacity: 1;
-  transform: scale(.72);
+  transform: scale(.78);
   transition: transform .7s ease;
-  background:
-    radial-gradient(ellipse 7px 12px at 50% 18%, #f3bdc8 96%, transparent 100%),
-    radial-gradient(ellipse 7px 12px at 78% 38%, #e9a4b4 96%, transparent 100%),
-    radial-gradient(ellipse 7px 12px at 68% 75%, #f3bdc8 96%, transparent 100%),
-    radial-gradient(ellipse 7px 12px at 32% 75%, #e9a4b4 96%, transparent 100%),
-    radial-gradient(ellipse 7px 12px at 22% 38%, #f3bdc8 96%, transparent 100%);
+  z-index: 3;
 }
+#streak .plant-bloom .petal {
+  position: absolute;
+  left: 12px;
+  top: 1px;
+  width: 12px;
+  height: 18px;
+  border-radius: 70% 70% 48% 48%;
+  transform-origin: 6px 17px;
+  background: linear-gradient(135deg, #ffdce3, #df91a5);
+  box-shadow: inset 1px 1px 2px #ffffffa0;
+}
+#streak .plant-bloom .petal-1 { transform: rotate(0deg); }
+#streak .plant-bloom .petal-2 { transform: rotate(72deg); }
+#streak .plant-bloom .petal-3 { transform: rotate(144deg); }
+#streak .plant-bloom .petal-4 { transform: rotate(216deg); }
+#streak .plant-bloom .petal-5 { transform: rotate(288deg); }
 #streak .plant-bloom i {
   position: absolute;
-  z-index: 1;
-  left: 13px;
-  top: 13px;
-  width: 8px;
-  height: 8px;
+  z-index: 2;
+  left: 15px;
+  top: 14px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: #f7d68c;
   box-shadow: 0 0 0 2px #f9e6ad70;
