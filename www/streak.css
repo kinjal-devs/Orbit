@@ -187,25 +187,26 @@
 }
 #streak .plant-bloom {
   position: absolute;
-  left: 33px;
-  bottom: 100px;
-  width: 56px;
-  height: 56px;
+  left: 28px;
+  bottom: 98px;
+  width: 68px;
+  height: 68px;
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.8);
+  transform-origin: center;
   transition: transform .7s ease;
-  z-index: 3;
+  z-index: 5;
 }
 #streak .plant-bloom .petal {
   position: absolute;
-  left: 19px;
+  left: 23px;
   top: 2px;
-  width: 19px;
-  height: 29px;
-  border-radius: 70% 70% 48% 48%;
-  transform-origin: 9.5px 27px;
-  background: linear-gradient(135deg, #ffe3e9 0%, #f2b3c1 55%, #d9859c 100%);
-  box-shadow: inset 2px 2px 3px #ffffffb0, 0 1px 2px #b96e8730;
+  width: 23px;
+  height: 35px;
+  border-radius: 75% 75% 48% 48%;
+  transform-origin: 11.5px 32px;
+  background: linear-gradient(135deg, #fff0f3 0%, #f4bdca 55%, #d9859c 100%);
+  box-shadow: inset 2px 2px 4px #ffffffc0, 0 2px 3px #b96e8730;
 }
 #streak .plant-bloom .petal-1 { transform: rotate(0deg); }
 #streak .plant-bloom .petal-2 { transform: rotate(72deg); }
@@ -215,13 +216,13 @@
 #streak .plant-bloom i {
   position: absolute;
   z-index: 2;
-  left: 23px;
-  top: 23px;
-  width: 11px;
-  height: 11px;
+  left: 29px;
+  top: 28px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff0b7, #e9b95d);
-  box-shadow: 0 0 0 2px #f9e6ad80;
+  background: radial-gradient(circle at 35% 30%, #fff4c9, #e9b95d);
+  box-shadow: 0 0 0 2px #f9e6ad90;
 }
 #streak .plant-sparkle {
   position: absolute;
@@ -234,10 +235,10 @@
 #streak .journey-plant-scene[data-growth-stage="sprout"] .plant { transform: scale(.82); }
 #streak .journey-plant-scene[data-growth-stage="growing"] .plant { transform: scale(.94); }
 #streak .journey-plant-scene[data-growth-stage="blooming"] .plant { transform: scale(1.05); }
-#streak .journey-plant-scene[data-growth-stage="seedling"] .plant-bloom { transform: scale(1); }
-#streak .journey-plant-scene[data-growth-stage="sprout"] .plant-bloom { transform: scale(1.05); }
-#streak .journey-plant-scene[data-growth-stage="growing"] .plant-bloom { transform: scale(1.1); }
-#streak .journey-plant-scene[data-growth-stage="blooming"] .plant-bloom { transform: scale(1.18); }
+#streak .journey-plant-scene[data-growth-stage="seedling"] .plant-bloom { transform: scale(1.8); }
+#streak .journey-plant-scene[data-growth-stage="sprout"] .plant-bloom { transform: scale(1.55); }
+#streak .journey-plant-scene[data-growth-stage="growing"] .plant-bloom { transform: scale(1.35); }
+#streak .journey-plant-scene[data-growth-stage="blooming"] .plant-bloom { transform: scale(1.2); }
 @keyframes plant-sway {
   0%,100% { rotate: -2deg; }
   50% { rotate: 2deg; }
