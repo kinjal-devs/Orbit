@@ -82,6 +82,13 @@
     $("journey-xp").textContent = xp;
     $("journey-level").textContent = level;
     $("journey-level-name").textContent = levelNames[Math.min(level - 1, levelNames.length - 1)];
+    const plant = $("journey-plant");
+    if (plant) {
+      const growthStage = level >= 4 ? "blooming" : level >= 3 ? "growing" : level >= 2 ? "sprout" : "seedling";
+      plant.dataset.growthStage = growthStage;
+      plant.setAttribute("aria-label", "Your study plant is at the " + growthStage + " stage");
+    }
+
 
     $("journey-message").textContent = current
       ? "You're building something wonderful. Keep your rhythm going!"
