@@ -1880,6 +1880,17 @@ if (scheduled.length > 0) {
     renderWeek(activeDates);
   }
 
+  // Handle taps on the full activity row explicitly for Android WebView.
+  activityInputs.forEach(input => {
+    const row = input.closest(".streak-activity");
+    row?.addEventListener("click", (event) => {
+      if (event.target === input) return; // Preserve native keyboard checkbox behavior.
+      event.preventDefault();
+      input.checked = !input.checked;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
+
   activityInputs.forEach(input => {
     input.addEventListener("change", () => {
       const previous = Array.isArray(history[today]) ? [...history[today]] : [];
