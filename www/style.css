@@ -3593,6 +3593,7 @@ body {
 .study-streak-card {
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 24px;
   padding: 21px;
   border: 1px solid var(--border);
   border-radius: 22px;
